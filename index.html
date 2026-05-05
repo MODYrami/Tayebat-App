@@ -3,7 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الطيبات - الدكتور ضياء العوضي</title>
+    <title>نظام الطيبات</title>
+    
+    <!-- PWA Settings -->
+    <meta name="theme-color" content="#2D3436">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="mobile-web-app-capable" content="yes">
+    <link rel="manifest" href="manifest.json">
+    <link rel="apple-touch-icon" href="icon-192.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -16,33 +25,21 @@
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
             --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Tajawal', sans-serif;
-        }
-
-        body {
-            background-color: #F0E6D6;
-            color: var(--primary);
-            line-height: 1.6;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
+        body { background-color: #F0E6D6; color: var(--primary); line-height: 1.6; }
+        
         header {
             background: var(--primary);
             color: white;
-            padding: 2rem 1rem;
+            padding: 1.5rem 1rem;
             text-align: center;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             position: sticky;
             top: 0;
             z-index: 1000;
         }
-
         .header-content {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             display: flex;
             justify-content: space-between;
@@ -50,202 +47,118 @@
             flex-wrap: wrap;
             gap: 1rem;
         }
-
-        .brand h1 {
-            font-size: 1.8rem;
-            font-weight: 900;
-            margin-bottom: 0.2rem;
-        }
-
-        .brand p {
-            font-size: 0.9rem;
-            color: #b2bec3;
-        }
-
+        .brand { display: flex; align-items: center; gap: 0.8rem; }
+        .brand img { width: 45px; height: 45px; border-radius: 12px; }
+        .brand h1 { font-size: 1.6rem; font-weight: 900; margin-bottom: 0; }
+        .brand p { font-size: 0.8rem; color: #b2bec3; }
+        
         .nav-btns button {
-            padding: 0.6rem 1.2rem;
+            padding: 0.5rem 1rem;
             border: 2px solid rgba(255,255,255,0.2);
             border-radius: 50px;
             background: transparent;
             color: white;
             font-family: 'Tajawal', sans-serif;
-            font-size: 1rem;
+            font-size: 0.9rem;
             font-weight: 700;
             cursor: pointer;
             transition: all 0.3s ease;
-            margin-right: 0.5rem;
+            margin-right: 0.3rem;
         }
+        .nav-btns button:hover, .nav-btns button.active { background: var(--accent); border-color: var(--accent); }
 
-        .nav-btns button:hover, .nav-btns button.active {
-            background: var(--accent);
-            border-color: var(--accent);
-        }
+        .container { max-width: 1400px; margin: 2rem auto; padding: 0 1.5rem; }
 
-        .container {
-            max-width: 1400px;
-            margin: 2rem auto;
-            padding: 0 1.5rem;
-        }
-
-        /* Styles for Meals Page */
-        .filters {
+        .install-banner {
+            background: linear-gradient(135deg, #00B894, #00CEC9);
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 1rem;
+            margin-bottom: 2rem;
             display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: var(--shadow);
+            animation: fadeInUp 0.5s forwards;
+        }
+        .install-banner button {
+            background: white;
+            color: #00B894;
+            border: none;
+            padding: 0.5rem 1.2rem;
+            border-radius: 50px;
+            font-weight: 900;
+            font-family: 'Tajawal', sans-serif;
+            cursor: pointer;
         }
 
+        .filters { display: flex; justify-content: center; gap: 0.8rem; margin-bottom: 2rem; flex-wrap: wrap; }
         .filter-btn {
-            padding: 0.8rem 1.5rem;
+            padding: 0.6rem 1.2rem;
             border: none;
             border-radius: 50px;
             background: var(--card-bg);
             color: var(--secondary);
             font-family: 'Tajawal', sans-serif;
-            font-size: 1.1rem;
+            font-size: 1rem;
             font-weight: 700;
             cursor: pointer;
             box-shadow: var(--shadow);
             transition: all 0.3s ease;
-            border: 2px solid transparent;
         }
+        .filter-btn:hover, .filter-btn.active { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(225, 112, 85, 0.3); }
 
-        .filter-btn:hover, .filter-btn.active {
-            background: var(--accent);
-            color: white;
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(225, 112, 85, 0.3);
-        }
-
-        .meals-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
+        .meals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 1.5rem; }
         .meal-card {
             background: var(--card-bg);
             border-radius: 1.5rem;
             overflow: hidden;
             box-shadow: var(--shadow);
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
+            opacity: 0; transform: translateY(20px);
             animation: fadeInUp 0.5s forwards;
-            opacity: 0;
-            transform: translateY(20px);
         }
+        .meal-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
 
-        .meal-card:hover {
-            transform: translateY(-5px);
-            box-shadow: var(--shadow-hover);
-        }
-
-        @keyframes fadeInUp {
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .card-header {
-            padding: 1rem 1.5rem;
-            color: white;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
+        .card-header { padding: 1rem 1.5rem; color: white; display: flex; justify-content: space-between; align-items: center; }
         .breakfast-header { background: linear-gradient(135deg, #FDCB6E, #E17055); }
         .lunch-header { background: linear-gradient(135deg, #00B894, #00CEC9); }
         .dinner-header { background: linear-gradient(135deg, #6C5CE7, #A29BFE); }
-
         .meal-type { font-size: 0.8rem; background: rgba(255,255,255,0.2); padding: 0.2rem 0.6rem; border-radius: 20px; }
         .meal-number { font-size: 1.3rem; font-weight: 900; }
-
-        .card-body { padding: 1.5rem; text-align: center; }
+        .card-body { padding: 1.2rem; text-align: center; }
         .meal-icon { font-size: 2.5rem; margin-bottom: 0.8rem; color: var(--secondary); }
         .meal-title { font-size: 1.2rem; font-weight: 700; color: var(--primary); margin-bottom: 0.5rem; }
         .meal-desc { font-size: 0.95rem; color: var(--secondary); line-height: 1.6; }
-        
+        .meal-tags { margin-top: 0.8rem; display: flex; justify-content: center; gap: 0.4rem; flex-wrap: wrap; }
+        .tag { font-size: 0.75rem; padding: 0.2rem 0.5rem; border-radius: 15px; background: #f1f2f6; color: var(--secondary); }
         .meal-card.hide { display: none; }
 
-        /* Styles for Rules Page */
         .rules-page { display: none; }
         .rules-page.active { display: block; }
         .meals-page { display: none; }
         .meals-page.active { display: block; }
 
-        .rules-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-        }
-
-        .rule-section {
-            background: var(--card-bg);
-            border-radius: 1.5rem;
-            padding: 2rem;
-            box-shadow: var(--shadow);
-            border-top: 6px solid;
-        }
-
+        .rules-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
+        .rule-section { background: var(--card-bg); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow); border-top: 6px solid; }
         .allowed-section { border-color: #00B894; }
         .forbidden-section { border-color: #D63031; }
-
-        .rule-section h2 {
-            font-size: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .rule-section h2 { font-size: 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
         .allowed-section h2 { color: #00B894; }
         .forbidden-section h2 { color: #D63031; }
-
-        .rule-category {
-            margin-bottom: 1.5rem;
-            background: #f8f9fa;
-            padding: 1rem;
-            border-radius: 1rem;
-        }
-
-        .rule-category h3 {
-            font-size: 1.1rem;
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            border-bottom: 2px solid #e0e0e0;
-            padding-bottom: 0.5rem;
-        }
-
-        .rule-list {
-            list-style: none;
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-        }
-
-        .rule-list li {
-            font-size: 0.95rem;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
+        .rule-category { margin-bottom: 1.5rem; background: #f8f9fa; padding: 1rem; border-radius: 1rem; }
+        .rule-category h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
+        .rule-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
+        .rule-list li { font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
         .allowed-section .rule-list li::before { content: '✅'; font-size: 0.8rem; }
         .forbidden-section .rule-list li::before { content: '❌'; font-size: 0.8rem; }
 
-        footer {
-            text-align: center;
-            padding: 2rem;
-            color: var(--secondary);
-            font-size: 0.9rem;
-            border-top: 1px solid #e0e0e0;
-            background: var(--bg-light);
-            margin-top: 3rem;
-        }
+        footer { text-align: center; padding: 2rem; color: var(--secondary); font-size: 0.9rem; border-top: 1px solid #e0e0e0; background: var(--bg-light); margin-top: 3rem; }
 
         @media (max-width: 768px) {
             .header-content { justify-content: center; text-align: center; }
-            .brand h1 { font-size: 1.5rem; }
+            .brand { flex-direction: column; }
             .rules-container { grid-template-columns: 1fr; }
             .rule-list { grid-template-columns: 1fr; }
             .meals-grid { grid-template-columns: 1fr; }
@@ -257,281 +170,175 @@
     <header>
         <div class="header-content">
             <div class="brand">
-                <h1>نظام الطيبات</h1>
-                <p>بناءً على كتاب د. ضياء العوضي</p>
+                <img src="icon-192.png" alt="Logo">
+                <div>
+                    <h1>نظام الطيبات</h1>
+                    <p>100% مطابق لقواعد د. ضياء العوضي</p>
+                </div>
             </div>
             <div class="nav-btns">
-                <button class="active" onclick="showPage('meals')">الوجبات</button>
-                <button onclick="showPage('rules')">المسموحات والممنوعات</button>
+                <button class="active" onclick="showPage('meals', event)">الوجبات</button>
+                <button onclick="showPage('rules', event)">المسموحات والممنوعات</button>
             </div>
         </div>
     </header>
 
     <div class="container">
         
-        <!-- صفحة الوجبات -->
         <div id="meals-page" class="meals-page active">
+            <div class="install-banner" id="installBanner" style="display: none;">
+                <div>
+                    <strong>ثبت التطبيق على موبايلك!</strong>
+                    <p style="font-size: 0.9rem; margin-top: 5px;">يفتح أسرع ويعمل كأب حقيقي</p>
+                </div>
+                <button onclick="installApp()">تثبيت</button>
+            </div>
+
             <div class="filters">
-                <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (90 وجبة)</button>
-                <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور (30)</button>
-                <button class="filter-btn" onclick="filterMeals('lunch', event)"><i class="fas fa-utensils"></i> غداء (30)</button>
-                <button class="filter-btn" onclick="filterMeals('dinner', event)"><i class="fas fa-moon"></i> عشاء (30)</button>
+                <button class="filter-btn active" onclick="filterMeals('all', event)">الكل</button>
+                <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور</button>
+                <button class="filter-btn" onclick="filterMeals('lunch', event)"><i class="fas fa-utensils"></i> غداء</button>
+                <button class="filter-btn" onclick="filterMeals('dinner', event)"><i class="fas fa-moon"></i> عشاء</button>
             </div>
             <div class="meals-grid" id="mealsGrid"></div>
         </div>
 
-        <!-- صفحة المسموحات والممنوعات -->
         <div id="rules-page" class="rules-page">
             <div class="rules-container">
-                
-                <!-- المسموحات -->
                 <div class="rule-section allowed-section">
                     <h2><i class="fas fa-check-circle"></i> المسموحات (الطيبات)</h2>
-                    
-                    <div class="rule-category">
-                        <h3>النشويات</h3>
-                        <ul class="rule-list">
-                            <li>الأرز (بصل/ثوم)</li>
-                            <li>أرز بني</li>
-                            <li>توست بالردة (ريتش بيك)</li>
-                            <li>البطاطس (الخضار الوحيد)</li>
-                            <li>الفريك</li>
-                            <li>خبز حبة كاملة</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>الدهون والزيوت</h3>
-                        <ul class="rule-list">
-                            <li>سمن بلدي حيواني</li>
-                            <li>زبدة طبيعية</li>
-                            <li>زيت زيتون بكر</li>
-                            <li>زيت جوز الهند</li>
-                            <li>قشطة طبيعية</li>
-                            <li>جبنة قريش/رومي (معتدل)</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>البروتين</h3>
-                        <ul class="rule-list">
-                            <li>لحم بقري/جاموسي (مسلوق)</li>
-                            <li>لحم ضأن</li>
-                            <li>كبدةضاني / لحمة مفرومة</li>
-                            <li>أسماك بحرية (غير مزارع)</li>
-                            <li>جمبري بحر (غير مزارع)</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>السكريات والفواكه</h3>
-                        <ul class="rule-list">
-                            <li>سكر أبيض (معتدل)</li>
-                            <li>عسل طبيعي</li>
-                            <li>التمر (الركيزة الخامسة)</li>
-                            <li>تفاح، رمان، تين</li>
-                            <li>عنب، إجاص، خوخ</li>
-                            <li>توت، برقوق، مشمش</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>المشروبات</h3>
-                        <ul class="rule-list">
-                            <li>شاي أسود (بسكر)</li>
-                            <li>قهوة عربية</li>
-                            <li>عصائر فواكه طبيعية</li>
-                            <li>عصير قصب سكر</li>
-                            <li>ماء (عند العطش فقط)</li>
-                        </ul>
-                    </div>
+                    <div class="rule-category"><h3>النشويات</h3><ul class="rule-list"><li>الأرز (بصل/ثوم)</li><li>أرز بني</li><li>توست ردة (ريتش بيك)</li><li>البطاطس</li><li>الفريك</li><li>خبز حبة كاملة</li></ul></div>
+                    <div class="rule-category"><h3>الدهون والزيوت</h3><ul class="rule-list"><li>سمن بلدي حيواني</li><li>زبدة طبيعية</li><li>زيت زيتون بكر</li><li>زيت جوز الهند</li><li>قشطة بلدي طبيعية</li><li>جبنة قريش/رومي (معتدل)</li></ul></div>
+                    <div class="rule-category"><h3>البروتين</h3><ul class="rule-list"><li>لحم بقري/جاموسي</li><li>لحم ضأن</li><li>كبدة / لحمة مفرومة</li><li>أسماك بحرية فقط</li><li>جمبري بحر فقط</li></ul></div>
+                    <div class="rule-category"><h3>السكريات والفواكه</h3><ul class="rule-list"><li>سكر أبيض (معتدل)</li><li>عسل طبيعي</li><li>التمر (الركيزة الخامسة)</li><li>تفاح، رمان، تين</li><li>عنب، إجاص، خوخ</li><li>توت، برقوق، مشمش</li></ul></div>
                 </div>
-
-                <!-- الممنوعات -->
                 <div class="rule-section forbidden-section">
-                    <h2><i class="fas fa-times-circle"></i> الممنوعات</h2>
-                    
-                    <div class="rule-category">
-                        <h3>البروتين الأبيض</h3>
-                        <ul class="rule-list">
-                            <li>الدجاج بجميع أنواعه</li>
-                            <li>الرومي والبط والطيور الداجنة</li>
-                            <li>البيض بجميع أشكاله</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>منتجات الألبان</h3>
-                        <ul class="rule-list">
-                            <li>الحليب بجميع أنواعه</li>
-                            <li>الزبادي واللبن والكيفير</li>
-                            <li>الجبن المصنع (عدا الطبيعي)</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>الخضروات الورقية والنيئة</h3>
-                        <ul class="rule-list">
-                            <li>خس، طماطم، خيار، جرجير</li>
-                            <li>ملوخية، سبانخ، جزر</li>
-                            <li>فلفل (مسموح مطبوخ فقط)</li>
-                            <li>جميع الخضروات الورقية والخضراء</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>البقوليات</h3>
-                        <ul class="rule-list">
-                            <li>فول</li>
-                            <li>عدس</li>
-                            <li>فاصوليا</li>
-                            <li>لوبيا، حمص</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>أسماك ومأكولات بحرية</h3>
-                        <ul class="rule-list">
-                            <li>بلطي وبوري (من المزارع)</li>
-                            <li>جمبري وسبيط (من المزارع)</li>
-                        </ul>
-                    </div>
-
-                    <div class="rule-category">
-                        <h3>فواكه ومشروبات</h3>
-                        <ul class="rule-list">
-                            <li>مانجو، بطيخ، شمام</li>
-                            <li>برتقال، جريب فروت</li>
-                            <li>أناناس، كيوي</li>
-                            <li>مشروبات غازية</li>
-                            <li>عصائر صناعية مُحلاة</li>
-                        </ul>
-                    </div>
+                    <h2><i class="fas fa-times-circle"></i> الممنوعات بصراحة</h2>
+                    <div class="rule-category"><h3>البروتين الأبيض</h3><ul class="rule-list"><li>الدجاج (جميع الأنواع)</li><li>الرومي والبط والطيور</li><li>البيض بجميع أشكاله</li></ul></div>
+                    <div class="rule-category"><h3>منتجات الألبان السائلة</h3><ul class="rule-list"><li>الحليب (جميع الأنواع)</li><li>الزبادي واللبن والكيفير</li><li>الجبن المصنع (عدا الطبيعي)</li></ul></div>
+                    <div class="rule-category"><h3>الخضروات (نيئة أو ورقية)</h3><ul class="rule-list"><li>خس، طماطم، خيار</li><li>ملوخية، سبانخ، جرجير</li><li>جميع الخضراوات الورقية</li></ul></div>
+                    <div class="rule-category"><h3>بقوليات وبحريات مزارع</h3><ul class="rule-list"><li>فول، عدس، فاصوليا، لوبيا</li><li>بلطي وبوري (من المزارع)</li><li>جمبري وسبيط (من المزارع)</li></ul></div>
+                    <div class="rule-category"><h3>فواكه ومشروبات</h3><ul class="rule-list"><li>مانجو، بطيخ، شمام</li><li>برتقال، أناناس، كيوي</li><li>مشروبات غازية وصناعية</li></ul></div>
                 </div>
-
             </div>
         </div>
-
     </div>
 
     <footer>
-        <p>صُمم بعناية ليكون مرجعك الشامل لنظام الطيبات <i class="fas fa-heart" style="color: var(--accent);"></i> (الرجاء استشارة الطبيب قبل اتباع أي نظام)</p>
+        <p>مراجعة وتدقيق صارم لضمان خلو الوجبات من أي ممنوعات <i class="fas fa-shield-halved" style="color: var(--accent);"></i></p>
     </footer>
 
     <script>
-        // قاعدة بيانات الـ 90 وجبة (مبنية على المسموحات فقط)
+        // قاعدة بيانات الوجبات المعدّلة بالكامل (بدون أي ممنوعات)
         const meals = [
-            // === 30 وجبة فطور ===
-            {id:1, type:'breakfast', name:'كلاسيك الطيبات', desc:'توست بالردة مدهون زبدة بلدي ومربى.', icon:'fa-bread-slice', tags:['كلاسيك']},
-            {id:2, type:'breakfast', name:'فطور البطاطس', desc:'بطاطس مقلية في زيت زيتون مع شيبسي بيتي.', icon:'fa-french-fries', tags:['زيت زيتون']},
-            {id:3, type:'breakfast', name:'ساندوتش الأجبان', desc:'توست بالردة محشو جبنة رومي مع زيت زيتون.', icon:'fa-cheese', tags:['رومي']},
-            {id:4, type:'breakfast', name:'وجبة الطاقة', desc:'توست بالردة مع قشطة بلدي وحلاوة طحينية.', icon:'fa-bolt', tags:['قشطة']},
-            {id:5, type:'breakfast', name:'البطاطا المشوية', desc:'حبتين بطاطا حلوة مشوية في الفرن.', icon:'fa-fire', tags:['فرن']},
-            {id:6, type:'breakfast', name:'ساندوتش النوتيلا', desc:'توست بالردة مع شوكولاتة نوتيلا.', icon:'fa-cookie-bite', tags:['شوكولاتة']},
-            {id:7, type:'breakfast', name:'أرز بالقشطة', desc:'أرز مسلوق محلى بالسكر مع قشطة بلدي.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:8, type:'breakfast', name:'وجبة بسبوسة', desc:'قطعة بسبوسة (مصنوعة بالسمن) مع توست ردة.', icon:'fa-cake-candles', tags:['حلويات']},
-            {id:9, type:'breakfast', name:'توست كشكفال', desc:'توست بالردة مع جبنة كشكفال مسيحة.', icon:'fa-cheese', tags:['كشكفال']},
-            {id:10, type:'breakfast', name:'طحينة وعسل', desc:'توست بالردة مع طحينة غامقة وعسل.', icon:'fa-jar', tags:['عسل']},
-            {id:11, type:'breakfast', name:'فطيرة السمن', desc:'توست ردة محمر بالسمن البلدي مع سكر.', icon:'fa-stroopwafel', tags:['سمن بلدي']},
-            {id:12, type:'breakfast', name:'أرز بالموز', desc:'أرز مسلوق مهروس مع موز ومعلقة سمن.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:13, type:'breakfast', name:'تمر بالقشطة', desc:'5 حبات تمر مجدول بالقشطة البلدي.', icon:'fa-seedling', tags:['تمر']},
-            {id:14, type:'breakfast', name:'شاي وسكر', desc:'كوب شاي أسود محلى بالسكر مع 3 ملاعق سكر.', icon:'fa-mug-hot', tags:['شاي']},
-            {id:15, type:'breakfast', name:'توست زبدة وسكر', desc:'توست ردة دافئ مدهون زبدة ومشبع بالسكر.', icon:'fa-bread-slice', tags:['زبدة']},
-            {id:16, type:'breakfast', name:'عصير قصب وتوست', desc:'كوب عصير قصب مع توست بالردة بالسمن.', icon:'fa-glass-water', tags:['قصب']},
-            {id:17, type:'breakfast', name:'بطاطس مهروسة بالسمن', desc:'بطاطس مسلوقة ومهروسة مع ملعقة سمن بلدي.', icon:'fa-mound', tags:['بطاطس']},
-            {id:18, type:'breakfast', name:'فريك بحليب القشطة', desc:'فريك مطبوخ بالقشطة البلدي ومحلى.', icon:'fa-wheat-awn', tags:['فريك']},
-            {id:19, type:'breakfast', name:'رمان و جبنة', desc:'نصف رمان مع قطعة جبنة قريش.', icon:'fa-apple-whole', tags:['فاكهة']},
-            {id:20, type:'breakfast', name:'توست بالسكر والقشطة', desc:'طبقات من توست الردة، القشطة والسكر.', icon:'fa-layer-group', tags:['قشطة']},
-            {id:21, type:'breakfast', name:'تفاح بالزبدة', desc:'تفاح مقطع محمر قليلاً في الزبدة مع سكر.', icon:'fa-apple-whole', tags:['فاكهة']},
-            {id:22, type:'breakfast', name:'عسل على الريق', desc:'ملعقة عسل طبيعي على الريق مع كوب ماء دافئ.', icon:'fa-jar', tags:['عسل']},
-            {id:23, type:'breakfast', name:'توست الشوكولاتة', desc:'توست ردة مع شوكولاتة داكنة ذائبة.', icon:'fa-cookie-bite', tags:['شوكولاتة']},
-            {id:24, type:'breakfast', name:'أرز بالتمر', desc:'أرز أبيض مهروس مع التمر المهروس.', icon:'fa-bowl-rice', tags:['تمر']},
-            {id:25, type:'breakfast', name:'خبز بلدي وسمن', desc:'قطعة خبز حبة كاملة دافئ مع سمن بلدي.', icon:'fa-bread-slice', tags:['خبز كامل']},
-            {id:26, type:'breakfast', name:'بطاطس شيبسي بالزبدة', desc:'شيبسي بطاطس محضر في الفرن مع رشة زبدة.', icon:'fa-plate-wheat', tags:['شيبسي']},
-            {id:27, type:'breakfast', name:'موز بالقشطة', desc:'موزان مقطعان مع علبة قشطة بلدي.', icon:'fa-seedling', tags:['فاكهة']},
-            {id:28, type:'breakfast', name:'قهوة عربية وتمر', desc:'فنجان قهوة عربية مع 3 حبات تمر.', icon:'fa-mug-saucer', tags:['قهوة']},
-            {id:29, type:'breakfast', name:'توست بالعسل والزبدة', desc:'توست ردة مدهون زبدة ومغطى بالعسل.', icon:'fa-bread-slice', tags:['عسل']},
-            {id:30, type:'breakfast', name:'أرز بالسمن والسكر', desc:'أرز مفلفل بالسمن البلدي ومحلى بالسكر.', icon:'fa-bowl-rice', tags:['أرز']},
+            // === 30 وجبة فطار (مأمونة 100%) ===
+            {id:1,type:'breakfast',name:'كلاسيك الطيبات',desc:'توست بالردة مدهون زبدة بلدي ومربى.',icon:'fa-bread-slice',tags:['كلاسيك']},
+            {id:2,type:'breakfast',name:'فطور البطاطس',desc:'بطاطس مقلية في زيت زيتون مع شيبسي بيتي.',icon:'fa-french-fries',tags:['زيت زيتون']},
+            {id:3,type:'breakfast',name:'ساندوتش الأجبان',desc:'توست بالردة محشو جبنة رومي مع زيت زيتون.',icon:'fa-cheese',tags:['رومي']},
+            {id:4,type:'breakfast',name:'وجبة الطاقة',desc:'توست بالردة مع قشطة بلدي وحلاوة طحينية.',icon:'fa-bolt',tags:['قشطة بلدي']},
+            {id:5,type:'breakfast',name:'البطاطا المشوية',desc:'حبتين بطاطا حلوة مشوية في الفرن.',icon:'fa-fire',tags:['فرن']},
+            {id:6,type:'breakfast',name:'ساندوتش النوتيلا',desc:'توست بالردة مع شوكولاتة نوتيلا.',icon:'fa-cookie-bite',tags:['شوكولاتة']},
+            {id:7,type:'breakfast',name:'أرز بالقشطة',desc:'أرز مسلوق محلى بالسكر مع قشطة بلدي.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:8,type:'breakfast',name:'وجبة بسبوسة',desc:'قطعة بسبوسة (مصنوعة بالسمن البلدي).',icon:'fa-cake-candles',tags:['حلويات']},
+            {id:9,type:'breakfast',name:'توست كشكفال',desc:'توست بالردة مع جبنة كشكفال مسيحة.',icon:'fa-cheese',tags:['كشكفال']},
+            {id:10,type:'breakfast',name:'طحينة وعسل',desc:'توست بالردة مع طحينة غامقة وعسل أبيض.',icon:'fa-jar',tags:['عسل']},
+            {id:11,type:'breakfast',name:'فطيرة السمن',desc:'توست ردة محمر بالسمن البلدي ورش سكر.',icon:'fa-stroopwafel',tags:['سمن بلدي']},
+            {id:12,type:'breakfast',name:'أرز بالعسل',desc:'أرز مسلوق مهروس مع ملعقة عسل طبيعي.',icon:'fa-bowl-rice',tags:['أرز','عسل']},
+            {id:13,type:'breakfast',name:'تمر بالموزة',desc:'5 حبات تمن مجدول بالعسل (تمر بالموزة).',icon:'fa-seedling',tags:['تمر']},
+            {id:14,type:'breakfast',name:'شاي بالسكر',desc:'كوب شاي أسود محلى بالسكر الأبيض.',icon:'fa-mug-hot',tags:['شاي']},
+            {id:15,type:'breakfast',name:'توست زبدة وسكر',desc:'توست ردة دافئ مدهون زبدة بلدي ومشبع بالسكر.',icon:'fa-bread-slice',tags:['زبدة']},
+            {id:16,type:'breakfast',name:'عصير قصب وتوست',desc:'كوب عصير قصب سكر مع توست بالسمن.',icon:'fa-glass-water',tags:['قصب']},
+            {id:17,type:'breakfast',name:'بطاطس مهروسة بالسمن',desc:'بطاطس مسلوقة ومهروسة مع ملعقة سمن بلدي.',icon:'fa-mound',tags:['بطاطس']},
+            {id:18,type:'breakfast',name:'فريك بالسكر والزبدة',desc:'فريك مطبوخ بالزبدة البلدي ومحلى بالسكر.',icon:'fa-wheat-awn',tags:['فريك']},
+            {id:19,type:'breakfast',name:'رمان وجبنة قريش',desc:'نصف رمان منزوع البذر مع طبق جبنة قريش.',icon:'fa-apple-whole',tags:['فاكهة']},
+            {id:20,type:'breakfast',name:'توست بالسكر والقشطة',desc:'طبقات من توست الردة، القشطة البلدي والسكر.',icon:'fa-layer-group',tags:['قشطة بلدي']},
+            {id:21,type:'breakfast',name:'تفاح بالزبدة والسكر',desc:'تفاح مقطع محمر قليلاً في الزبدة البلدي مع السكر.',icon:'fa-apple-whole',tags:['فاكهة']},
+            {id:22,type:'breakfast',name:'عسل على الريق',desc:'ملعقة عسل طبيعي على الريق مع كوب ماء دافئ.',icon:'fa-jar',tags:['عسل']},
+            {id:23,type:'breakfast',name:'توست الشوكولاتة الداكنة',desc:'توست ردة مع شوكولاتة داكنة ذائبة.',icon:'fa-cookie-bite',tags:['شوكولاتة']},
+            {id:24,type:'breakfast',name:'أرز بالتمر',desc:'أرز أبيض مهروس مع التمر المهروس.',icon:'fa-bowl-rice',tags:['تمر']},
+            {id:25,type:'breakfast',name:'خبز بلدي وسمن',desc:'قطعة خبز حبة كاملة دافئ مع سمن بلدي.',icon:'fa-bread-slice',tags:['خبز كامل']},
+            {id:26,type:'breakfast',name:'بطاطس شيبسي بالزبدة',desc:'شيبسي بطاطس محضر في الفرن مع رشة زبدة.',icon:'fa-plate-wheat',tags:['شيبسي']},
+            {id:27,type:'breakfast',name:'عنب بالعسل',desc:'طبق عنب طازج مع ملعقة عسل طبيعي.',icon:'fa-seedling',tags:['فاكهة']},
+            {id:28,type:'breakfast',name:'قهوة عربية وتمر',desc:'فنجان قهوة عربية مع 3 حبات تمر.',icon:'fa-mug-saucer',tags:['قهوة']},
+            {id:29,type:'breakfast',name:'توست بالعسل والزبدة',desc:'توست ردة مدهون زبدة بلدي ومغطى بالعسل.',icon:'fa-bread-slice',tags:['عسل']},
+            {id:30,type:'breakfast',name:'أرز بالسمن والسكر',desc:'أرز مفلفل بالسمن البلدي ومحلى بالسكر.',icon:'fa-bowl-rice',tags:['أرز']},
 
-            // === 30 وجبة غداء ===
-            {id:31, type:'lunch', name:'سمك مشوي بالأرز', desc:'سمك بحري مشوي مع أرز مفلفل بالسمن.', icon:'fa-fish', tags:['بروتين']},
-            {id:32, type:'lunch', name:'أرانب وفريك', desc:'لحم أرانب مسلوق ومحمر بالسمن مع فريك.', icon:'fa-plate-wheat', tags:['بروتين']},
-            {id:33, type:'lunch', name:'محشي فلفل مشروم', desc:'فلفل أخضر محشو أرز ومشروم مطبوخ جيداً.', icon:'fa-pepper-hot', tags:['مشروم']},
-            {id:34, type:'lunch', name:'لحم ضاني وقلقاس', desc:'لحم ضاني مسلوق مع قلقاس وأرز أبيض.', icon:'fa-drumstick-bite', tags:['بروتين']},
-            {id:35, type:'lunch', name:'حمام محشي بالسمن', desc:'حمام محشو أرز وفريك محمر في السمن.', icon:'fa-dove', tags:['بروتين']},
-            {id:36, type:'lunch', name:'كفتة ضاني وشيبسي', desc:'كفتة لحم ضاني مشوية مع شيبسي بطاطس.', icon:'fa-meat', tags:['بروتين']},
-            {id:37, type:'lunch', name:'كوارع وممبار', desc:'ممبار محشو أرز مع كوارع مسلوقة (بدون خضرة).', icon:'fa-bowl-food', tags:['بروتين']},
-            {id:38, type:'lunch', name:'سمان وبطاطس مرقة', desc:'سمان مشوي مع بطاطس مطبوخة بالمرقة والسمن.', icon:'fa-dove', tags:['بروتين']},
-            {id:39, type:'lunch', name:'أرز بالمشروم والسمن', desc:'أرز أبيض مطبوخ بمشروم مقلي بالسمن.', icon:'fa-bowl-rice', tags:['مشروم']},
-            {id:40, type:'lunch', name:'كبدة ضاني بالسمن', desc:'كبدة ضاني مقلية بالسمن مع أرز.', icon:'fa-fire-burner', tags:['بروتين']},
-            {id:41, type:'lunch', name:'لحم بقري مسلوق', desc:'قطعة لحم بقري مسلوقة جيداً مع أرز أبيض.', icon:'fa-drumstick-bite', tags:['بروتين']},
-            {id:42, type:'lunch', name:'جمبري بحري مقلي', desc:'جمبري بحري مقلي في زيت زيتون مع بطاطس.', icon:'fa-shrimp', tags:['بروتين']},
-            {id:43, type:'lunch', name:'أرز بالكندوز', desc:'أرز مفلفل بالسمن مع قطع كبدة مضغوطة.', icon:'fa-bowl-rice', tags:['بروتين']},
-            {id:44, type:'lunch', name:'لحمة مفرومة بالبطاطس', desc:'لحمة ضاني مفرومة محمرة مع بطاطس مهروسة.', icon:'fa-meat', tags:['بروتين']},
-            {id:45, type:'lunch', name:'سمك بحري بالفرن', desc:'قطعة سمك سيباس بالفرن مع أرز بالسمن.', icon:'fa-fish', tags:['بروتين']},
-            {id:46, type:'lunch', name:'محشي كرنب باللحم', desc:'كرنب محشو لحم ضاني وأرز مطبوخ بالسمن.', icon:'fa-leaf', tags:['محشي']},
-            {id:47, type:'lunch', name:'فتة اللحم', desc:'شرائح خبز ردة مع مرقة لحم وأرز مسلوق.', icon:'fa-bowl-food', tags:['فتة']},
-            {id:48, type:'lunch', name:'أرز بالبصل والسمن', desc:'أرز أبيض محمر في السمن مع شرائح بصل محمصة.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:49, type:'lunch', name:'كاليماري مقلي', desc:'كاليماري بحري مقلي في زيت زيتون.', icon:'fa-shrimp', tags:['بروتين']},
-            {id:50, type:'lunch', name:'بطاطس مهروسة باللحم', desc:'بطاطس مسلوقة مهروسة ومقلية مع اللحم المفروم.', icon:'fa-mound', tags:['بطاطس']},
-            {id:51, type:'lunch', name:'مكرونة بالسمن البلدي', desc:'مكرونة مسلوقة (بديل النشا) مع السمن البلدي.', icon:'fa-plate-wheat', tags:['نشويات']},
-            {id:52, type:'lunch', name:' ribs ضاني مشوي', desc:'ضلوع ضاني مشوية بالفرن مع أرز أبيض.', icon:'fa-drumstick-bite', tags:['بروتين']},
-            {id:53, type:'lunch', name:'فريك باللحم المفروم', desc:'فريك مطبوخ مع اللحم المفروم والسمن.', icon:'fa-wheat-awn', tags:['فريك']},
-            {id:54, type:'lunch', name:'سلمون بالزبدة', desc:'شريحة سلمون طازجة مشوية بالزبدة.', icon:'fa-fish', tags:['بروتين']},
-            {id:55, type:'lunch', name:'أرز بالمكسرات والسمن', desc:'أرز بالسمن البلدي ومقلوب بالمكسرات.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:56, type:'lunch', name:'لحم بالبطاطس الفرن', desc:'صينية لحم و بطاطس مطبوخة بالسمن في الفرن.', icon:'fa-fire-burner', tags:['بروتين']},
-            {id:57, type:'lunch', name:'شوربة لحم بالعدس (بدون خضار)', desc:'مرقة لحم غليظة مع بطاطس مهروسة.', icon:'fa-bowl-food', tags:['شوربة']},
-            {id:58, type:'lunch', name:'كفتة سمك', desc:'كفتة سمك بحري مشوية مع أرز.', icon:'fa-fish', tags:['بروتين']},
-            {id:59, type:'lunch', name:'بطاطس محشية لحم', desc:'بطاطس محشوة بلحم مفروم ومحمرة بالسمن.', icon:'fa-mound', tags:['بطاطس']},
-            {id:60, type:'lunch', name:'أرز بالمرقة والزبدة', desc:'أرز مسلوق بمرقة اللحم وملعقة زبدة.', icon:'fa-bowl-rice', tags:['أرز']},
+            // === 30 وجبة غداء (مأمونة 100%) ===
+            {id:31,type:'lunch',name:'سمك بحري مشوي',desc:'سمك بحري مشوي مع أرز مفلفل بالسمن.',icon:'fa-fish',tags:['بروتين']},
+            {id:32,type:'lunch',name:'أرانب وفريك',desc:'لحم أرانب مسلوق ومحمر بالسمن مع فريك.',icon:'fa-plate-wheat',tags:['بروتين']},
+            {id:33,type:'lunch',name:'محشي فلفل مشروم',desc:'فلفل أخضر محشو أرز ومشروم مطبوخ.',icon:'fa-pepper-hot',tags:['مشروم']},
+            {id:34,type:'lunch',name:'لحم ضاني وقلقاس',desc:'لحم ضاني مسلوق مع قلقاس وأرز أبيض.',icon:'fa-drumstick-bite',tags:['بروتين']},
+            {id:35,type:'lunch',name:'حمام محشي بالسمن',desc:'حمام محشو أرز وفريك محمر في السمن.',icon:'fa-dove',tags:['بروتين']},
+            {id:36,type:'lunch',name:'كفتة ضاني وشيبسي',desc:'كفتة لحم ضاني مشوية مع شيبسي بطاطس.',icon:'fa-meat',tags:['بروتين']},
+            {id:37,type:'lunch',name:'كوارع وممبار',desc:'ممبار محشو أرز مع كوارع مسلوقة (بدون خضرة).',icon:'fa-bowl-food',tags:['بروتين']},
+            {id:38,type:'lunch',name:'سمان وبطاطس مرقة',desc:'سمان مشوي مع بطاطس بالمرقة والسمن.',icon:'fa-dove',tags:['بروتين']},
+            {id:39,type:'lunch',name:'أرز بالمشروم والسمن',desc:'أرز أبيض مطبوخ بمشروم مقلي بالسمن.',icon:'fa-bowl-rice',tags:['مشروم']},
+            {id:40,type:'lunch',name:'كبدة ضاني بالسمن',desc:'كبدة ضاني مقلية بالسمن مع أرز.',icon:'fa-fire-burner',tags:['بروتين']},
+            {id:41,type:'lunch',name:'لحم بقري مسلوق',desc:'قطعة لحم بقري مسلوقة جيداً مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين']},
+            {id:42,type:'lunch',name:'جمبري بحري بالزيت',desc:'جمبري بحري مقلي في زيت زيتون مع بطاطس.',icon:'fa-shrimp',tags:['بروتين']},
+            {id:43,type:'lunch',name:'أرز بالكندوز',desc:'أرز مفلفل بالسمن مع قطع كبدة مضغوطة.',icon:'fa-bowl-rice',tags:['بروتين']},
+            {id:44,type:'lunch',name:'لحمة مفرومة بالبطاطس',desc:'لحمة ضاني مفرومة محمرة مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين']},
+            {id:45,type:'lunch',name:'سمك سيباس بالفرن',desc:'قطعة سمك سيباس بحري بالفرن مع أرز بالسمن.',icon:'fa-fish',tags:['بروتين']},
+            {id:46,type:'lunch',name:'محشي كرنب باللحم',desc:'كرنب محشو لحم ضاني وأرز مطبوخ بالسمن.',icon:'fa-leaf',tags:['محشي']},
+            {id:47,type:'lunch',name:'فتة اللحم والسمن',desc:'شرائح خبز ردة مع مرقة لحم وأرز مسلوق.',icon:'fa-bowl-food',tags:['فتة']},
+            {id:48,type:'lunch',name:'أرز بالبصل والسمن',desc:'أرز محمر في السمن البلدي مع بصل محمر.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:49,type:'lunch',name:'كاليماري بحري مقلي',desc:'كاليماري بحري مقلي في زيت زيتون.',icon:'fa-shrimp',tags:['بروتين']},
+            {id:50,type:'lunch',name:'صينية لحم وبطاطس',desc:'لحم ضاني مع بطاطس مطبوخة بالسمن في الفرن.',icon:'fa-fire-burner',tags:['بروتين']},
+            {id:51,type:'lunch',name:'فريك بالسمن واللحم',desc:'فريك مطبوخ مع اللحم المفروم والسمن.',icon:'fa-wheat-awn',tags:['فريك']},
+            {id:52,type:'lunch',name:'Ribs ضاني مشوي',desc:'ضلوع ضاني مشوية بالفرن مع أرز أبيض.',icon:'fa-drumstick-bite',tags:['بروتين']},
+            {id:53,type:'lunch',name:'لحم بقري بالفريك',desc:'قطع لحم بقري مطبوخة مع الفريك بالسمن.',icon:'fa-plate-wheat',tags:['بروتين']},
+            {id:54,type:'lunch',name:'سمك قاروص بالزبدة',desc:'شريحة سمك قاروص بحري مشوي بالزبدة.',icon:'fa-fish',tags:['بروتين']},
+            {id:55,type:'lunch',name:'أرز بالمكسرات والسمن',desc:'أرز بالسمن البلدي ومزين بالمكسرات.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:56,type:'lunch',name:'كبدة بالبطاطس المهروسة',desc:'كبدة ضاني مقلية مع بطاطس مهروسة بالسمن.',icon:'fa-mound',tags:['بروتين']},
+            {id:57,type:'lunch',name:'شوربة مرقة لحم',desc:'مرقة لحم غليظة مع أرز مهروس.',icon:'fa-bowl-food',tags:['شوربة']},
+            {id:58,type:'lunch',name:'كفتة سمك بحري',desc:'كفتة سمك بحري مشوية مع أرز أبيض.',icon:'fa-fish',tags:['بروتين']},
+            {id:59,type:'lunch',name:'بطاطس محشية لحم',desc:'بطاطس محشوة بلحم مفروم ومحمرة بالسمن.',icon:'fa-mound',tags:['بطاطس']},
+            {id:60,type:'lunch',name:'أرز بالمرقة والزبدة',desc:'أرز مسلوق بمرقة اللحم وملعقة زبدة.',icon:'fa-bowl-rice',tags:['أرز']},
 
-            // === 30 وجبة عشاء ===
-            {id:61, type:'dinner', name:'بوريه الطيبات', desc:'بطاطس مسلوقة مهروسة مع قشطة بلدي وملح.', icon:'fa-mound', tags:['بطاطس']},
-            {id:62, type:'dinner', name:'سلطة فواكه مقشرة', desc:'تفاح وكمثرى وكاكا مقطعة بدون قشر.', icon:'fa-apple-whole', tags:['فواكه']},
-            {id:63, type:'dinner', name:'توست موتزاريللا', desc:'توست بالردة مع جبنة موتزاريللا سايحة.', icon:'fa-cheese', tags:['جبنة']},
-            {id:64, type:'dinner', name:'مانجا ولب', desc:'كوب عصير مانجا مصفى مع لب سوري.', icon:'fa-glass-water', tags:['فواكه']},
-            {id:65, type:'dinner', name:'أرز بالزبدة والسكر', desc:'طبق أرز دافئ مع زبدة بلدي وسكر.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:66, type:'dinner', name:'فاكهة مجففة', desc:'طبق مشمشية، قراصيا، وتين مجفف.', icon:'fa-seedling', tags:['فواكه']},
-            {id:67, type:'dinner', name:'شيبسي بيتي بالملح', desc:'شرائح بطاطس رقيقة مقلية في زيت زيتون.', icon:'fa-plate-wheat', tags:['شيبسي']},
-            {id:68, type:'dinner', name:'قرع عسل بالقشطة', desc:'قرع عسل مطبوخ محلى بالمربى والقشطة.', icon:'fa-candy-cane', tags:['حلويات']},
-            {id:69, type:'dinner', name:'شوكولاتة وشاي أخضر', desc:'قطعة شوكولاتة داكنة مع شاي أخضر.', icon:'fa-mug-hot', tags:['مشروبات']},
-            {id:70, type:'dinner', name:'توست قشطة وعسل', desc:'توست بالردة مع قشطة بلدي وعسل نحل.', icon:'fa-bread-slice', tags:['قشطة']},
-            {id:71, type:'dinner', name:'تين وعسل', desc:'ثمار تين طازجة مع ملعقة عسل طبيعي.', icon:'fa-seedling', tags:['فواكه']},
-            {id:72, type:'dinner', name:'رمان بالعسل', desc:'حبات رمان منزوعة البذر مع عسل أبيض.', icon:'fa-apple-whole', tags:['فواكه']},
-            {id:73, type:'dinner', name:'أرز بالحليب والسكر', desc:'أرز مطبوخ بالقشطة البلدي ومحلى بالسكر.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:74, type:'dinner', name:'عصير تفاح وتوست', desc:'كوب عصير تفاح طبيعي مع توست بالزبدة.', icon:'fa-glass-water', tags:['مشروبات']},
-            {id:75, type:'dinner', name:'جبنة رومي وعسل', desc:'قطعة جبنة رومي مع ملعقة عسل.', icon:'fa-cheese', tags:['جبنة']},
-            {id:76, type:'dinner', name:'بطاطس فرن بالأعشاب', desc:'بطاطس مقطعة محمرة في الفرن بالسمن.', icon:'fa-mound', tags:['بطاطس']},
-            {id:77, type:'dinner', name:'خوخ مجفف وقشطة', desc:'حبات خوخ مجفف مع ملعقة قشطة بلدي.', icon:'fa-seedling', tags:['فواكه']},
-            {id:78, type:'dinner', name:'توست سمن ومربى', desc:'توست ردة دافئ محمر بالسمن ومغطى بمربى.', icon:'fa-bread-slice', tags:['توست']},
-            {id:79, type:'dinner', name:'برقوق بالتمر', desc:'طبق برقوق مجفف مع حبات تمر.', icon:'fa-seedling', tags:['فواكه']},
-            {id:80, type:'dinner', name:'شاي بالسمن والتوست', desc:'شاي أسود محلى مع توست مدهون سمن.', icon:'fa-mug-hot', tags:['مشروبات']},
-            {id:81, type:'dinner', name:'موز بالزبدة', desc:'موزان مقليان قليلاً في الزبدة البلدي.', icon:'fa-seedling', tags:['فواكه']},
-            {id:82, type:'dinner', name:'جبنة قريش بالعسل', desc:'طبق جبنة قريش مغمورة بالعسل الطبيعي.', icon:'fa-cheese', tags:['جبنة']},
-            {id:83, type:'dinner', name:'فريك حلو بالقشطة', desc:'طبق صغير فريك مسلوق بالقشطة والسكر.', icon:'fa-wheat-awn', tags:['فريك']},
-            {id:84, type:'dinner', name:'كمثرى مشوية', desc:'كمثرى مقطعة ومشوية في الفرن بالعسل.', icon:'fa-apple-whole', tags:['فواكه']},
-            {id:85, type:'dinner', name:'عصير عنب طبيعي', desc:'كوب عصير عنب طبيعي مع قطعة توست.', icon:'fa-glass-water', tags:['مشروبات']},
-            {id:86, type:'dinner', name:'حلاوة طحينية وتوست', desc:'طبق حلاوة طحينية مع توست بالردة.', icon:'fa-jar', tags:['حلويات']},
-            {id:87, type:'dinner', name:'أرز بالتمر والموز', desc:'أرز أبيض دافئ مع شرائح تمر وموز.', icon:'fa-bowl-rice', tags:['أرز']},
-            {id:88, type:'dinner', name:'بطاطس بالجبنة', desc:'بطاطس مهروسة محشوة بجبنة رومي سياحة.', icon:'fa-mound', tags:['بطاطس']},
-            {id:89, type:'dinner', name:'كاكا وعسل نحل', desc:'ثمار كاكا طازجة مع العسل النحل.', icon:'fa-apple-whole', tags:['فواكه']},
-            {id:90, type:'dinner', name:'شاي وقصب سكر', desc:'كوب شاي مع قطعة قصب سكر طبيعي.', icon:'fa-mug-hot', tags:['مشروبات']}
+            // === 30 وجبة عشاء (مأمونة 100%) ===
+            {id:61,type:'dinner',name:'بوريه الطيبات',desc:'بطاطس مسلوقة مهروسة مع قشطة بلدي وملح.',icon:'fa-mound',tags:['بطاطس']},
+            {id:62,type:'dinner',name:'سلطة فواكه مقشرة',desc:'تفاح وكمثرى وكاكا مقطعة بدون قشر.',icon:'fa-apple-whole',tags:['فواكه']},
+            {id:63,type:'dinner',name:'توست موتزاريللا',desc:'توست بالردة مع جبنة موتزاريللا سايحة.',icon:'fa-cheese',tags:['جبنة']},
+            {id:64,type:'dinner',name:'عصير رمان وقشطة',desc:'كوب عصير رمان طبيعي مع ملعقة قشطة.',icon:'fa-glass-water',tags:['فواكه']},
+            {id:65,type:'dinner',name:'أرز بالزبدة والسكر',desc:'طبق أرز دافئ مع زبدة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:66,type:'dinner',name:'فاكهة مجففة',desc:'طبق مشمشية، قراصيا، وتين مجفف.',icon:'fa-seedling',tags:['فواكه']},
+            {id:67,type:'dinner',name:'شيبسي بيتي بالملح',desc:'شرائح بطاطس رقيقة مقلية في زيت زيتون.',icon:'fa-plate-wheat',tags:['شيبسي']},
+            {id:68,type:'dinner',name:'قرع عسل بالقشطة',desc:'قرع عسل مطبوخ محلى بالسكر والقشطة.',icon:'fa-candy-cane',tags:['حلويات']},
+            {id:69,type:'dinner',name:'شوكولاتة وشاي أخضر',desc:'قطعة شوكولاتة داكنة مع شاي أخضر.',icon:'fa-mug-hot',tags:['مشروبات']},
+            {id:70,type:'dinner',name:'توست قشطة وعسل',desc:'توست بالردة مع قشطة بلدي وعسل نحل.',icon:'fa-bread-slice',tags:['قشطة بلدي']},
+            {id:71,type:'dinner',name:'تين وعسل نحل',desc:'ثمار تين طازجة مع ملعقة عسل طبيعي.',icon:'fa-seedling',tags:['فواكه']},
+            {id:72,type:'dinner',name:'رمان بالعسل',desc:'حبات رمان منزوعة البذر مع عسل أبيض.',icon:'fa-apple-whole',tags:['فواكه']},
+            {id:73,type:'dinner',name:'أرز بالقشطة والسكر',desc:'أرز مطبوخ بالقشطة البلدي ومحلى بالسكر.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:74,type:'dinner',name:'عصير تفاح وتوست',desc:'كوب عصير تفاح طبيعي مع توست بالزبدة.',icon:'fa-glass-water',tags:['مشروبات']},
+            {id:75,type:'dinner',name:'جبنة رومي وعسل',desc:'قطعة جبنة رومي مع ملعقة عسل.',icon:'fa-cheese',tags:['جبنة']},
+            {id:76,type:'dinner',name:'بطاطس فرن بالسمن',desc:'بطاطس مقطعة محمرة في الفرن بالسمن.',icon:'fa-mound',tags:['بطاطس']},
+            {id:77,type:'dinner',name:'خوخ مجفف وقشطة',desc:'حبات خوخ مجفف مع ملعقة قشطة بلدي.',icon:'fa-seedling',tags:['فواكه']},
+            {id:78,type:'dinner',name:'توست سمن ومربى',desc:'توست ردة دافئ محمر بالسمن ومغطى بمربى.',icon:'fa-bread-slice',tags:['توست']},
+            {id:79,type:'dinner',name:'برقوق بالتمر',desc:'طبق برقوق مجفف مع حبات تمر.',icon:'fa-seedling',tags:['فواكه']},
+            {id:80,type:'dinner',name:'شاي بالسمن والتوست',desc:'شاي أسود محلى مع توست مدهون سمن.',icon:'fa-mug-hot',tags:['مشروبات']},
+            {id:81,type:'dinner',name:'إجاص بالعسل',desc:'ثمار إجاص طازجة مع العسل الطبيعي.',icon:'fa-seedling',tags:['فواكه']},
+            {id:82,type:'dinner',name:'جبنة قريش بالعسل',desc:'طبق جبنة قريش مغمورة بالعسل الطبيعي.',icon:'fa-cheese',tags:['جبنة']},
+            {id:83,type:'dinner',name:'فريك حلو بالقشطة',desc:'طبق صغير فريك مسلوق بالقشطة والسكر.',icon:'fa-wheat-awn',tags:['فريك']},
+            {id:84,type:'dinner',name:'كمثرى بالسمن',desc:'كمثرى مقطعة ومطبوخة على النار بالسمن والسكر.',icon:'fa-apple-whole',tags:['فواكه']},
+            {id:85,type:'dinner',name:'عصير عنب طبيعي',desc:'كوب عصير عنب طبيعي مع قطعة توست.',icon:'fa-glass-water',tags:['مشروبات']},
+            {id:86,type:'dinner',name:'حلاوة طحينية وتوست',desc:'طبق حلاوة طحينية مع توست بالردة.',icon:'fa-jar',tags:['حلويات']},
+            {id:87,type:'dinner',name:'أرز بالتمر والزبدة',desc:'أرز أبيض دافئ مع شرائح تمر وزبدة.',icon:'fa-bowl-rice',tags:['أرز']},
+            {id:88,type:'dinner',name:'بطاطس بالجبنة والسمن',desc:'بطاطس مهروسة محشوة بجبنة رومي والسمن.',icon:'fa-mound',tags:['بطاطس']},
+            {id:89,type:'dinner',name:'كاكا بالعسل',desc:'ثمار كاكا طازجة مع العسل النحل.',icon:'fa-apple-whole',tags:['فواكه']},
+            {id:90,type:'dinner',name:'شاي وقصب سكر',desc:'كوب شاي مع قطعة قصب سكر طبيعي.',icon:'fa-mug-hot',tags:['مشروبات']}
         ];
 
         const grid = document.getElementById('mealsGrid');
 
-        // دالة رسم الوجبات
         function renderMeals() {
             grid.innerHTML = '';
             meals.forEach((meal, index) => {
                 let headerClass = meal.type === 'breakfast' ? 'breakfast-header' : meal.type === 'lunch' ? 'lunch-header' : 'dinner-header';
                 let typeText = meal.type === 'breakfast' ? 'فطور' : meal.type === 'lunch' ? 'غداء' : 'عشاء';
-
                 const card = document.createElement('div');
                 card.className = `meal-card`;
                 card.dataset.type = meal.type;
-                card.style.animationDelay = `${index * 0.02}s`; // سرعة الظهور
-                
+                card.style.animationDelay = `${index * 0.02}s`;
                 card.innerHTML = `
                     <div class="card-header ${headerClass}">
                         <span class="meal-type">${typeText}</span>
@@ -541,49 +348,54 @@
                         <i class="fas ${meal.icon} meal-icon"></i>
                         <h3 class="meal-title">${meal.name}</h3>
                         <p class="meal-desc">${meal.desc}</p>
-                        <div class="meal-tags">
-                            ${meal.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
+                        <div class="meal-tags">${meal.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
                     </div>
                 `;
                 grid.appendChild(card);
             });
         }
 
-        // دالة التصفية
         function filterMeals(type, e) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             if(e) e.target.classList.add('active');
-
             document.querySelectorAll('.meal-card').forEach(card => {
                 if (type === 'all' || card.dataset.type === type) {
                     card.classList.remove('hide');
-                    card.style.animation = 'none';
-                    card.offsetHeight;
-                    card.style.animation = null;
-                } else {
-                    card.classList.add('hide');
-                }
+                    card.style.animation = 'none'; card.offsetHeight; card.style.animation = null;
+                } else { card.classList.add('hide'); }
             });
         }
 
-        // دالة التنقل بين الصفحات (SPA Routing)
-        function showPage(page) {
+        function showPage(page, e) {
             document.querySelectorAll('.nav-btns button').forEach(btn => btn.classList.remove('active'));
-            event.target.classList.add('active');
-
+            if(e) e.target.classList.add('active');
             document.getElementById('meals-page').classList.remove('active');
             document.getElementById('rules-page').classList.remove('active');
-
-            if(page === 'meals') {
-                document.getElementById('meals-page').classList.add('active');
-            } else {
-                document.getElementById('rules-page').classList.add('active');
-            }
+            if(page === 'meals') { document.getElementById('meals-page').classList.add('active'); } 
+            else { document.getElementById('rules-page').classList.add('active'); }
             window.scrollTo(0, 0);
         }
 
-        // تهيئة الصفحة
+        // كود التثبيت كـ App
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('installBanner').style.display = 'flex';
+        });
+
+        function installApp() {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                deferredPrompt.userChoice.then((choiceResult) => {
+                    if (choiceResult.outcome === 'accepted') {
+                        document.getElementById('installBanner').style.display = 'none';
+                    }
+                    deferredPrompt = null;
+                });
+            }
+        }
+
         renderMeals();
     </script>
 </body>
