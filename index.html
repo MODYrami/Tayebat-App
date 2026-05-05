@@ -25,8 +25,29 @@
         .nav-btns button { padding: 0.3rem 0.6rem; border: 2px solid rgba(255,255,255,0.2); border-radius: 50px; background: transparent; color: white; font-family: 'Tajawal', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
         .nav-btns button:hover, .nav-btns button.active { background: var(--accent); border-color: var(--accent); }
         .container { max-width: 1400px; margin: 1rem auto; padding: 0 1rem; }
-        .download-app-btn { display: none; align-items: center; justify-content: center; gap: 0.5rem; background: linear-gradient(135deg, var(--accent), #d63031); color: white; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; box-shadow: 0 10px 25px rgba(225, 112, 85, 0.4); cursor: pointer; border: none; width: 100%; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 800; }
-        @media (max-width: 768px) { .download-app-btn { display: flex; } }
+        
+        /* تم تعديل الزرار عشان يظهر على كل الشاشات */
+        .download-app-btn { 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            gap: 0.5rem; 
+            background: linear-gradient(135deg, var(--accent), #d63031); 
+            color: white; 
+            padding: 0.8rem; 
+            border-radius: 1rem; 
+            margin-bottom: 1rem; 
+            box-shadow: 0 10px 25px rgba(225, 112, 85, 0.4); 
+            cursor: pointer; 
+            border: none; 
+            width: 100%; 
+            font-family: 'Tajawal', sans-serif; 
+            font-size: 1rem; 
+            font-weight: 800; 
+            transition: transform 0.2s;
+        }
+        .download-app-btn:hover { transform: translateY(-2px); }
+
         .filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
         .filter-btn { padding: 0.4rem 0.8rem; border: none; border-radius: 50px; background: var(--card-bg); color: var(--secondary); font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); transition: all 0.3s ease; }
         .filter-btn:hover, .filter-btn.active { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(225, 112, 85, 0.3); }
@@ -88,14 +109,12 @@
         .quote-box { background: var(--primary); color: white; padding: 1rem; border-radius: 1rem; margin: 0.8rem 0; font-style: italic; text-align: center; font-weight: 700; }
         .warning-box { background: #ffeaa7; padding: 1rem; border-radius: 1rem; border: 2px solid #fdcb6e; font-size: 0.9rem; color: #2d3436; line-height: 1.6; font-weight: 700; display: flex; gap: 0.5rem; }
         
-        /* تنسيق الجدول الخاص بالمقارنة */
         .comparison-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
         .comparison-table th, .comparison-table td { padding: 0.8rem; border: 1px solid #e0e0e0; text-align: center; }
         .comparison-table th { background: var(--primary); color: white; font-weight: 700; }
         .comparison-table tr:nth-child(even) { background: #f8f9fa; }
         .comparison-table .highlight-col { background: rgba(225, 112, 85, 0.1); font-weight: 700; color: var(--accent); }
 
-        /* تنسيق الركائز */
         .pillars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
         .pillar-card { background: #f8f9fa; border-radius: 1rem; padding: 1rem; text-align: center; border: 1px solid #e0e0e0; transition: transform 0.3s; }
         .pillar-card:hover { transform: translateY(-3px); }
@@ -120,7 +139,7 @@
     <div class="container">
         
         <div id="meals-page" class="page-section active">
-            <button class="download-app-btn" onclick="installApp()"><i class="fas fa-download"></i> تحميل التطبيق على موبايلك</button>
+            <button class="download-app-btn" onclick="installApp()"><i class="fas fa-download"></i> تحميل التطبيق على جهازك</button>
             <div class="filters">
                 <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (148)</button>
                 <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور</button>
@@ -503,7 +522,7 @@
             {id:65,type:'lunch',name:'سمك سيباس بالفرن',desc:'سمك سيباس بحري بالفرن مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['من أجود الأسماك','الفرن يحافظ على الزيوت الصحية']},
             {id:66,type:'lunch',name:'محشي كرنب باللحم',desc:'كرنب محشو لحم ضاني وأرز بالسمن.',icon:'fa-leaf',tags:['محشي'],protein:100,benefits:['الكرنب المطبوخ غني بالألياف','بروتين صحي']},
             {id:67,type:'lunch',name:'فتة اللحم والسمن',desc:'خبز ردة بمرقة لحم وأرز.',icon:'fa-bowl-food',tags:['فتة'],protein:100,benefits:['تراثية ومشبعة','المرقة تحتوي معادن ذائبة']},
-            {id:68,type:'lunch',name:'أرز بالبصل والسمن',desc:'أرز محمر بالسمن مع بصل محمر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['نكهة ساحرة بدون ممنوعات','ممتازة لأيام بدون بروتين']},
+            {id:68,type:'lunch',name:'أرز بالبصل والسمن',desc:'أرز محمر بالسمن مع بصل محمر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['نكهة ساحرة بدون ممنوعات','ممتدحة لأيام بدون بروتين']},
             {id:69,type:'lunch',name:'كاليماري بحري مقلي',desc:'كاليماري بحري بزيت زيتون.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['بروتين بحري خفيف','القلي بزيت زيتون صحي']},
             {id:70,type:'lunch',name:'صينية لحم وبطاطس',desc:'لحم ضاني وبطاطس بالسمن في الفرن.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['الفرن يحافظ على العصارة','البطاطس لذيذة ومشبعة']},
             {id:71,type:'lunch',name:'فريك بالسمن واللحم',desc:'فريك بلحم مفروم وسمن.',icon:'fa-wheat-awn',tags:['فريك'],protein:100,benefits:['أغنى من الأرز بالألياف','متكاملة لا تحتاج إضافات']},
@@ -655,14 +674,24 @@
 
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
+        
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
                 deferredPrompt.userChoice.then((choiceResult) => { deferredPrompt = null; });
             } else {
                 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if(isIOS) { alert("في الآيفون: اضغط على زرار المشاركة (المربع فيه سهم لفوق) واختر 'إضافة للشاشة الرئيسية'"); }
-                else { alert("للتحميل: اضغط على النقط التلاتة (⋮) في أعلى المتصفح واختر 'إضافة إلى الشاشة الرئيسية'"); }
+                let isAndroid = /Android/.test(navigator.userAgent);
+                
+                if(isIOS) { 
+                    alert("في الآيفون: اضغط على زرار المشاركة (المربع فيه سهم لفوق) واختر 'إضافة إلى الشاشة الرئيسية'"); 
+                }
+                else if(isAndroid) { 
+                    alert("في الأندرويد: اضغط على النقط التلاتة (⋮) في أعلى المتصفح على اليمين، واختر 'إضافة إلى الشاشة الرئيسية'"); 
+                }
+                else { 
+                    alert("على الكمبيوتر: اضغط على أيقونة التحميل (⛔) في شريط العنوان فوق، أو اضغط على النقط التلاتة (⋮) في زاوية المتصفح واختر 'تثبيت التطبيق' أو 'Add to Home Screen'"); 
+                }
             }
         }
 
