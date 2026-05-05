@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الطيبات - النسخة الشاملة</title>
+    <title>نظام الطيبات - الجدول الكامل</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         :root { --dark-bg: #0f0f0c; --card-bg: #1a1a15; --gold: #d4af37; --white: #ffffff; }
@@ -47,7 +47,7 @@
 
     <div id="meals-page" class="hidden">
         <div style="text-align:center; margin-bottom:20px;">
-            <button onclick="renderMeals('breakfast')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">إفطار (30)</button>
+            <button onclick="renderMeals('breakfast')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">إفطار (30 يوم)</button>
             <button onclick="renderMeals('lunch')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">غداء (11)</button>
             <button onclick="renderMeals('dinner')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">عشاء (11)</button>
         </div>
@@ -56,9 +56,9 @@
 
     <div id="chat-page" class="hidden">
         <div class="chat-box">
-            <div id="chat-display"><div class="msg ai-msg">أهلاً بك! أنا مساعدك الذكي، كيف حالك اليوم؟ اسألني عن أي شيء.</div></div>
+            <div id="chat-display"><div class="msg ai-msg">أهلاً بك! أنا مساعدك الذكي المتطور. اسألني عن أي شيء في نظام الطيبات.</div></div>
             <div class="chat-input">
-                <input type="text" id="user-query" placeholder="مثال: هلا، هل السمك مسموح؟">
+                <input type="text" id="user-query" placeholder="مثال: هل العسل مسموح؟">
                 <button onclick="handleChat()">إرسال</button>
             </div>
         </div>
@@ -67,7 +67,38 @@
 
 <script>
     const meals = {
-        breakfast: Array.from({length: 30}, (_, i) => ({t: `يوم ${i+1}`, d: "3 توست ردة + جبنة رومي/شيدر + قشطة/مربى + فاكهة (موز/تفاح) + عصير جوافة"})),
+        breakfast: [
+            {t: "اليوم 1", d: "3 توست حبوب كاملة + جبن رومي + عسل + تفاحة"},
+            {t: "اليوم 2", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 3", d: "2 توست حبوب كاملة + نوتيلا + موزة"},
+            {t: "اليوم 4", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 5", d: "2 توست حبوب كاملة + مربى + كمثرى"},
+            {t: "اليوم 6", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 7", d: "3 توست حبوب كاملة + قشطة طبيعية + عنب"},
+            {t: "اليوم 8", d: "ذرة مشوية + جبن رومي + عصير معلب جوافة"},
+            {t: "اليوم 9", d: "بطاطس مسلوقة + مربى + تمر"},
+            {t: "اليوم 10", d: "2 توست حبوب كاملة + نوتيلا + تفاحة"},
+            {t: "اليوم 11", d: "3 توست حبوب كاملة + عسل + موزة"},
+            {t: "اليوم 12", d: "قشطة طبيعية + عنب + عصير جوافة"},
+            {t: "اليوم 13", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 14", d: "2 توست حبوب كاملة + مربى + تفاحة"},
+            {t: "اليوم 15", d: "ذرة مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 16", d: "3 توست حبوب كاملة + قشطة طبيعية + كمثرى"},
+            {t: "اليوم 17", d: "2 توست حبوب كاملة + نوتيلا + عنب"},
+            {t: "اليوم 18", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 19", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 20", d: "3 توست حبوب كاملة + قشطة طبيعية + تمر"},
+            {t: "اليوم 21", d: "ذرة مشوية + جبن رومي + عصير جوافة"},
+            {t: "اليوم 22", d: "2 توست حبوب كاملة + مربى + موزة"},
+            {t: "اليوم 23", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 24", d: "3 توست حبوب كاملة + عسل + تفاحة"},
+            {t: "اليوم 25", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 26", d: "2 توست حبوب كاملة + قشطة طبيعية + تمر"},
+            {t: "اليوم 27", d: "ذرة مشوية + جبن رومي + عصير جوافة"},
+            {t: "اليوم 28", d: "3 توست حبوب كاملة + مربى + كمثرى"},
+            {t: "اليوم 29", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 30", d: "2 توست حبوب كاملة + نوتيلا + عنب"}
+        ],
         lunch: [
             {t: "وجبة 1", d: "سمك مشوي + أرز أبيض بالسمن البلدي"}, {t: "وجبة 2", d: "لحم ضاني مسلوق ومحمر + أرز وشوربة"},
             {t: "وجبة 3", d: "حمام محشي أرز بالسمن البلدي"}, {t: "وجبة 4", d: "لحم بقري موزة + أرز أبيض"},
@@ -109,13 +140,13 @@
         const display = document.getElementById('chat-display');
         display.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
         
-        let res = "أهلاً بك! لتتذكر: الطيبات هي اللحوم والأرز والبطاطس والخبز الأسمر. ابتعد عن الدجاج والبيض واللبن.";
+        let res = "أهلاً بك! تذكر قاعدة الطيبات: لحوم، أرز، بطاطس، خبز أسمر مسموحة. دجاج، بيض، لبن ممنوعة.";
         if (["هلا", "مرحبا", "هاي", "صباح", "hi", "hello"].some(g => val.includes(g))) {
-            res = "أهلاً بك يا بطل! أنا مساعدك الذكي، كيف حالك؟ أنا هنا لمساعدتك في نظام الطيبات بكل ود.";
+            res = "أهلاً بك يا بطل! أنا مساعدك الذكي المتطور، كيف يمكنني مساعدتك في رحلة التعافي اليوم؟";
         } else if (["فراخ", "بيض", "لبن", "دقيق", "زيت نباتي"].some(f => val.includes(f))) {
-            res = "⚠️ انتبه! هذا المكون ممنوع تماماً في نظام الطيبات لأنه يسبب التهابات.";
-        } else if (["ارز", "بطاطس", "لحم", "سمك", "سمن", "قشطة", "رومي", "نوتيلا"].some(a => val.includes(a))) {
-            res = "✅ مسموح! هذا العنصر من الطيبات وصديق للأمعاء.";
+            res = "⚠️ انتبه! هذا المكون ممنوع تماماً في نظام الطيبات لأنه يسبب التهابات للأمعاء.";
+        } else if (["ارز", "بطاطس", "لحم", "سمك", "سمن", "قشطة", "رومي", "نوتيلا", "عسل"].some(a => val.includes(a))) {
+            res = "✅ ممتاز! هذا العنصر مسموح به في الطيبات وصديق جداً للأمعاء.";
         }
         
         setTimeout(() => {
