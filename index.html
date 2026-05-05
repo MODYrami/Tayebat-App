@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>نظام الطيبات الذكي</title>
+    <link rel="manifest" href="manifest.json">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --dark-bg: #0f0f0c;
+            --card-bg: #1a1a15;
+            --gold-primary: #d4af37;
+            --gold-secondary: #aa8c2c;
+            --text-gray: #a0a0a0;
+            --white: #ffffff;
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--dark-bg);
+            color: var(--white);
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Bar */
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.5);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav button {
+            background: none;
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            padding: 8px 20px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        nav button.active {
+            background: var(--gold-primary);
+            color: var(--dark-bg);
+        }
+
+        /* Header Area */
+        .header {
+            text-align: center;
+            padding: 60px 20px;
+        }
+
+        .header h1 {
+            font-size: 3rem;
+            color: var(--gold-primary);
+            margin: 0;
+            letter-spacing: 2px;
+        }
+
+        .header p {
+            color: var(--text-gray);
+            font-size: 1.1rem;
+        }
+
+        /* Meals Grid */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto 40px;
+            padding: 0 20px;
+        }
+
+        .meal-card {
+            background: var(--card-bg);
+            border: 1px solid #2a2a20;
+            border-radius: 15px;
+            padding: 25px;
+            position: relative;
+            transition: 0.3s;
+        }
+
+        .meal-card:hover {
+            border-color: var(--gold-primary);
+            transform: translateY(-5px);
+        }
+
+        .meal-number {
+            background: var(--gold-primary);
+            color: var(--dark-bg);
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .meal-title {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .meal-desc {
+            color: var(--text-gray);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        .tag {
+            display: inline-block;
+            margin-top: 15px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 0.8rem;
+            background: #2a2a10;
+            color: var(--gold-primary);
+        }
+
+        /* Tabs for Meals */
+        .tabs {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .tab-trigger {
+            background: #1a1a15;
+            border: none;
+            color: var(--text-gray);
+            padding: 12px 30px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tab-trigger.active {
+            background: var(--card-bg);
+            color: var(--gold-primary);
+            box-shadow: inset 0 0 10px rgba(212, 175, 55, 0.2);
+            border: 1px solid var(--gold-primary);
+        }
+
+        /* Chat Section */
+        #chat-section {
+            max-width: 800px;
+            margin: 0 auto;
+            display: none;
+        }
+
+        .chat-container {
+            background: var(--card-bg);
+            border-radius: 20px;
+            height: 500px;
+            display: flex;
+            flex-direction: column;
+            border: 1px solid #2a2a20;
+        }
+
+        .chat-messages {
+            flex: 1;
+            padding: 20px;
+            overflow-y: auto;
+        }
+
+        .chat-input-area {
+            padding: 20px;
+            border-top: 1px solid #2a2a20;
+            display: flex;
+            gap: 10px;
+        }
+
+        .chat-input-area input {
+            flex: 1;
+            background: #000;
+            border: 1px solid #2a2a20;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+        }
+
+        .chat-input-area button {
+            background: var(--gold-primary);
+            border: none;
+            padding: 10px 25px;
+            border-radius: 10px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        /* Helpers */
+        .hidden { display: none !important; }
+        .fade-in { animation: fadeIn 0.5s ease forwards; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+    </style>
+</head>
+<body>
+
+<nav>
+    <button id="btn-meals" class="active" onclick="showPage('meals')">الوجبات</button>
+    <button id="btn-chat" onclick="showPage('chat')">المساعد الذكي ✨</button>
+</nav>
+
+<!-- صفحة الوجبات -->
+<div id="meals-page" class="fade-in">
+    <div class="header">
+        <h1>قائمة الوجبات</h1>
+        <p>وجبات صحية مختارة بعناية لصحتك وعافيتك</p>
+    </div>
+
+    <div class="tabs">
+        <button class="tab-trigger active" onclick="switchMealTab(event, 'breakfast')">🌙 فطور</button>
+        <button class="tab-trigger" onclick="switchMealTab(event, 'lunch')">☀️ غداء</button>
+        <button class="tab-trigger" onclick="switchMealTab(event, 'dinner')">🌌 عشاء</button>
+    </div>
+
+    <div id="meal-content" class="grid-container">
+        <!-- الوجبات سيتم تحميلها هنا بالـ JavaScript -->
+    </div>
+</div>
+
+<!-- صفحة الشات -->
+<div id="chat-section" class="fade-in">
+    <div class="header">
+        <h1>مساعد الطيبات الذكي</h1>
+        <p>اسأل عن أي وجبة أو مكون في النظام</p>
+    </div>
+    <div class="chat-container">
+        <div id="chat-display" class="chat-messages">
+            <div style="color: var(--gold-primary)">مرحباً بك! أنا خبير نظام الطيبات، كيف يمكنني مساعدتك اليوم؟</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="user-input" placeholder="اسأل عن المكونات، الفوائد...">
+            <button onclick="sendMessage()">إرسال</button>
+        </div>
+    </div>
+</div>
+
+<script>
+    // الداتا المحدثة بناءً على المصادر
+    const mealsData = {
+        breakfast: [
+            { id: 1, title: "كلاسيك الطيبات", desc: "توست بالردة (ريتش بيك) مدهون زبدة بلدي ومربى.", tag: "كلاسيكي" },
+            { id: 2, title: "فطور البطاطس", desc: "بطاطس مقلية في زيت زيتون مع كيس شيبسي مسموح.", tag: "طاقة" },
+            { id: 3, title: "ساندوتش الأجبان", desc: "توست بالردة محشو جبنة شيدر أو رومي (نوع جيد) مع زيت زيتون.", tag: "بروتين" },
+            { id: 4, title: "وجبة الطاقة", desc: "توست بالردة مع قشطة بلدي وحلاوة طحينية.", tag: "حلو" },
+            { id: 5, title: "البطاطا المشوية", desc: "حبتين بطاطا حلوة مشوية في الفرن بدون إضافات.", tag: "صحي" },
+            { id: 6, title: "ساندوتش النوتيلا", desc: "توست بالردة مع شوكولاتة نوتيلا المسموحة.", tag: "حلو" },
+            { id: 7, title: "أرز القشطة", desc: "أرز مسلوق محلى بالسكر مع ملعقة قشطة بلدي.", tag: "خفيف" },
+            { id: 8, title: "وجبة بسبوسة", desc: "قطعة بسبوسة بدون لبن مع شريحة توست بالردة.", tag: "حلو" },
+            { id: 9, title: "توست كشكفال", desc: "توست بالردة مع جبنة كشكفال أو برميزان مسيحة.", tag: "بروتين" },
+            { id: 10, title: "طحينة وعسل", desc: "توست بالردة مع طحينة غامقة وعسل أبيض أو مربى.", tag: "صحي" }
+        ],
+        lunch: [
+            { id: 1, title: "سمك مشوي", desc: "سمك مشوي (عمر) مع أرز أبيض مفلفل بالسمن البلدي.", tag: "يوم بروتين" },
+            { id: 2, title: "أرانب مسلوقة", desc: "أرانب محمرة بالسمن مع طبق فريك.", tag: "يوم بروتين" },
+            { id: 3, title: "محشي فلفل أخضر", desc: "فلفل أخضر محشو أرز ومشروم (مطبوخ جيداً).", tag: "نباتي مسموح" },
+            { id: 4, title: "لحم ضاني وقلقاس", desc: "لحم ضاني مسلوق جيداً ومحمر مع قلقاس وأرز.", tag: "يوم بروتين" },
+            { id: 5, title: "حمام مشوي", desc: "حمام محشو فريك ومحمر بالسمن البلدي.", tag: "يوم بروتين" },
+            { id: 6, title: "كفتة ضاني", desc: "لحم ضاني مفروم مشوي مع بطاطس مقلية.", tag: "يوم بروتين" },
+            { id: 7, title: "صينية بطاطس", desc: "بطاطس بمرقة اللحم (بدون طماطم) بقطع لحم بقري.", tag: "يوم بروتين" },
+            { id: 8, title: "ممبار وكوارع", desc: "ممبار محشو أرز مع طبق كوارع مسلوقة جيداً.", tag: "دسم مسموح" },
+            { id: 9, title: "سمان مشوي", desc: "سمان مشوي مع مكعبات بطاطس مقلية.", tag: "خفيف" },
+            { id: 10, title: "أرز بالمشروم", desc: "أرز أبيض مطبوخ بالمشروم المقلي بالسمن البلدي.", tag: "نباتي مسموح" }
+        ],
+        dinner: [
+            { id: 1, title: "بطاطس بوريه", desc: "بطاطس مهروسة ناعمة بالقشطة البلدي والملح.", tag: "خفيف" },
+            { id: 2, title: "فواكه مقشرة", desc: "تفاح وكمثرى وكاكا بدون قشر.", tag: "صحي" },
+            { id: 3, title: "عشاء الموتزاريللا", desc: "توست بالردة مع جبنة موتزاريللا سايحة.", tag: "سريع" },
+            { id: 4, title: "مانجا ولب", desc: "عصير مانجا مصفى مع لب سوري.", tag: "تسالي" },
+            { id: 5, title: "أرز بالزبدة", desc: "أرز أبيض دافئ مع زبدة بلدي وسكر.", tag: "خفيف" },
+            { id: 6, title: "توست الطحينة", desc: "توست بالردة مع طحينة غامقة ومربى.", tag: "سريع" },
+            { id: 7, title: "شيبسي بيتي", desc: "بطاطس رقيقة مقلية في زيت زيتون.", tag: "مقرمش" },
+            { id: 8, title: "فواكه مجففة", desc: "مشمشية وقراصيا وتين مجفف.", tag: "صحي" },
+            { id: 9, title: "قرع عسل", desc: "قرع عسل مطبوخ محلى بالمربى.", tag: "حلو" },
+            { id: 10, title: "شوكولاتة وشاي", desc: "شوكولاتة داكنة مع كوب شاي أخضر.", tag: "استرخاء" }
+        ]
+    };
+
+    function showPage(page) {
+        document.getElementById('meals-page').classList.toggle('hidden', page !== 'meals');
+        document.getElementById('chat-section').classList.toggle('hidden', page !== 'chat');
+        document.getElementById('btn-meals').classList.toggle('active', page === 'meals');
+        document.getElementById('btn-chat').classList.toggle('active', page === 'chat');
+    }
+
+    function renderMeals(category) {
+        const container = document.getElementById('meal-content');
+        container.innerHTML = mealsData[category].map(meal => `
+            <div class="meal-card fade-in">
+                <div class="meal-number">${meal.id}</div>
+                <div class="meal-title">${meal.title}</div>
+                <div class="meal-desc">${meal.desc}</div>
+                <span class="tag">${meal.tag}</span>
+            </div>
+        `).join('');
+    }
+
+    function switchMealTab(event, category) {
+        document.querySelectorAll('.tab-trigger').forEach(b => b.classList.remove('active'));
+        event.currentTarget.classList.add('active');
+        renderMeals(category);
+    }
+
+    // AI Logic (Simulation)
+    const systemInfo = "نظام الطيبات: المسموحات (توست ردة، أرز، بطاطس، زيت زيتون، سمن بلدي، لحم بقري/ضاني مسلوق، سمك مشوي، حمام، أرانب، جبن شيدر/رومي). الممنوعات (البيض، اللبن، الزبادي، المكرونة، الخضار النيء، الفراخ، البط).";
+
+    function sendMessage() {
+        const input = document.getElementById('user-input');
+        const display = document.getElementById('chat-display');
+        if (!input.value) return;
+
+        display.innerHTML += `<div style="margin-bottom:10px; text-align:left;">💬: ${input.value}</div>`;
+        
+        // رد بسيط للمحاكاة (يمكن ربطه بـ API لاحقاً)
+        setTimeout(() => {
+            let response = "بناءً على نظام الطيبات: " + (input.value.includes('بيض') ? "البيض ممنوع تماماً." : "هذا المكون مسموح إذا تم تحضيره بالسمن البلدي أو زيت الزيتون.");
+            display.innerHTML += `<div style="margin-bottom:15px; color: var(--gold-primary)">🤖: ${response}</div>`;
+            display.scrollTop = display.scrollHeight;
+        }, 500);
+        
+        input.value = '';
+    }
+
+    // Initial Load
+    renderMeals('breakfast');
+</script>
+</body>
+</html>
