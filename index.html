@@ -3,45 +3,45 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تطبيق الطيبات الشامل - النسخة الذكية V4</title>
+    <title>دليل نظام الطيبات الكامل</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&family=Amiri+Quran&display=swap" rel="stylesheet">
     <style>
-        /* ستايلات الواجهة - 100 سطر */
-        :root { --gold: #d4af37; --dark: #050505; --card: #121212; --text: #e0e0e0; }
+        :root { --gold: #d4af37; --red: #ff4d4d; --green: #2ecc71; --dark: #050505; --card: #121212; --text: #e0e0e0; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--dark); color: var(--text); margin: 0; }
         
         .royal-header { text-align: center; padding: 60px 20px; background: #000; border-bottom: 3px solid var(--gold); }
         .royal-title { font-family: 'Amiri Quran', serif; font-size: 7rem; color: var(--gold); margin: 0; text-shadow: 0 0 30px rgba(212,175,55,0.5); }
         
-        nav { display: flex; justify-content: center; gap: 10px; padding: 20px; background: #0a0a0a; position: sticky; top: 0; z-index: 1000; }
+        nav { display: flex; justify-content: center; gap: 10px; padding: 20px; background: #0a0a0a; position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #222; }
         .nav-link { background: #1a1a1a; border: 1px solid var(--gold); color: var(--gold); padding: 12px 25px; border-radius: 50px; cursor: pointer; font-weight: bold; transition: 0.3s; }
         .nav-link.active { background: var(--gold); color: #000; box-shadow: 0 0 20px var(--gold); }
 
         .container { max-width: 1200px; margin: 0 auto; padding: 30px; }
         
-        /* تقسيمات الجداول */
+        /* تصميم قوائم المسموح والممنوع */
+        .list-section { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 50px; }
+        .list-box { background: var(--card); border-radius: 25px; padding: 30px; border: 1px solid #222; }
+        .list-box.forbidden { border-top: 8px solid var(--red); }
+        .list-box.allowed { border-top: 8px solid var(--green); }
+        .list-box h2 { font-size: 2rem; margin-bottom: 20px; text-align: center; }
+        .list-box ul { list-style: none; padding: 0; }
+        .list-box li { padding: 12px; border-bottom: 1px solid #222; display: flex; align-items: center; gap: 10px; font-size: 1.1rem; }
+        .list-box.forbidden li::before { content: "❌"; }
+        .list-box.allowed li::before { content: "✅"; }
+
+        /* الجداول */
         .meal-type-selector { display: flex; justify-content: center; gap: 10px; margin-bottom: 30px; }
-        .type-btn { background: #1a1a1a; border: 1px solid #333; color: white; padding: 10px 20px; border-radius: 10px; cursor: pointer; }
-        .type-btn.active-type { background: var(--gold); color: black; font-weight: bold; }
+        .type-btn { background: #1a1a1a; border: 1px solid #333; color: white; padding: 12px 25px; border-radius: 15px; cursor: pointer; font-weight: bold; }
+        .type-btn.active-type { background: var(--gold); color: black; }
 
         .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 20px; }
-        .card { background: var(--card); padding: 20px; border-radius: 20px; border-right: 5px solid var(--gold); position: relative; transition: 0.3s; }
-        .card:hover { transform: translateY(-5px); background: #1a1a1a; }
-        .card h3 { color: var(--gold); margin-top: 0; font-size: 1.1rem; }
-        .card p { font-size: 1rem; line-height: 1.6; }
-
-        /* الشات الذكي */
-        .chat-box { background: #0a0a0a; border: 1px solid #222; border-radius: 30px; height: 70vh; display: flex; flex-direction: column; }
-        #chat-content { flex: 1; padding: 25px; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; }
-        .msg { padding: 15px 20px; border-radius: 20px; max-width: 80%; line-height: 1.7; font-size: 1.05rem; }
-        .user-msg { background: var(--gold); color: black; align-self: flex-start; font-weight: bold; }
-        .ai-msg { background: #1a1a1a; color: white; align-self: flex-end; border: 1px solid var(--gold); }
-        
-        .chat-input { padding: 20px; display: flex; gap: 10px; border-top: 1px solid #222; }
-        .chat-input input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 15px; border-radius: 15px; outline: none; }
-        .chat-input button { background: var(--gold); border: none; padding: 0 30px; border-radius: 15px; cursor: pointer; font-weight: bold; }
+        .card { background: var(--card); padding: 25px; border-radius: 20px; border-right: 5px solid var(--gold); transition: 0.3s; border: 1px solid #222; }
+        .card:hover { transform: translateY(-5px); border-color: var(--gold); }
+        .card h3 { color: var(--gold); margin-top: 0; font-size: 1.2rem; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        .card p { font-size: 1.05rem; line-height: 1.6; color: #ccc; }
 
         .hidden { display: none; }
+        @media (max-width: 768px) { .list-section { grid-template-columns: 1fr; } }
     </style>
 </head>
 <body>
@@ -51,20 +51,44 @@
 </div>
 
 <nav>
-    <button class="nav-link active" onclick="showP('home')">الرئيسية</button>
-    <button class="nav-link" onclick="showP('meals')">الجدول الـ 30 يوم</button>
-    <button class="nav-link" onclick="showP('chat')">المساعد الذكي</button>
+    <button class="nav-link active" onclick="showP('lists')">📂 المسموحات والممنوعات</button>
+    <button class="nav-link" onclick="showP('meals')">📅 جدول الـ 30 يوم</button>
 </nav>
 
 <div class="container">
-    <div id="p-home">
-        <div class="grid">
-            <div class="card"><h3>لماذا نظام الطيبات؟</h3><p>لأن صحتك تبدأ من أمعائك، نبتعد عن كل ما يسبب الالتهاب ونعود للفطرة.</p></div>
-            <div class="card"><h3>ممنوعات حاسمة</h3><p>لا دجاج، لا بيض، لا لبن سائل، لا بقوليات، لا زيوت نباتية.</p></div>
-            <div class="card"><h3>مسموحات ذهبية</h3><p>لحم بقري، ضاني، سمك، حمام، أرز، بطاطس، سمن بلدي.</p></div>
+    
+    <!-- قسم القوائم الصريحة -->
+    <div id="p-lists">
+        <div class="list-section">
+            <!-- الممنوعات -->
+            <div class="list-box forbidden">
+                <h2 style="color: var(--red);">الخبائث (ممنوع)</h2>
+                <ul>
+                    <li>الطيور: الفراخ (أبيض/بلدي)، الرومي، البيض، البط المسكوفي.</li>
+                    <li>الألبان: اللبن السائل، الزبادي، الجبنة البيضاء، الفيتا.</li>
+                    <li>البقوليات: الفول، العدس، الفاصوليا، اللوبيا، الحمص، الترمس.</li>
+                    <li>الخضار: الطماطم، الخيار، الخضار النيء (سلطة)، الملوخية، الباميا.</li>
+                    <li>الزيوت: زيت عباد الشمس، زيت الذرة، السمن النباتي، المارجرين.</li>
+                    <li>أخرى: الفينو، الشوفان، البرغل، التوابل المشكلة، الخل.</li>
+                </ul>
+            </div>
+            <!-- المسموحات -->
+            <div class="list-box allowed">
+                <h2 style="color: var(--green);">الطيبات (مسموح)</h2>
+                <ul>
+                    <li>اللحوم: بقري، ضاني، جملي، ماعز، كبدة، كوارع، نخاع.</li>
+                    <li>الطيور المسموحة: الحمام، الأرانب، البط البلدي فقط.</li>
+                    <li>الأسماك: كل أنواع السمك، الجمبري، السبيط، الكابوريا.</li>
+                    <li>النشويات: الأرز الأبيض، البطاطس، البطاطا، التوست الأسمر، الذرة.</li>
+                    <li>الدهون: السمن البلدي، الزبدة الطبيعية، لية الضاني، القشطة.</li>
+                    <li>الأجبان: رومي قديم، شيدر طبيعي، فلامنك، جودة.</li>
+                    <li>الفواكه: تفاح (مقشر)، موز، مانجو، تين، عنب.</li>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <!-- قسم الجداول -->
     <div id="p-meals" class="hidden">
         <div class="meal-type-selector">
             <button class="type-btn active-type" onclick="loadM('br')">إفطار</button>
@@ -74,52 +98,26 @@
         <div id="meals-container" class="grid"></div>
     </div>
 
-    <div id="p-chat" class="hidden">
-        <div class="chat-box">
-            <div id="chat-content">
-                <div class="ai-msg msg">أهلاً يا وحش! أنا المساعد الذكي المطور. تم تقسيم الوجبات وتحديث "المخ" الخاص بي لأفهمك بشكل أفضل. اسألني عن أي شيء!</div>
-            </div>
-            <div class="chat-input">
-                <input type="text" id="ai-input" placeholder="اكتب سؤالك هنا (مثلاً: هل الفول مسموح؟)...">
-                <button onclick="startChat()">إرسال</button>
-            </div>
-        </div>
-    </div>
 </div>
 
 <script>
-    // قاعدة بيانات الوجبات - 300 سطر بيانات
+    // قاعدة بيانات الوجبات الـ 90
     const db = {
         br: [
-            "3 قطع توست أسمر + جبن رومي قديم + مربى فراولة", "بطاطس مسلوقة ومهروسة بالسمن البلدي + توست", "توست أسمر + حلاوة طحينية + قشطة فلاحي", "أرز بالماء والسكر والقشطة (بليلة أرز)", "ذرة مسلوقة + جبن شيدر طبيعي + شاي سادة", "توست أسمر + نوتيلا + ثمرة موز", "بطاطا حلوة مشوية + زبدة طبيعية", "قشطة وعسل نحل + توست أسمر", "بليلة قمح بالماء والسكر والقشطة", "أرز دافئ بالسمن والملح + توست وجبن",
-            "3 توست + جبن قديم + تفاحة مقشرة", "بطاطس محمرة بالزبدة + توست", "توست وعسل أسود وقشطة", "أرز بالسكر + مربى تين", "توست وشيدر طبيعي + ذرة مشوية", "بسكويت نشادر (منزلي بالسمن) + شاي", "توست أسمر ومربى مشمش + زبدة", "بطاطس مهروسة بالكمون والزبدة", "أرز بالزبدة والسكر", "توست وجبن رومي + ثمرة تين",
-            "3 توست وجبن قديم وشاي", "بطاطس مكعبات بالسمن", "قشطة وعسل نحل بالتوست", "ذرة مسلوقة وشيدر", "توست أسمر ونوتيلا", "أرز دافئ بالسمن", "بطاطا مشوية بالزبدة", "توست ومربى فراولة", "جبن رومي وشاي سادة", "وجبة خفيفة: توست وقشطة"
+            "3 توست أسمر + جبن رومي قديم + عسل نحل", "بطاطس مسلوقة بالسمن البلدي + توست", "توست أسمر + حلاوة طحينية + قشطة", "أرز بالماء والسكر والقشطة", "ذرة مسلوقة + جبن شيدر طبيعي", "توست أسمر + نوتيلا + موز", "بطاطا حلوة مشوية + زبدة", "قشطة وعسل نحل + توست أسمر", "بليلة قمح بالماء والسكر والقشطة", "أرز بالسمن والملح + توست وجبن",
+            "توست + جبن قديم + تفاحة مقشرة", "بطاطس محمرة بالزبدة + توست", "توست وعسل أسود وقشطة", "أرز بالسكر + مربى تين", "توست وشيدر طبيعي + ذرة مشوية", "بسكويت نشادر منزلي + شاي", "توست أسمر ومربى مشمش + زبدة", "بطاطس مهروسة بالكمون والزبدة", "أرز بالزبدة والسكر", "توست وجبن رومي + ثمرة تين",
+            "توست وجبن قديم وشاي", "بطاطس مكعبات بالسمن", "قشطة وعسل نحل بالتوست", "ذرة مسلوقة وشيدر", "توست أسمر ونوتيلا", "أرز دافئ بالسمن", "بطاطا مشوية بالزبدة", "توست ومربى فراولة", "جبن رومي وشاي سادة", "توست وقشطة وعسل"
         ],
         lu: [
-            "لحم بقري محمر + أرز أبيض بالسمن + شوربة دسمة", "سمك ماكريل مشوي + أرز صيادية دافئ", "حمام محشي أرز + بطاطس فرن بالزبدة", "أرانب محمرة + أرز + مرق أرانب", "لحم ضاني موزة + أرز أبيض مفلفل", "كبدة بقري بالردة + توست أسمر + بطاطس", "سمك بوري مشوي + أرز أبيض بالسمن", "بط بلدي محمر + أرز دافئ", "جمبري مشوي + أرز صيادية بالكمون", "كفتة بقري (بدون برغل) + أرز",
+            "لحم بقري محمر + أرز أبيض بالسمن", "سمك ماكريل مشوي + أرز صيادية", "حمام محشي أرز + بطاطس فرن", "أرانب محمرة + أرز + شوربة", "لحم ضاني موزة + أرز أبيض", "كبدة بقري بالردة + توست أسمر", "سمك بوري مشوي + أرز أبيض", "بط بلدي محمر + أرز دافئ", "جمبري مشوي + أرز صيادية", "كفتة بقري فرن + أرز",
             "سبيط مقلي بالزبدة + أرز أبيض", "لحم جملي مطبوخ + أرز + شوربة", "حمام مشوي + بطاطس مهروسة", "مخ بقري بالزبدة + توست أسمر", "سمك بلطي مشوي + أرز صيادية", "لحم رأس + شوربة كوارع + أرز", "ريش ضاني مشوية + بطاطس فرن", "أرانب بالمرق + أرز بالسمن", "سمك قروص سنجاري + أرز", "كبدة بقري بالسمن + توست أسمر",
-            "بط بلدي بالفرن + أرز مفلفل", "لحم موزة بقري + بطاطس مكعبات", "جمبري بالزبدة + أرز أبيض", "سمك دنيس مشوي + أرز", "كفتة داوود باشا بقري + أرز", "لحم مشوي + بطاطس مشوية", "سمك بوري بالزيت والليمون + أرز", "أرانب محمرة وشوربة دسمة", "لحم ضاني ريش + أرز", "وليمة طيبات (لحم + حمام + أرز)"
+            "بط بلدي بالفرن + أرز مفلفل", "لحم موزة بقري + بطاطس مكعبات", "جمبري بالزبدة + أرز أبيض", "سمك دنيس مشوي + أرز", "كفتة داوود باشا + أرز", "لحم مشوي + بطاطس مشوية", "سمك بوري بالزيت والليمون + أرز", "أرانب محمرة وشوربة دسمة", "لحم ضاني ريش + أرز", "وليمة طيبات (لحم + حمام + أرز)"
         ],
         di: [
-            "بطاطس مهروسة بالكمون والسمن البلدي", "2 توست أسمر + جبن رومي قديم", "أرز بالماء والسكر والقشطة", "تفاح مقشر + عسل نحل + زبدة", "بطاطا حلوة مشوية في الفرن", "توست أسمر + جبن شيدر طبيعي", "أرز دافئ بالزبدة والملح", "توست ومربى فراولة وقشطة", "ذرة مشوية + شاي سادة", "بليلة قمح بالماء والسكر",
+            "بطاطس مهروسة بالسمن البلدي", "2 توست أسمر + جبن رومي قديم", "أرز بالماء والسكر والقشطة", "تفاح مقشر + عسل نحل + زبدة", "بطاطا حلوة مشوية", "توست أسمر + جبن شيدر طبيعي", "أرز دافئ بالزبدة والملح", "توست ومربى فراولة وقشطة", "ذرة مشوية + شاي سادة", "بليلة قمح بالماء والسكر",
             "توست وحلاوة طحينية", "بطاطس محمرة بالزبدة", "أرز بالسمن والملح", "قشطة وعسل نحل بالتوست", "توست وجبن قديم وتفاح", "بطاطس فرن بالكمون", "موز وتين وعسل", "أرز بالسكر والقشطة", "توست أسمر وشيدر", "ذرة مسلوقة وزبدة",
-            "توست ومربى تين", "بطاطس مهروسة سادة", "أرز دافئ جداً بالسمن", "توست وجبن رومي", "تفاحة مقشرة وعسل", "قشطة فلاحي وتوست", "بطاطا مشوية", "أرز بالماء والسكر", "توست وشيدر", "وجبة خفيفة نهائية"
+            "توست ومربى تين", "بطاطس مهروسة سادة", "أرز دافئ بالسمن", "توست وجبن رومي", "تفاحة مقشرة وعسل", "قشطة فلاحي وتوست", "بطاطا مشوية", "أرز بالماء والسكر", "توست وشيدر", "وجبة خفيفة نهائية"
         ]
-    };
-
-    // مخ الـ AI المتطور - 150 سطر منطق
-    const brain = {
-        ok: ["لحم", "سمك", "حمام", "ارانب", "بط بلدي", "ارز", "بطاطس", "توست", "قشطة", "سمن", "زبدة", "عسل", "تفاح", "موز", "مانجو", "تين", "سكر", "نوتيلا", "رومي قديم", "شيدر"],
-        no: ["فراخ", "دجاج", "بيض", "لبن", "حليب", "زبادي", "جبنة بيضاء", "بقوليات", "فول", "عدس", "طماطم", "خيار", "خضار ني", "زيت نباتي", "فينو", "شوفان"],
-        responses: {
-            greet: ["يا هلا بالبطل!", "مرحباً بك في نظام الصحة والجمال.", "وعليكم السلام، كيف أساعدك اليوم؟"],
-            social: {
-                "مين انت": "أنا مساعدك الشخصي الذكي، خبير في نظام الطيبات، ومهمتي أخليك وحش في صحتك!",
-                "ذكاء": "أنا بحاول أكون ذكي عشانك، وبفهمك من سياق كلامك مش بس كلمات محفوظة.",
-                "شكرا": "العفو يا وحش، المهم تلتزم وتبعد عن الخبائث!",
-                "تعبان": "لو ملتزم بنظام الطيبات، التعب ده مجرد تنظيف سموم، استمر واشرب سوائل دافئة."
-            }
-        }
     };
 
     function showP(p) {
@@ -135,32 +133,6 @@
         event?.currentTarget?.classList?.add('active-type') || document.querySelector('.type-btn').classList.add('active-type');
         const container = document.getElementById('meals-container');
         container.innerHTML = db[type].map((m, i) => `<div class="card"><h3>اليوم ${i+1}</h3><p>${m}</p></div>`).join('');
-    }
-
-    function startChat() {
-        const input = document.getElementById('ai-input');
-        const val = input.value.trim().toLowerCase();
-        if(!val) return;
-        const chat = document.getElementById('chat-content');
-        chat.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
-        
-        let res = "سؤالك ذكي، لكن القاعدة العامة في الطيبات: ابعد عن أي حاجة بتعمل التهاب (زي الدجاج واللبن) وخليك في اللحوم والنشويات النظيفة.";
-
-        // منطق الرد الاجتماعي
-        for (let k in brain.responses.social) {
-            if (val.includes(k)) res = brain.responses.social[k];
-        }
-        if (val.includes("هلا") || val.includes("سلام")) res = brain.responses.greet[Math.floor(Math.random()*3)];
-
-        // فحص المحتوى
-        brain.no.forEach(n => { if(val.includes(n)) res = `❌ **احذر!** الـ (${n}) من الخبائث الممنوعة تماماً. بتسبب وجع بطن والتهابات.`; });
-        brain.ok.forEach(o => { if(val.includes(o)) res = `✅ **ممتاز!** الـ (${o}) من أصل الطيبات. تقدر تاكله وتستمتع بصحتك.`; });
-
-        setTimeout(() => {
-            chat.innerHTML += `<div class="msg ai-msg">${res}</div>`;
-            chat.scrollTop = chat.scrollHeight;
-        }, 500);
-        input.value = "";
     }
 </script>
 </body>
