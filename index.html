@@ -88,6 +88,21 @@
         .quote-box { background: var(--primary); color: white; padding: 1rem; border-radius: 1rem; margin: 0.8rem 0; font-style: italic; text-align: center; font-weight: 700; }
         .warning-box { background: #ffeaa7; padding: 1rem; border-radius: 1rem; border: 2px solid #fdcb6e; font-size: 0.9rem; color: #2d3436; line-height: 1.6; font-weight: 700; display: flex; gap: 0.5rem; }
         
+        /* تنسيق الجدول الخاص بالمقارنة */
+        .comparison-table { width: 100%; border-collapse: collapse; margin-top: 0.5rem; font-size: 0.9rem; }
+        .comparison-table th, .comparison-table td { padding: 0.8rem; border: 1px solid #e0e0e0; text-align: center; }
+        .comparison-table th { background: var(--primary); color: white; font-weight: 700; }
+        .comparison-table tr:nth-child(even) { background: #f8f9fa; }
+        .comparison-table .highlight-col { background: rgba(225, 112, 85, 0.1); font-weight: 700; color: var(--accent); }
+
+        /* تنسيق الركائز */
+        .pillars-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 1rem; margin-top: 0.5rem; }
+        .pillar-card { background: #f8f9fa; border-radius: 1rem; padding: 1rem; text-align: center; border: 1px solid #e0e0e0; transition: transform 0.3s; }
+        .pillar-card:hover { transform: translateY(-3px); }
+        .pillar-icon { font-size: 2rem; margin-bottom: 0.5rem; color: var(--accent); }
+        .pillar-title { font-weight: 900; color: var(--primary); font-size: 1rem; margin-bottom: 0.3rem; }
+        .pillar-desc { font-size: 0.8rem; color: var(--secondary); line-height: 1.5; }
+
         footer { text-align: center; padding: 1.5rem; color: var(--secondary); font-size: 0.8rem; border-top: 1px solid #e0e0e0; background: var(--bg-light); margin-top: 2rem; }
     </style>
 </head>
@@ -105,7 +120,6 @@
     <div class="container">
         
         <div id="meals-page" class="page-section active">
-            <!-- تم تعديل العدد ليكون 148 بدلاً من 150 -->
             <button class="download-app-btn" onclick="installApp()"><i class="fas fa-download"></i> تحميل التطبيق على موبايلك</button>
             <div class="filters">
                 <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (148)</button>
@@ -162,6 +176,16 @@
                             <li>التوت، البرقوق، المشمش</li>
                         </ul>
                     </div>
+                    <div class="rule-card allowed-card">
+                        <h3><i class="fas fa-mug-saucer"></i> المشروبات المسموحة</h3>
+                        <ul class="rule-list">
+                            <li>الشاي الأسود (بسكر)</li>
+                            <li>القهوة العربية</li>
+                            <li>عصائر الفواكه الطبيعية</li>
+                            <li>عصير قصب السكر</li>
+                            <li>الماء (فقط عند العطش)</li>
+                        </ul>
+                    </div>
                 </div>
                 <div class="rule-col">
                     <div class="rule-card forbidden-card">
@@ -204,6 +228,7 @@
                             <li>البرتقال، الجريب فروت</li>
                             <li>الأناناس، الكيوي</li>
                             <li>المشروبات الغازية والصناعية</li>
+                            <li>جميع أنواع الكحول</li>
                         </ul>
                     </div>
                 </div>
@@ -214,49 +239,186 @@
             <div class="story-container">
                 <div class="story-card">
                     <h3><i class="fas fa-user-doctor"></i> من هو د. ضياء العوضي؟</h3>
-                    <p>طبيب تخدير ووحدات عناية مركزة من مصر. اتخذ منصات التواصل الرقمي (يوتيوب، تيك توك) منصة لتقديم نظام غذائي أثار جدلاً واسعاً. صاحب فكرة "نظام الطيبات" والذي تصدر المشهد الرقمي العربي وحقق شهادات واسعة من المتابعين الذين شهدوا تحسناً في صحتهم.</p>
+                    <p>طبيب مصري متخصص في التخدير والعناية المركزة، وُلد وعاش في مصر. اشتهر بشكل واسع عبر منصات التواصل الرقمي (يوتيوب، تيك توك، وفيسبوك) ليصبح ظاهرة اجتماعية وغذائية فريدة في عالمنا العربي. طرح نظاماً غذائياً أثار جدلاً واسعاً، واستمرت قضيته محور نقاش حاد بين المؤيدين الذين يشهدون بتحسن صحتهم، والأطباء الذين يرون مخاطر جسيمة في بعض توصياته. توفي رحمه الله في الفترة الأخيرة، ليتصدر اسمه التريند عربياً في الإمارات المتحدة.</p>
                 </div>
                 <div class="story-card">
-                    <h3><i class="fas fa-brain"></i> الفلسفة الأساسية للنظام</h3>
-                    <p>يرى الدكتور ضياء أن الأمراض المزمنة (كالسكري والضغط والقولون العصبي) ليست أمراضاً بحد ذاتها، بل هي "صرخات جسدية" تعبر عن فشل الجهاز الهضمي في التعامل مع ما يُدخل إليه. يرى أن الحل الجذري ليس بالدواء، بل بإزالة الأطعمة التي تُثقل الهضم وتخلق فضلات سامة داخل القنوات الهضمية.</p>
+                    <h3><i class="fas fa-brain"></i> الفلسفة الفكرية والمنطلقات</h3>
+                    <p>نظام الطيبات يقوم على فكرة مركزية واحدة: تقليل العبء على الجهاز الهضمي. يرى الدكتور ضياء أن معظم الأمراض المزمنة — من القولون إلى السكري إلى الضغط — ليست أمراضاً في حد ذاتها، بل هي "صرخات جسدية" تعبّر عن فشل الجهاز الهضمي في معالجة ما نُدخله إليه. ثمَّ إن الحل الجذري لا يكون بالدواء، بل بإزالة المسبب أولاً.</p>
                     <div class="quote-box">"السرطان لا يبدأ في الخلية.. يبدأ في طبقك"</div>
+                    <div class="quote-box" style="background: var(--accent);">"السكر ليس هو المرض، بل هو صرخة الجسم تقول: توقف عن التخريبي"</div>
+                    <div class="quote-box" style="background: #636E72;">"أنت لا تحتاج لإصلاح الجسم... بل التوقف عن تخريبه"</div>
+                    <p style="margin-top: 1rem;">تنطلق الفلسفة من مبدأ أن الجسم لديه قدرة ذاتية على الشفاء إذا استقام منحنى الطعام الصحيح. أما الأطعمة التي تُثقل الهضم وتخلق "فضلات سامة" داخل الهضمية القنوات فإننا نزحف عنه، فهي الطيبات التي تُجود بالطاقة على الجسم دون أن تُرهقه بالهضم، وهو مفهوم يتوافق مع القرآني المفهوم.</p>
                 </div>
+                
+                <div class="story-card" style="border-top-color: var(--green);">
+                    <h3><i class="fas fa-gem"></i> الركائز الخمس الأساسية للنظام</h3>
+                    <p>يعتمد النظام على خمس ركائز غذائية يعتبرها الدكتور ضياء حجر الأساس وعماد التغذية الصحية:</p>
+                    <div class="pillars-grid">
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🍚</div>
+                            <div class="pillar-title">الأرز (النشويات)</div>
+                            <div class="pillar-desc">الأساس والحجر، يُغذي الجسم نشويات سهلة الهضم دون فضلات سامة (بصل أو ثوم بدون، أو مسلوق مطبوخ بالزيت).</div>
+                        </div>
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🧈</div>
+                            <div class="pillar-title">الزيت الحيواني (الدهون)</div>
+                            <div class="pillar-desc">سمن أو زبدة، دهون طبيعية لا تُسبب انسداداً وتُغذي الخلايا (للطبخ أو كإضافة للأكل).</div>
+                        </div>
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🍬</div>
+                            <div class="pillar-title">السكر (طاقة سريعة)</div>
+                            <div class="pillar-desc">يمنح طاقة سريعة دون هضمي عبء كبير (بكميات معتدلة، كمُحلٍّ أو في المشروبات طبيعي).</div>
+                        </div>
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🥔</div>
+                            <div class="pillar-title">البطاطس (الخضار الوحيد)</div>
+                            <div class="pillar-desc">الخضار الوحيد الذي يتوافق مع فلسفة النظام (مسلوقة أو مشوية، ليس مقلية).</div>
+                        </div>
+                        <div class="pillar-card">
+                            <div class="pillar-icon">🌴</div>
+                            <div class="pillar-title">التمر (الركيزة الخامسة)</div>
+                            <div class="pillar-desc">مصدر متكامل للطاقة والمعادن الطبيعية والسكريات (كوجبة خفيفة أو على الريق).</div>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="story-card">
                     <h3><i class="fas fa-star"></i> القواعد الذهبية السبع</h3>
-                    <p style="margin-bottom: 0.5rem;"><strong>1. الجوع الحقيقي:</strong> لا تأكل إلا عند الشعور بالجوع الفعلي، لا وقت الوجبة أو الملل.</p>
-                    <p style="margin-bottom: 0.5rem;"><strong>2. التوقف قبل الشبع:</strong> قِف قبل أن تبدأ بالشعور بالامتلاء.</p>
-                    <p style="margin-bottom: 0.5rem;"><strong>3. الصيام الدوري:</strong> صيام الاثنين والخميس (13، 14، 15 من كل شهر قمري).</p>
-                    <p style="margin-bottom: 0.5rem;"><strong>4. مياه العطش:</strong> لا تشرب الماء إلا عندما تشعر بالعطش الحقيقي، ولا تشرب كمية كبيرة دفعة واحدة.</p>
-                    <p style="margin-bottom: 0.5rem;"><strong>5. الطبخ السليم:</strong> اللحوم تُسلق أولاً، وتُجنب المقليات الجاهزة.</p>
-                    <p style="margin-bottom: 0.5rem;"><strong>6. النوعية لا الكمية:</strong> التركيز على جودة الطعام وقدرة الجسم على امتصاصه وليس عدد السعرات.</p>
-                    <p><strong>7. الرياضة الخفيفة:</strong> المشي اليومي أو التمارين البسيطة، وتجنب الجيم العنيف أو الرياضة الثقيلة.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>1. الجوع الحقيقي:</strong> لا تأكل إلا عند الشعور بالجوع الفعلي، وليس بالرغبة أو الملل أو وقت الوجبة التقليدي.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>2. التوقف قبل الشبع:</strong> قِفْ حين تبدأ بالشعور بالامتلاء؛ الجسم لا يحتاج إلى اكتمال الشبع.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>3. الصيام الدوري الاختياري:</strong> صيام الاثنين والخميس، وصيام الأيام البيض (13، 14، 15) من كل شهر قمري.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>4. المياه عند العطش فقط:</strong> لا تشرب الماء إلا حين تشعر بالحقيقي العطش، ولا تُكثر من شربه دفعة واحدة.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>5. الطبخ السليم:</strong> تُسلق اللحوم جيداً ثم تُحمَّر، وتُجنَّب المقليات الجاهزة.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>6. النوعية لا الكمية:</strong> التركيز على نوعية الطعام وقدرة الجسم على امتصاصه، وليس عدد السعرات.</p>
+                    <p><strong>7. الرياضة الخفيفة:</strong> المشي اليومي أو البسيطة التمارين، ولا الجيم المُرهِق ولا العنيفة الرياضة.</p>
                 </div>
+
+                <div class="story-card">
+                    <h3><i class="fas fa-dumbbell"></i> منهجية التدريب الرياضي في النظام</h3>
+                    <p>يُعد الكتاب جدولاً حصرياً يجمع بين تعاليم نظام الطيبات ومبادئ الحديث التدريب العلمي والخفيفة الحركة، ليكون شمولاً أكثر تفصيلاً (مما يُتداول على تيك توك وانستغرام وفيسبوك). الجدول مصمَّ ليتوافق مع مبدأ "عدم إرهاق الجسم" كما يدعو نظام الطيبات، ويحافظ على العضلات كتلة مع تخفيض الدهون. صالح للبيت والجيم — لا يتطلب معدات ثقيلة.</p>
+                    <p style="margin-top:0.5rem"><strong>المرحلة الأولى (3 أسابيع): بناء الأساس.</strong> التركيز على تنشيط العضلي الجهاز الهيكلي، ضبط التنفس، وبناء العضلية الصفيحة. مدة كل جلسة: 35 إلى 50 دقيقة، يشمل مرونة استشفاء يومي لحماية المفاصل.</p>
+                    <p><strong>المرحلة الثانية (3 أسابيع): التكثيف والتشكيل.</strong> يرتفع الحجم بنسبة 15%، وتُضاف تقنية Drop Sets في آخر سيت لكل مجموعة، وتُقلَّص فترات الراحة بمقدار 10-15 ثانية.</p>
+                </div>
+
+                <div class="story-card">
+                    <h3><i class="fas fa-utensils"></i> التغذية اليومية المتوافقة مع الرياضة</h3>
+                    <ul style="padding-right: 1rem; color: var(--secondary); line-height: 2;">
+                        <li><strong>عند الاستيقاظ:</strong> كوب ماء دافئ + 3-5 تمرات لتنشيط الجهاز الهضمي برفق.</li>
+                        <li><strong>قبل التدريب بساعة (60 د):</strong> توست بالردة + شاي بسكر + ملعقة سمن (طاقة مستدامة من نشويات معقدة).</li>
+                        <li><strong>بعد التدريب (خلال 30 د):</strong> أرز مصري + بطاطس مسلوقة + قطعة لحم بقري مسلوقة (استعادة الجليكوجين وبناء العضلات).</li>
+                        <li><strong>الغداء (عند الشعور بالجوع 3-12 م):</strong> سمك بحري مشوي + بطاطس مسلوقة + أرز + خبز كامل (الوجبة الأكثر تغذيةً).</li>
+                        <li><strong>وجبة خفيفة (فقط عند الجوع):</strong> تفاح أو عنب أو رمان + جبن قريش (سكريات طبيعية وبروتين خفيف).</li>
+                        <li><strong>العشاء (قبل النوم بـ 2-3 ساعات):</strong> توست بالردة + جبن بلدي + زبدة أو عسل (وجبة خفيفة لا تُرهق الجسم أثناء النوم).</li>
+                    </ul>
+                </div>
+
+                <div class="story-card">
+                    <h3><i class="fas fa-balance-scale"></i> مقارنة نظام الطيبات بالأنظمة الغذائية الأخرى</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>المعيار</th>
+                                <th class="highlight-col">نظام الطيبات</th>
+                                <th>الكيتو</th>
+                                <th>الصيام المتقطع 16/8</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>النشويات (أرز، بطاطس)</td>
+                                <td class="highlight-col">مسموح</td>
+                                <td>ممنوع تقريباً</td>
+                                <td>مسموح بحذر</td>
+                            </tr>
+                            <tr>
+                                <td>الدجاج والبيض</td>
+                                <td class="highlight-col">ممنوع</td>
+                                <td>مسموح</td>
+                                <td>مسموح</td>
+                            </tr>
+                            <tr>
+                                <td>الخضروات الورقية</td>
+                                <td class="highlight-col">ممنوع</td>
+                                <td>مسموح أساسي</td>
+                                <td>مسموح</td>
+                            </tr>
+                            <tr>
+                                <td>السكر</td>
+                                <td class="highlight-col">مقيَّد (بكميات)</td>
+                                <td>مقيَّد جداً</td>
+                                <td>ممنوع د</td>
+                            </tr>
+                            <tr>
+                                <td>الدهون الحيوانية</td>
+                                <td class="highlight-col">مشجَّعة</td>
+                                <td>أساسية</td>
+                                <td>معتدلة</td>
+                            </tr>
+                            <tr>
+                                <td>الصيام</td>
+                                <td class="highlight-col">مشجَّع (أيام معينة)</td>
+                                <td>أساسية</td>
+                                <td>أساسية</td>
+                            </tr>
+                            <tr>
+                                <td>التمر</td>
+                                <td class="highlight-col">ركيزة أساسية</td>
+                                <td>ممنوع</td>
+                                <td>غير مذكور</td>
+                            </tr>
+                            <tr>
+                                <td>المياه</td>
+                                <td class="highlight-col">فقط عند العطش</td>
+                                <td>وفيرة</td>
+                                <td>وفيرة</td>
+                            </tr>
+                            <tr>
+                                <td>الأدلة العلمية</td>
+                                <td class="highlight-col">شهادات لا دراسات</td>
+                                <td>دراسات قوية</td>
+                                <td>دراسات معتمدة</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
                 <div class="story-card">
                     <h3><i class="fas fa-check-double"></i> الحجج المؤيدة للنظام</h3>
-                    <ul style="padding-right: 1rem; color: var(--secondary);">
+                    <ul style="padding-right: 1rem; color: var(--secondary); line-height: 1.8;">
                         <li>آلاف المتابعين يشهدون بانخفاض أوزانهم وتحسن مؤشرات الضغط والسكري.</li>
-                        <li>يتوافق مع التوصيات الحديثة بتقليل الأطعمة المصنعة والدجاج.</li>
-                        <li>الصيام المتقطع له أدلة علمية معتمدة على تحسين حساسية الإنسولين.</li>
-                        <li>يعكس منهجية "الأكل الواعي" المعتمدة في الطب السلوكي الحديث.</li>
+                        <li>يتوافق مع التوصيات الحديثة بتقليل الأطعمة المصنَّعة والدجاج صناعياً المنتج.</li>
+                        <li>الصيام المتقطع الذي يدعو إليه النظام له أدلة علمية معتمدة على تحسين الحساسية للإنسولين.</li>
+                        <li>التركيز على الأكل عند الجوع الحقيقي يعكس منهجية "الأكل الواعي" المعتمدة في السلوكي الطب.</li>
                     </ul>
                 </div>
                 <div class="story-card">
                     <h3><i class="fas fa-triangle-exclamation" style="color:#d63031"></i> الانتقادات الطبية الموثقة</h3>
-                    <ul style="padding-right: 1rem; color: var(--secondary);">
-                        <li>منع الدجاج والبيض يحرم الجسم من مصادر بروتين عالية الجودة ضرورية لبناء العضلات.</li>
-                        <li>منع الخضروات الورقية يفقد الجسم الألياف الغذائية والفيتامينات الأساسية (مثل فيتامين C و A).</li>
-                        <li>التقليل من المياه يتعارض مع التوصيات الطبية الحديثة لمنع اضطراب الكهارل، خاصة في الحرارة الشديدة.</li>
-                        <li>السماح بالسكر الأبيض بكميات يتعارض مع الدراسات التي تربط استهلاكه الزائد بمقاومة الإنسولين.</li>
+                    <ul style="padding-right: 1rem; color: var(--secondary); line-height: 1.8;">
+                        <li><strong>منع الدجاج والبيض:</strong> يحرم الجسم من مصادر بروتين صحية عالية الجودة ضرورية لبناء العضلات.</li>
+                        <li><strong>منع الخضروات الورقية:</strong> يفقد الجسم الألياف الأساسية والفيتامينات الحيوية (ك، ج، أ).</li>
+                        <li><strong>التقليل من المياه:</strong> خطر على الكلى واضطراب في توازن الكهارل، خاصة مع الحرارة الشديدة.</li>
+                        <li><strong>نقطة الخلاف الأكبر - الأدوية:</strong> لا يجوز التوقف عن أدوية مزمنة إلا تحت إشراف طبي دقيق.</li>
+                        <li><strong>السماح بالسكر الأبيض:</strong> يتعارض مع الحديثة الطبية التوصيات التي تربط الزائد الاستهلاك بمقاومة الإنسولين للسكر.</li>
                     </ul>
                     <div class="warning-box">
                         <i class="fas fa-exclamation-triangle" style="color:#d63031; font-size:1.3rem;"></i>
-                        <div><strong>تنبيه طبي هام جداً:</strong> لا يجوز إيقاف أي أدوية لمرضى مزمنين تحت أي ظرف دون إشراف طبي دقيق.</div>
+                        <div><strong>تحذير طبي مهم:</strong> لا تُوقف أي دواء دون مراجعة طبيبك. هذا المقال لأغراض التوثيق والمعلومات فقط. إذا كنت تعاني من حالات مزمنة، يجب مناقشة اتباعه مع أخصائي تغذية معتمد قبل البدء.</div>
                     </div>
                 </div>
                 <div class="story-card" style="border-top: 5px solid var(--green);">
-                    <h3><i class="fas fa-balance-scale"></i> الخلاصة العلمية</h3>
-                    <p>نظام الطيبات ظاهرة اجتماعية وغذائية فريدة في عالمنا العربي. يحمل في طياته حكمة في الأكل المتقشف والاعتدال وتجنب المصنوع، لكنه في جوانب أخرى يتجاوز حدود السلامة الطبية فيما يخص منع البروتينات الكاملة والماء وتوجيهات إيقاف الأدوية.</p>
-                    <div class="quote-box" style="background: var(--green);">"التوازن والتنوع والاستمرارية هم مفتاح الصحة.. لا يوجد نظام واحد يناسب الجميع."</div>
+                    <h3><i class="fas fa-hand-point-right"></i> توصيات ختامية من الكتاب</h3>
+                    <ul style="padding-right: 1rem; color: var(--secondary); line-height: 2;">
+                        <li>إذا أردت تجربة مبادئ النظام: ابدأ بالصيام المتقطع والأكل الواعي فقط، وهذا الجزء الأأمن وعلمياً الأثبت.</li>
+                        <li>لا تُوقف أي دواء دون مراجعة طبيبك.</li>
+                        <li>أضِف الخضروات الملوَّنة لنظامك (فائدتها الصحية موثَّقة بآلاف الدراسات).</li>
+                        <li>اشرب الكافي الماء (1.5 - 2 لتر يومياً كحد أدنى) خاصة في المناخ الحار.</li>
+                        <li>استشر أخصائي تغذية معتمد قبل اتباع أي نظام غذائي جديد.</li>
+                    </ul>
+                </div>
+                <div class="story-card" style="border-top: 5px solid var(--primary);">
+                    <h3><i class="fas fa-balance-scale"></i> الخلاصة</h3>
+                    <p>نظام الطيبات للدكتور ضياء العوضي (رحمه الله) ظاهرة اجتماعية وطبية فريدة في عالمنا العربي. لامس شريحة واسعة من الناس الذين يعانون من فوضى غذائية وأمراض مزمنة، وقدّم لهم نظاماً بسيطاً واضحاً يُشعرهم بالسيطرة على صحتهم. النظام يحمل حكمةً في بعض جوانبه: الصيام الدوري، والأكل عند الجوع الحقيقي، وتجنب المصنَّع، والاعتدال. لكنه يُثير قلقاً طبياً جدياً في جوانب أخرى: التقليل من الماء، ومنع مصادر بروتين كاملة، والتوقف عن الأدوية.</p>
+                    <div class="quote-box">"التوازن والتنوع والاستمرارية هي مفتاح الصحة الحقيقية.. لا يوجد نظام واحد يناسب الجميع، وخذ المشكوك فيه ودراسته بشكل صحيح."</div>
                 </div>
             </div>
         </div>
@@ -336,7 +498,6 @@
             {id:59,type:'lunch',name:'أرز بالمشروم والسمن',desc:'أرز بمشروم مقلي بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:0,benefits:['نباتية وغنية النكهة','تعوض فيتامين D']},
             {id:60,type:'lunch',name:'كبدة ضاني بالسمن',desc:'كبدة ضانية بالسمن مع أرز.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أقوى مصدر لفيتامين B12','تعالج فقر الدم']},
             {id:61,type:'lunch',name:'لحم بقري مسلوق',desc:'قطعة لحم بقري مسلوق مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['السلق يزيل الدهون الضارة','خفيفة على المعدة']},
-            // تم شيل وجبة الجمبري البحري بالزيت (كانت رقم 62)
             {id:63,type:'lunch',name:'أرز بالكندوز',desc:'أرز بالسمن مع قطع كبدة.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['نشويات وبروتين','تمد الجسم بالحديد']},
             {id:64,type:'lunch',name:'لحمة مفرومة بالبطاطس',desc:'لحمة ضانية محمرة مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['سهلة المضغ والهضم','تمتص المرقة بشكل رائع']},
             {id:65,type:'lunch',name:'سمك سيباس بالفرن',desc:'سمك سيباس بحري بالفرن مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['من أجود الأسماك','الفرن يحافظ على الزيوت الصحية']},
@@ -413,7 +574,6 @@
             {id:136,type:'dinner',name:'أرز حليب بالقشطة',desc:'أرز بقشطة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['بديل صحي لأرز بالحليب','نفس الكريمة بدون أضرار']},
             {id:137,type:'dinner',name:'توست بالجبنة والسمن',desc:'توست ردة بجبنة قريش وسمن.',icon:'fa-bread-slice',tags:['جبنة'],protein:20,benefits:['مقرمش ولذيذ','جبنة خفيفة']},
             {id:138,type:'dinner',name:'فطيرة التمر والعسل',desc:'طبقات توست ردة بتمر وعسل.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى صحية 100%','تعالج الإمساك ليلاً']},
-            // تم شيل وجبة رمان بالقشطة (كانت رقم 139)
             {id:140,type:'dinner',name:'شاي بالزبدة',desc:'شاي محلى مع زبدة بلدي.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['طاقة هادئة','مثالي للشتاء والنوم']},
             {id:141,type:'dinner',name:'بطاطس شيبسي بالجبنة',desc:'شيبسي بالفرن مع جبنة رومي.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['سناكس مسموح ولذيذ','تضيف بروتين']},
             {id:142,type:'dinner',name:'عنب بالجبنة',desc:'طبق عنب مع جبنة قريش.',icon:'fa-seedling',tags:['فاكهة'],protein:10,benefits:['ماء ومعادن','بروتين خفيف']},
