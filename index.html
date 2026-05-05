@@ -66,7 +66,6 @@
         .benefits-list li { font-size: 0.85rem; color: var(--secondary); margin-bottom: 0.4rem; display: flex; align-items: flex-start; gap: 0.4rem; }
         .benefits-list li::before { content: '✨'; font-size: 0.7rem; margin-top: 5px; }
         
-        /* تنسيق الصفحات الثابتة */
         .page-section { display: none; } .page-section.active { display: block; }
         .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
         @media (max-width: 900px) { .rules-grid { grid-template-columns: 1fr; } }
@@ -82,7 +81,6 @@
         .allowed-card .rule-list li::before { content: '✅'; font-size: 0.7rem; }
         .forbidden-card .rule-list li::before { content: '❌'; font-size: 0.7rem; }
 
-        /* تنسيق صفحة قصة النظام */
         .story-container { display: flex; flex-direction: column; gap: 1.5rem; }
         .story-card { background: var(--card-bg); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow); border-top: 5px solid var(--accent); }
         .story-card h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
@@ -106,11 +104,11 @@
     </header>
     <div class="container">
         
-        <!-- صفحة الوجبات -->
         <div id="meals-page" class="page-section active">
+            <!-- تم تعديل العدد ليكون 148 بدلاً من 150 -->
             <button class="download-app-btn" onclick="installApp()"><i class="fas fa-download"></i> تحميل التطبيق على موبايلك</button>
             <div class="filters">
-                <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (150)</button>
+                <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (148)</button>
                 <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور</button>
                 <button class="filter-btn" onclick="filterMeals('lunch', event)"><i class="fas fa-utensils"></i> غداء</button>
                 <button class="filter-btn" onclick="filterMeals('dinner', event)"><i class="fas fa-moon"></i> عشاء</button>
@@ -118,7 +116,6 @@
             <div class="meals-grid" id="mealsGrid"></div>
         </div>
 
-        <!-- صفحة المسموحات والممنوعات الموسعة -->
         <div id="rules-page" class="page-section">
             <div class="rules-grid">
                 <div class="rule-col">
@@ -213,7 +210,6 @@
             </div>
         </div>
 
-        <!-- صفحة قصة النظام -->
         <div id="story-page" class="page-section">
             <div class="story-container">
                 <div class="story-card">
@@ -340,7 +336,7 @@
             {id:59,type:'lunch',name:'أرز بالمشروم والسمن',desc:'أرز بمشروم مقلي بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:0,benefits:['نباتية وغنية النكهة','تعوض فيتامين D']},
             {id:60,type:'lunch',name:'كبدة ضاني بالسمن',desc:'كبدة ضانية بالسمن مع أرز.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أقوى مصدر لفيتامين B12','تعالج فقر الدم']},
             {id:61,type:'lunch',name:'لحم بقري مسلوق',desc:'قطعة لحم بقري مسلوق مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['السلق يزيل الدهون الضارة','خفيفة على المعدة']},
-            {id:62,type:'lunch',name:'جمبري بحري بالزيت',desc:'جمبري بحري بزيت زيتون وبطاطس.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['بروتين بحري عالي جداً','زيت الزيتون يحافظ على القلب']},
+            // تم شيل وجبة الجمبري البحري بالزيت (كانت رقم 62)
             {id:63,type:'lunch',name:'أرز بالكندوز',desc:'أرز بالسمن مع قطع كبدة.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['نشويات وبروتين','تمد الجسم بالحديد']},
             {id:64,type:'lunch',name:'لحمة مفرومة بالبطاطس',desc:'لحمة ضانية محمرة مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['سهلة المضغ والهضم','تمتص المرقة بشكل رائع']},
             {id:65,type:'lunch',name:'سمك سيباس بالفرن',desc:'سمك سيباس بحري بالفرن مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['من أجود الأسماك','الفرن يحافظ على الزيوت الصحية']},
@@ -405,7 +401,7 @@
             {id:124,type:'dinner',name:'كمثرى بالسمن',desc:'كمثرى مطبوخة بالسمن والسكر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['مهدئة جداً','نكهة غنية']},
             {id:125,type:'dinner',name:'عصير عنب طبيعي',desc:'عصير عنب مع توست.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['مضادات أكسدة قوية','مهدئ يساعد على الاسترخاء']},
             {id:126,type:'dinner',name:'حلاوة طحينية وتوست',desc:'حلاوة طحينية مع توست.',icon:'fa-jar',tags:['حلويات'],protein:10,benefits:['غنية بالكالسيوم','تسترخي العضلات ليلاً']},
-            {id:127,type:'dinner',name:'أرز بالتمر والزبدة',desc:'أرز دافئ مع تمر وزبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['يمنع هبوط السكر','نعومة وسلاسة']},
+            {id:127,type:'dinner',name:'أرز بالتمر والزبدة',desc:'أرز دافئ مع تمر وزبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['يمنح هبوط السكر','نعومة وسلاسة']},
             {id:128,type:'dinner',name:'بطاطس بالجبنة والسمن',desc:'بطاطس مهروسة بجبنة رومي وسمن.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['متوازنة من النشا والبروتين','نكهة حادة ولذيذة']},
             {id:129,type:'dinner',name:'كاكا بالعسل',desc:'كاكا طازجة بالعسل.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['غنية بفيتامين A','طعم استثنائي']},
             {id:130,type:'dinner',name:'شاي وقصب سكر',desc:'شاي مع قطعة قصب.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['مهدئ وسريع','يخلص رغبة الحلويات']},
@@ -417,7 +413,7 @@
             {id:136,type:'dinner',name:'أرز حليب بالقشطة',desc:'أرز بقشطة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['بديل صحي لأرز بالحليب','نفس الكريمة بدون أضرار']},
             {id:137,type:'dinner',name:'توست بالجبنة والسمن',desc:'توست ردة بجبنة قريش وسمن.',icon:'fa-bread-slice',tags:['جبنة'],protein:20,benefits:['مقرمش ولذيذ','جبنة خفيفة']},
             {id:138,type:'dinner',name:'فطيرة التمر والعسل',desc:'طبقات توست ردة بتمر وعسل.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى صحية 100%','تعالج الإمساك ليلاً']},
-            {id:139,type:'dinner',name:'رمان بالقشطة',desc:'رمان منزوع البذر مع قشطة.',icon:'fa-apple-whole',tags:['فاكهة'],protein:5,benefits:['ينقي الدم والكبد','قوام كريمي لذيذ']},
+            // تم شيل وجبة رمان بالقشطة (كانت رقم 139)
             {id:140,type:'dinner',name:'شاي بالزبدة',desc:'شاي محلى مع زبدة بلدي.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['طاقة هادئة','مثالي للشتاء والنوم']},
             {id:141,type:'dinner',name:'بطاطس شيبسي بالجبنة',desc:'شيبسي بالفرن مع جبنة رومي.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['سناكس مسموح ولذيذ','تضيف بروتين']},
             {id:142,type:'dinner',name:'عنب بالجبنة',desc:'طبق عنب مع جبنة قريش.',icon:'fa-seedling',tags:['فاكهة'],protein:10,benefits:['ماء ومعادن','بروتين خفيف']},
@@ -505,7 +501,7 @@
                 deferredPrompt.userChoice.then((choiceResult) => { deferredPrompt = null; });
             } else {
                 let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
-                if(isOS) { alert("في الآيفون: اضغط على زرار المشاركة (المربع فيه سهم لفوق) واختر 'إضافة للشاشة الرئيسية'"); }
+                if(isIOS) { alert("في الآيفون: اضغط على زرار المشاركة (المربع فيه سهم لفوق) واختر 'إضافة للشاشة الرئيسية'"); }
                 else { alert("للتحميل: اضغط على النقط التلاتة (⋮) في أعلى المتصفح واختر 'إضافة إلى الشاشة الرئيسية'"); }
             }
         }
