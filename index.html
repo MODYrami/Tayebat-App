@@ -3,25 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الطيبات الذكي - النسخة العبقرية</title>
+    <title>نظام الطيبات - النسخة الشاملة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --dark-bg: #0f0f0c; --card-bg: #1a1a15; --gold-primary: #d4af37; --white: #ffffff; }
+        :root { --dark-bg: #0f0f0c; --card-bg: #1a1a15; --gold: #d4af37; --white: #ffffff; }
         body { font-family: 'Cairo', sans-serif; background-color: var(--dark-bg); color: var(--white); margin: 0; }
-        nav { display: flex; justify-content: center; gap: 10px; padding: 15px; background: rgba(0,0,0,0.8); position: sticky; top: 0; z-index: 1000; border-bottom: 1px solid #2a2a20; }
-        nav button { background: none; border: 1px solid var(--gold-primary); color: var(--gold-primary); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
-        nav button.active { background: var(--gold-primary); color: var(--dark-bg); }
+        nav { display: flex; justify-content: center; gap: 10px; padding: 15px; background: #000; border-bottom: 1px solid #2a2a20; position: sticky; top: 0; z-index: 1000; }
+        nav button { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 8px 18px; border-radius: 20px; cursor: pointer; font-weight: bold; }
+        nav button.active { background: var(--gold); color: #000; }
         .container { max-width: 1000px; margin: 0 auto; padding: 20px; }
-        .grid-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
+        .info-card { background: var(--card-bg); padding: 20px; border-radius: 15px; border: 1px solid #2a2a20; margin-bottom: 20px; text-align: center; }
+        .social-link { display: block; background: #2a2a10; color: var(--gold); padding: 12px; border-radius: 10px; text-decoration: none; margin: 10px 0; font-weight: bold; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; }
         .meal-card { background: var(--card-bg); border-radius: 15px; padding: 20px; border: 1px solid #2a2a20; }
         .chat-box { background: var(--card-bg); border-radius: 15px; height: 60vh; display: flex; flex-direction: column; border: 1px solid #2a2a20; }
         #chat-display { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 10px; }
-        .msg { padding: 10px 15px; border-radius: 10px; max-width: 80%; }
-        .user-msg { background: var(--gold-primary); color: #000; align-self: flex-start; }
-        .ai-msg { background: #2a2a20; color: #fff; align-self: flex-end; border: 1px solid var(--gold-primary); }
+        .msg { padding: 10px 15px; border-radius: 10px; max-width: 80%; line-height: 1.5; }
+        .user-msg { background: var(--gold); color: #000; align-self: flex-start; }
+        .ai-msg { background: #2a2a20; color: #fff; align-self: flex-end; border: 1px solid var(--gold); }
         .chat-input { padding: 15px; display: flex; gap: 10px; background: #000; }
         .chat-input input { flex: 1; background: none; border: 1px solid #333; color: white; padding: 10px; border-radius: 8px; }
-        .chat-input button { background: var(--gold-primary); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
+        .chat-input button { background: var(--gold); border: none; padding: 10px 20px; border-radius: 8px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
     </style>
 </head>
@@ -30,31 +32,33 @@
 <nav>
     <button id="btn-home" class="active" onclick="showPage('home')">الرئيسية</button>
     <button id="btn-meals" onclick="showPage('meals')">الوجبات</button>
-    <button id="btn-chat" onclick="showPage('chat')">المساعد العبقري ✨</button>
+    <button id="btn-chat" onclick="showPage('chat')">المساعد الذكي ✨</button>
 </nav>
 
 <div class="container">
     <div id="home-page">
-        <h1 style="text-align:center; color:var(--gold-primary)">نظام الطيبات</h1>
-        <p style="text-align:center">دليل الصحة والتعافي للدكتور ضياء العوضي</p>
+        <div class="info-card">
+            <h1 style="color:var(--gold)">دكتور ضياء العوضي</h1>
+            <p>نظام الطيبات للتعافي من الأمراض المزمنة</p>
+            <a href="https://www.youtube.com/@DrDhiaaElawadi" class="social-link">قناة اليوتيوب الرسمية</a>
+            <a href="https://www.facebook.com/DhiaaElawadi" class="social-link">صفحة الفيسبوك الرسمية</a>
+        </div>
     </div>
 
     <div id="meals-page" class="hidden">
         <div style="text-align:center; margin-bottom:20px;">
-            <button onclick="renderMeals('breakfast')" style="color:white; background:none; border:1px solid var(--gold-primary); padding:5px 15px; border-radius:10px; cursor:pointer;">إفطار</button>
-            <button onclick="renderMeals('lunch')" style="color:white; background:none; border:1px solid var(--gold-primary); padding:5px 15px; border-radius:10px; cursor:pointer;">غداء</button>
-            <button onclick="renderMeals('dinner')" style="color:white; background:none; border:1px solid var(--gold-primary); padding:5px 15px; border-radius:10px; cursor:pointer;">عشاء</button>
+            <button onclick="renderMeals('breakfast')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">إفطار (30)</button>
+            <button onclick="renderMeals('lunch')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">غداء (11)</button>
+            <button onclick="renderMeals('dinner')" style="color:white; background:none; border:1px solid var(--gold); padding:5px 15px; border-radius:10px; cursor:pointer;">عشاء (11)</button>
         </div>
-        <div id="meal-content" class="grid-container"></div>
+        <div id="meal-content" class="grid"></div>
     </div>
 
     <div id="chat-page" class="hidden">
         <div class="chat-box">
-            <div id="chat-display">
-                <div class="msg ai-msg">أهلاً بك يا بطل! أنا مساعدك الذكي المتطور. كيف يمكنني مساعدتك اليوم في رحلة الطيبات؟</div>
-            </div>
+            <div id="chat-display"><div class="msg ai-msg">أهلاً بك! أنا مساعدك الذكي، كيف حالك اليوم؟ اسألني عن أي شيء.</div></div>
             <div class="chat-input">
-                <input type="text" id="user-query" placeholder="اكتب سؤالك هنا (عربي أو English)...">
+                <input type="text" id="user-query" placeholder="مثال: هلا، هل السمك مسموح؟">
                 <button onclick="handleChat()">إرسال</button>
             </div>
         </div>
@@ -63,15 +67,23 @@
 
 <script>
     const meals = {
-        breakfast: Array.from({length: 30}, (_, i) => ({t: `يوم ${i+1}`, d: "توست ردة + جبنة رومي/شيدر + قشطة/مربى + فاكهة"})),
-        lunch: Array.from({length: 11}, (_, i) => ({t: `غداء ${i+1}`, d: "لحم بقري/ضاني/سمك مشوي + أرز مفلفل بالسمن البلدي"})),
-        dinner: Array.from({length: 11}, (_, i) => ({t: `عشاء ${i+1}`, d: "بطاطس مهروسة بالسمن + توست بالنوتيلا + عسل"})),
-    };
-
-    const knowledge = {
-        allowed: ["أرز", "بطاطس", "لحم", "سمك", "سمن", "قشطة", "رومي", "شيدر", "نوتيلا", "عسل", "توست"],
-        forbidden: ["فراخ", "بيض", "لبن", "دقيق", "زيت نباتي", "خيار"],
-        greetings: ["هلا", "مرحبا", "هاي", "صباح", "مساء", "hello", "hi"]
+        breakfast: Array.from({length: 30}, (_, i) => ({t: `يوم ${i+1}`, d: "3 توست ردة + جبنة رومي/شيدر + قشطة/مربى + فاكهة (موز/تفاح) + عصير جوافة"})),
+        lunch: [
+            {t: "وجبة 1", d: "سمك مشوي + أرز أبيض بالسمن البلدي"}, {t: "وجبة 2", d: "لحم ضاني مسلوق ومحمر + أرز وشوربة"},
+            {t: "وجبة 3", d: "حمام محشي أرز بالسمن البلدي"}, {t: "وجبة 4", d: "لحم بقري موزة + أرز أبيض"},
+            {t: "وجبة 5", d: "سمك ماكريل مشوي + أرز صيادية"}, {t: "وجبة 6", d: "أرانب مسلوقة ومحمرة + أرز"},
+            {t: "وجبة 7", d: "كفتة بقري مشوية + أرز بالسمن"}, {t: "وجبة 8", d: "صينية بطاطس بشوربة اللحم + أرز"},
+            {t: "وجبة 9", d: "طاجن باميا بالسمن البلدي + أرز"}, {t: "وجبة 10", d: "كوسة مسلوقة + قطع لحم بقري + أرز"},
+            {t: "وجبة 11", d: "كبدة بقري محمرة في سمن بلدي + توست ردة"}
+        ],
+        dinner: [
+            {t: "وجبة 1", d: "بطاطس مهروسة بالقشطة والسمن البلدي"}, {t: "وجبة 2", d: "أرز دافئ بالزبدة والسكر الأبيض"},
+            {t: "وجبة 3", d: "توست ردة + جبنة رومي + قشطة طبيعية"}, {t: "وجبة 4", d: "بطاطس مقلية في سمن بلدي"},
+            {t: "وجبة 5", d: "توست ردة + جبنة شيدر + عسل نحل"}, {t: "وجبة 6", d: "مربى فراولة + قشطة + توست ردة"},
+            {t: "وجبة 7", d: "حلاوة طحينية + قشطة + توست ردة"}, {t: "وجبة 8", d: "بطاطس مسلوقة بزيت الزيتون"},
+            {t: "وجبة 9", d: "تمر رطب + قشطة فلاحي"}, {t: "وجبة 10", d: "توست نوتيلا + قطع موز"},
+            {t: "وجبة 11", d: "أرز بمياه وسكر وقشطة (بديل اللبن)"}
+        ]
     };
 
     function showPage(p) {
@@ -85,7 +97,7 @@
     }
 
     function renderMeals(cat) {
-        document.getElementById('meal-content').innerHTML = meals[cat].map((m, i) => `
+        document.getElementById('meal-content').innerHTML = meals[cat].map(m => `
             <div class="meal-card"><strong>${m.t}</strong><p>${m.d}</p></div>
         `).join('');
     }
@@ -97,22 +109,19 @@
         const display = document.getElementById('chat-display');
         display.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
         
-        let res = "أهلاً بك! لست متأكداً، لكن تذكر: الطيبات هي اللحوم والأرز والبطاطس والخبز الأسمر. ابتعد عن الدجاج والبيض واللبن.";
-        
-        if (knowledge.greetings.some(g => val.includes(g))) {
-            res = "أهلاً بك يا صديقي! كيف حالك؟ أنا هنا لمساعدتك في فهم نظام الطيبات بكل لغات العالم. ماذا تود أن تسأل؟";
-        } else if (knowledge.forbidden.some(f => val.includes(f))) {
-            res = "⚠️ انتبه! هذا المكون ممنوع في نظام الطيبات لأنه يسبب التهابات.";
-        } else if (knowledge.allowed.some(a => val.includes(a))) {
-            res = "✅ ممتاز! هذا مسموح به في الطيبات وصديق جداً للأمعاء.";
-        } else if (val.includes("thank") || val.includes("شكرا")) {
-            res = "العفو! هذا واجبي. بالتوفيق في امتحانك غداً وفي رحلتك للصحة!";
+        let res = "أهلاً بك! لتتذكر: الطيبات هي اللحوم والأرز والبطاطس والخبز الأسمر. ابتعد عن الدجاج والبيض واللبن.";
+        if (["هلا", "مرحبا", "هاي", "صباح", "hi", "hello"].some(g => val.includes(g))) {
+            res = "أهلاً بك يا بطل! أنا مساعدك الذكي، كيف حالك؟ أنا هنا لمساعدتك في نظام الطيبات بكل ود.";
+        } else if (["فراخ", "بيض", "لبن", "دقيق", "زيت نباتي"].some(f => val.includes(f))) {
+            res = "⚠️ انتبه! هذا المكون ممنوع تماماً في نظام الطيبات لأنه يسبب التهابات.";
+        } else if (["ارز", "بطاطس", "لحم", "سمك", "سمن", "قشطة", "رومي", "نوتيلا"].some(a => val.includes(a))) {
+            res = "✅ مسموح! هذا العنصر من الطيبات وصديق للأمعاء.";
         }
-
+        
         setTimeout(() => {
             display.innerHTML += `<div class="msg ai-msg">${res}</div>`;
             display.scrollTop = display.scrollHeight;
-        }, 500);
+        }, 400);
         input.value = "";
     }
 </script>
