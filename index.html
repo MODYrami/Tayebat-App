@@ -3,66 +3,78 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام الطيبات - المساعد العبقري</title>
+    <title>نظام الطيبات - النسخة المطورة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --dark: #0a0a0a; --card: #141414; --gold: #d4af37; --white: #ffffff; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--dark); color: var(--white); margin: 0; overflow-x: hidden; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--dark); color: var(--white); margin: 0; }
         nav { display: flex; justify-content: center; gap: 15px; padding: 20px; background: #000; border-bottom: 1px solid #222; position: sticky; top: 0; z-index: 1000; }
-        nav button { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        nav button { background: none; border: 1px solid var(--gold); color: var(--gold); padding: 10px 20px; border-radius: 25px; cursor: pointer; font-weight: bold; }
         nav button.active { background: var(--gold); color: #000; box-shadow: 0 0 15px var(--gold); }
         .container { max-width: 900px; margin: 0 auto; padding: 20px; }
+        .info-card { background: var(--card); padding: 25px; border-radius: 20px; border: 1px solid #222; margin-bottom: 20px; }
+        .news-section { margin-top: 30px; border-top: 2px solid var(--gold); padding-top: 20px; }
+        .news-item { background: #1a1a1a; padding: 15px; border-right: 4px solid var(--gold); margin-bottom: 10px; border-radius: 5px; }
+        .social-btn { display: block; background: #1a1a00; color: var(--gold); padding: 15px; border-radius: 12px; text-decoration: none; margin: 10px 0; border: 1px solid #333; text-align: center; font-weight: bold; transition: 0.3s; }
+        .social-btn:hover { background: var(--gold); color: #000; }
         .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 15px; }
-        .meal-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #222; transition: 0.3s; }
-        .meal-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-        .chat-box { background: var(--card); border-radius: 20px; height: 65vh; display: flex; flex-direction: column; border: 1px solid #222; overflow: hidden; }
-        #chat-display { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; scroll-behavior: smooth; }
-        .msg { padding: 12px 18px; border-radius: 15px; max-width: 80%; font-size: 0.95rem; line-height: 1.6; }
+        .meal-card { background: var(--card); padding: 20px; border-radius: 15px; border: 1px solid #222; }
+        .chat-box { background: var(--card); border-radius: 20px; height: 60vh; display: flex; flex-direction: column; border: 1px solid #222; overflow: hidden; }
+        #chat-display { flex: 1; padding: 20px; overflow-y: auto; display: flex; flex-direction: column; gap: 12px; }
+        .msg { padding: 12px 18px; border-radius: 15px; max-width: 80%; }
         .user-msg { background: var(--gold); color: #000; align-self: flex-start; font-weight: bold; }
         .ai-msg { background: #1a1a1a; color: #fff; align-self: flex-end; border: 1px solid var(--gold); }
-        .chat-input { padding: 15px; display: flex; gap: 10px; background: #000; border-top: 1px solid #222; }
-        .chat-input input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; outline: none; }
+        .chat-input { padding: 15px; display: flex; gap: 10px; background: #000; }
+        .chat-input input { flex: 1; background: #111; border: 1px solid #333; color: white; padding: 12px; border-radius: 10px; }
         .chat-input button { background: var(--gold); border: none; padding: 0 25px; border-radius: 10px; cursor: pointer; font-weight: bold; }
         .hidden { display: none; }
-        .social-btn { display: block; background: #1a1a00; color: var(--gold); padding: 15px; border-radius: 12px; text-decoration: none; margin: 10px 0; border: 1px solid #333; text-align: center; font-weight: bold; }
     </style>
 </head>
 <body>
 
 <nav>
     <button id="btn-home" class="active" onclick="showPage('home')">الرئيسية</button>
-    <button id="btn-meals" onclick="showPage('meals')">الجدول الغذائي</button>
+    <button id="btn-meals" onclick="showPage('meals')">الوجبات</button>
     <button id="btn-chat" onclick="showPage('chat')">المساعد الذكي ✨</button>
 </nav>
 
 <div class="container">
-    <div id="home-page" class="fade-in">
-        <div style="text-align:center; padding: 40px 0;">
-            <h1 style="color:var(--gold); font-size: 2.5rem;">نظام الطيبات</h1>
-            <p style="color:#aaa;">المنهج الطبي للدكتور ضياء العوضي لإعادة ترميم الأمعاء</p>
-            <div style="margin-top: 30px;">
-                <a href="https://www.youtube.com/@DrDhiaaElawadi" target="_blank" class="social-btn">📺 قناة اليوتيوب الرسمية</a>
-                <a href="https://www.facebook.com/DhiaaElawadi" target="_blank" class="social-btn">📱 صفحة الفيسبوك</a>
+    <div id="home-page">
+        <div class="info-card" style="text-align: center;">
+            <h1 style="color:var(--gold)">دكتور ضياء العوضي</h1>
+            <p>نظام الطيبات للتعافي والترميم</p>
+            <a href="https://www.youtube.com/@DrDhiaaElawadi" target="_blank" class="social-btn">📺 قناة اليوتيوب الرسمية</a>
+            <a href="https://www.facebook.com/DhiaaElawadi" target="_blank" class="social-btn">📱 صفحة الفيسبوك الرسمية</a>
+        </div>
+
+        <div class="news-section">
+            <h2 style="color:var(--gold)">🗞️ آخر الأخبار</h2>
+            <div class="news-item">
+                <strong>تقنية:</strong> إطلاق تحديثات جديدة لنماذج AI تساعد الطلاب في تلخيص المناهج الدراسية.
+            </div>
+            <div class="news-item">
+                <strong>صحة:</strong> د. ضياء العوضي يؤكد على أهمية وجبة الإفطار المعتمدة على التوست الأسمر لرفع المناعة.
+            </div>
+            <div class="news-item">
+                <strong>محلي:</strong> أخبار عن توفر أحدث إصدارات الهواتف الذكية في متاجر الإسماعيلية الكبرى بأسعار منافسة.
             </div>
         </div>
     </div>
 
     <div id="meals-page" class="hidden">
-        <div style="text-align:center; margin-bottom:25px; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap;">
-            <button onclick="renderMeals('breakfast')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 20px; border-radius:15px; cursor:pointer;">إفطار (30 يوم)</button>
-            <button onclick="renderMeals('lunch')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 20px; border-radius:15px; cursor:pointer;">غداء (11 وجبة)</button>
-            <button onclick="renderMeals('dinner')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 20px; border-radius:15px; cursor:pointer;">عشاء (11 وجبة)</button>
+        <div style="text-align:center; margin-bottom:20px;">
+            <button onclick="renderMeals('breakfast')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 15px; border-radius:10px; cursor:pointer; margin:5px;">إفطار (30)</button>
+            <button onclick="renderMeals('lunch')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 15px; border-radius:10px; cursor:pointer; margin:5px;">غداء (11)</button>
+            <button onclick="renderMeals('dinner')" style="background:none; border:1px solid var(--gold); color:white; padding:8px 15px; border-radius:10px; cursor:pointer; margin:5px;">عشاء (11)</button>
         </div>
         <div id="meal-content" class="grid"></div>
     </div>
 
     <div id="chat-page" class="hidden">
         <div class="chat-box">
-            <div id="chat-display">
-                <div class="msg ai-msg">أهلاً بك يا بطل! أنا مساعدك الشخصي لنظام الطيبات. اسألني عن أي أكلة (تفاح، عسل، دجاج..) وسأخبرك فوراً إذا كانت مسموحة أم لا.</div>
-            </div>
+            <div id="chat-display"><div class="msg ai-msg">أهلاً بك! أنا مساعدك الذكي، اسألني عن أي أكلة وسأخبرك إذا كانت مسموحة أم لا.</div></div>
             <div class="chat-input">
-                <input type="text" id="user-query" placeholder="اكتب سؤالك هنا.. (مثال: هل التفاح مسموح؟)">
+                <input type="text" id="user-query" placeholder="هل التفاح مسموح؟">
                 <button onclick="handleChat()">إرسال</button>
             </div>
         </div>
@@ -72,34 +84,49 @@
 <script>
     const meals = {
         breakfast: [
-            {t: "اليوم 1", d: "3 توست حبوب كاملة + جبن رومي + عسل + تفاحة"}, {t: "اليوم 2", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
-            {t: "اليوم 3", d: "2 توست حبوب كاملة + نوتيلا + موزة"}, {t: "اليوم 4", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"},
-            {t: "اليوم 5", d: "2 توست حبوب كاملة + مربى + كمثرى"}, {t: "اليوم 6", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"},
-            {t: "اليوم 7", d: "3 توست حبوب كاملة + قشطة طبيعية + عنب"}, {t: "اليوم 8", d: "ذرة مشوية + جبن رومي + عصير معلب جوافة"},
-            {t: "اليوم 9", d: "بطاطس مسلوقة + مربى + تمر"}, {t: "اليوم 10", d: "2 توست حبوب كاملة + نوتيلا + تفاحة"},
-            {t: "اليوم 11", d: "3 توست حبوب كاملة + عسل + موزة"}, {t: "اليوم 12", d: "قشطة طبيعية + عنب + عصير جوافة"},
-            {t: "اليوم 13", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"}, {t: "اليوم 14", d: "2 توست حبوب كاملة + مربى + تفاحة"},
-            {t: "اليوم 15", d: "ذرة مسلوقة + جبن شيدر مطبوخ + عصير جوافة"}, {t: "اليوم 16", d: "3 توست حبوب كاملة + قشطة طبيعية + كمثرى"},
-            {t: "اليوم 17", d: "2 توست حبوب كاملة + نوتيلا + عنب"}, {t: "اليوم 18", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
-            {t: "اليوم 19", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"}, {t: "اليوم 20", d: "3 توست حبوب كاملة + قشطة طبيعية + تمر"},
-            {t: "اليوم 21", d: "ذرة مشوية + جبن رومي + عصير جوافة"}, {t: "اليوم 22", d: "2 توست حبوب كاملة + مربى + موزة"},
-            {t: "اليوم 23", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"}, {t: "اليوم 24", d: "3 توست حبوب كاملة + عسل + تفاحة"},
-            {t: "اليوم 25", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"}, {t: "اليوم 26", d: "2 توست حبوب كاملة + قشطة طبيعية + تمر"},
-            {t: "اليوم 27", d: "ذرة مشوية + جبن رومي + عصير جوافة"}, {t: "اليوم 28", d: "3 توست حبوب كاملة + مربى + كمثرى"},
-            {t: "اليوم 29", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"}, {t: "اليوم 30", d: "2 توست حبوب كاملة + نوتيلا + عنب"}
+            {t: "اليوم 1", d: "3 توست حبوب كاملة + جبن رومي + عسل + تفاحة"},
+            {t: "اليوم 2", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 3", d: "2 توست حبوب كاملة + نوتيلا + موزة"},
+            {t: "اليوم 4", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 5", d: "2 توست حبوب كاملة + مربى + كمثرى"},
+            {t: "اليوم 6", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 7", d: "3 توست حبوب كاملة + قشطة طبيعية + عنب"},
+            {t: "اليوم 8", d: "ذرة مشوية + جبن رومي + عصير معلب جوافة"},
+            {t: "اليوم 9", d: "بطاطس مسلوقة + مربى + تمر"},
+            {t: "اليوم 10", d: "2 توست حبوب كاملة + نوتيلا + تفاحة"},
+            {t: "اليوم 11", d: "3 توست حبوب كاملة + عسل + موزة"},
+            {t: "اليوم 12", d: "قشطة طبيعية + عنب + عصير جوافة"},
+            {t: "اليوم 13", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 14", d: "2 توست حبوب كاملة + مربى + تفاحة"},
+            {t: "اليوم 15", d: "ذرة مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 16", d: "3 توست حبوب كاملة + قشطة طبيعية + كمثرى"},
+            {t: "اليوم 17", d: "2 توست حبوب كاملة + نوتيلا + عنب"},
+            {t: "اليوم 18", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 19", d: "بطاطس مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 20", d: "3 توست حبوب كاملة + قشطة طبيعية + تمر"},
+            {t: "اليوم 21", d: "ذرة مشوية + جبن رومي + عصير جوافة"},
+            {t: "اليوم 22", d: "2 توست حبوب كاملة + مربى + موزة"},
+            {t: "اليوم 23", d: "ذرة مسلوقة + جبن رومي + عصير جوافة"},
+            {t: "اليوم 24", d: "3 توست حبوب كاملة + عسل + تفاحة"},
+            {t: "اليوم 25", d: "بطاطس مسلوقة + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 26", d: "2 توست حبوب كاملة + قشطة طبيعية + تمر"},
+            {t: "اليوم 27", d: "ذرة مشوية + جبن رومي + عصير جوافة"},
+            {t: "اليوم 28", d: "3 توست حبوب كاملة + مربى + كمثرى"},
+            {t: "اليوم 29", d: "بطاطس مشوية + جبن شيدر مطبوخ + عصير جوافة"},
+            {t: "اليوم 30", d: "2 توست حبوب كاملة + نوتيلا + عنب"}
         ],
         lunch: [
             {t: "وجبة 1", d: "سمك مشوي + أرز بالسمن البلدي"}, {t: "وجبة 2", d: "لحم ضاني مسلوق ومحمر + أرز وشوربة"},
-            {t: "وجبة 3", d: "حمام محشي أرز بالسمن"}, {t: "وجبة 4", d: "لحم بقري موزة + أرز أبيض"},
+            {t: "وجبة 3", d: "حمام محشي أرز بالسمن البلدي"}, {t: "وجبة 4", d: "لحم بقري موزة + أرز أبيض"},
             {t: "وجبة 5", d: "سمك ماكريل مشوي + أرز صيادية"}, {t: "وجبة 6", d: "أرانب مسلوقة ومحمرة + أرز"},
             {t: "وجبة 7", d: "كفتة بقري مشوية + أرز بالسمن"}, {t: "وجبة 8", d: "صينية بطاطس بشوربة اللحم + أرز"},
-            {t: "وجبة 9", d: "طاجن باميا بالسمن البلدي + أرز"}, {t: "وجبة 10", d: "كوسة مسلوقة + لحم بقري + أرز"},
-            {t: "وجبة 11", d: "كبدة بقري محمرة بالسمن + توست ردة"}
+            {t: "وجبة 9", d: "طاجن باميا بالسمن البلدي + أرز"}, {t: "وجبة 10", d: "كوسة مسلوقة + قطع لحم بقري + أرز"},
+            {t: "وجبة 11", d: "كبدة بقري محمرة في سمن بلدي + توست ردة"}
         ],
         dinner: [
             {t: "وجبة 1", d: "بطاطس مهروسة بالقشطة والسمن"}, {t: "وجبة 2", d: "أرز دافئ بالزبدة والسكر"},
             {t: "وجبة 3", d: "توست ردة + جبنة رومي + قشطة"}, {t: "وجبة 4", d: "بطاطس مقلية في سمن بلدي"},
-            {t: "وجبة 5", d: "توست ردة + شيدر مطبوخ + عسل"}, {t: "وجبة 6", d: "مربى + قشطة + توست ردة"},
+            {t: "وجبة 5", d: "توست ردة + جبنة شيدر + عسل"}, {t: "وجبة 6", d: "مربى فراولة + قشطة + توست"},
             {t: "وجبة 7", d: "حلاوة طحينية + قشطة + توست"}, {t: "وجبة 8", d: "بطاطس مسلوقة بزيت زيتون"},
             {t: "وجبة 9", d: "تمر رطب + قشطة فلاحي"}, {t: "وجبة 10", d: "توست نوتيلا + قطع موز"},
             {t: "وجبة 11", d: "أرز بمياه وسكر وقشطة (بديل اللبن)"}
@@ -107,7 +134,9 @@
     };
 
     function showPage(p) {
-        document.querySelectorAll('.container > div').forEach(div => div.classList.add('hidden'));
+        document.getElementById('home-page').classList.add('hidden');
+        document.getElementById('meals-page').classList.add('hidden');
+        document.getElementById('chat-page').classList.add('hidden');
         document.getElementById(p + '-page').classList.remove('hidden');
         document.querySelectorAll('nav button').forEach(b => b.classList.remove('active'));
         document.getElementById('btn-' + p).classList.add('active');
@@ -116,7 +145,7 @@
 
     function renderMeals(cat) {
         document.getElementById('meal-content').innerHTML = meals[cat].map(m => `
-            <div class="meal-card"><strong>${m.t}</strong><p style="color:#aaa; font-size:0.9rem; margin-top:10px;">${m.d}</p></div>
+            <div class="meal-card"><strong>${m.t}</strong><p style="color:#aaa; font-size:0.9rem;">${m.d}</p></div>
         `).join('');
     }
 
@@ -127,20 +156,15 @@
         const display = document.getElementById('chat-display');
         display.innerHTML += `<div class="msg user-msg">${input.value}</div>`;
         
-        let res = "أهلاً بك! أنا أتعلم باستمرار. قاعدة نظام الطيبات هي: اللحوم، الأرز، البطاطس، والخبز الأسمر مسموحة. أما الدجاج والبيض واللبن والخضار النيء فهي ممنوعة.";
-
-        // تحسين منطق الرد ليكون ذكياً فعلاً
-        const allowed = ["تفاح", "موز", "عنب", "كمثرى", "جوافة", "تمر", "عسل", "نوتيلا", "رومي", "شيدر", "قشطة", "سمن", "لحم", "سمك", "ارز", "بطاطس", "توست", "مربى"];
-        const forbidden = ["فراخ", "دجاج", "بيض", "لبن", "حليب", "زبادي", "خيار", "خس", "طماطم", "دقيق", "مكرونة"];
-
-        if (["هلا", "مرحبا", "هاي", "صباح", "hi", "hello"].some(g => val.includes(g))) {
-            res = "أهلاً بك يا بطل! نورت تطبيق الطيبات. أنا مساعدك الذكي، كيف يمكنني خدمتك اليوم؟";
-        } else if (forbidden.some(f => val.includes(f))) {
-            res = "⚠️ **ممنوع تماماً!** هذا العنصر يسبب التهابات شديدة في الأمعاء وفقاً لنظام دكتور ضياء العوضي. ابتعد عنه فوراً للتعافي.";
-        } else if (allowed.some(a => val.includes(a))) {
-            res = "✅ **مسموح وصديق للأمعاء!** هذا العنصر من 'الطيبات' ويمكنك تناوله بأمان ضمن الجدول الغذائي. استمتع!";
-        } else if (val.includes("شكرا") || val.includes("thanks")) {
-            res = "العفو يا بطل! ده واجبي. بالتوفيق في امتحان الإنجليزي بكرة، وإن شاء الله تقفل المادة وتبدأ أحلى إجازة!";
+        let res = "قاعدة الطيبات: اللحوم، الأرز، البطاطس، والخبز الأسمر مسموحة. الدجاج والبيض واللبن ممنوعة.";
+        const allowed = ["تفاح", "موز", "عنب", "كمثرى", "جوافة", "تمر", "عسل", "نوتيلا", "رومي", "شيدر", "قشطة", "سمن", "لحم", "سمك", "ارز", "بطاطس", "توست"];
+        
+        if (allowed.some(a => val.includes(a))) {
+            res = "✅ **مسموح!** هذا العنصر من الطيبات وصديق للأمعاء.";
+        } else if (["فراخ", "دجاج", "بيض", "لبن", "حليب"].some(f => val.includes(f))) {
+            res = "⚠️ **ممنوع!** يسبب التهابات وفقاً للنظام.";
+        } else if (val.includes("هلا") || val.includes("مرحبا")) {
+            res = "أهلاً بك يا بطل! كيف يمكنني مساعدتك اليوم؟";
         }
 
         setTimeout(() => {
