@@ -4,436 +4,431 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نظام الطيبات</title>
-    
     <meta name="theme-color" content="#2D3436">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="mobile-web-app-capable" content="yes">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="icon-192.png">
-
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2D3436;
-            --secondary: #636E72;
-            --accent: #E17055;
-            --bg-light: #FDF6EC;
-            --card-bg: #FFFFFF;
-            --shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
-            --shadow-hover: 0 15px 40px rgba(0, 0, 0, 0.1);
-            --green: #00B894;
-        }
+        :root { --primary: #2D3436; --secondary: #636E72; --accent: #E17055; --bg-light: #FDF6EC; --card-bg: #FFFFFF; --shadow: 0 10px 30px rgba(0, 0, 0, 0.05); --green: #00B894; }
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Tajawal', sans-serif; }
         body { background-color: #F0E6D6; color: var(--primary); line-height: 1.6; }
-        
-        header {
-            background: var(--primary);
-            color: white;
-            padding: 1.2rem 1rem;
-            text-align: center;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            position: sticky;
-            top: 0;
-            z-index: 1000;
-        }
-        .header-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-        .brand { display: flex; align-items: center; gap: 0.8rem; }
-        .brand img { width: 40px; height: 40px; border-radius: 12px; }
-        .brand h1 { font-size: 1.5rem; font-weight: 900; margin-bottom: 0; }
-        .brand p { font-size: 0.7rem; color: #b2bec3; }
-        
-        .nav-btns button {
-            padding: 0.4rem 0.8rem;
-            border: 2px solid rgba(255,255,255,0.2);
-            border-radius: 50px;
-            background: transparent;
-            color: white;
-            font-family: 'Tajawal', sans-serif;
-            font-size: 0.85rem;
-            font-weight: 700;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-right: 0.2rem;
-        }
+        header { background: var(--primary); color: white; padding: 1rem; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.2); position: sticky; top: 0; z-index: 1000; }
+        .header-content { max-width: 1400px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 0.5rem; }
+        .brand { display: flex; align-items: center; gap: 0.5rem; }
+        .brand img { width: 35px; height: 35px; border-radius: 10px; }
+        .brand h1 { font-size: 1.3rem; font-weight: 900; }
+        .brand p { font-size: 0.6rem; color: #b2bec3; display:none; }
+        .nav-btns { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px; }
+        .nav-btns button { padding: 0.3rem 0.6rem; border: 2px solid rgba(255,255,255,0.2); border-radius: 50px; background: transparent; color: white; font-family: 'Tajawal', sans-serif; font-size: 0.75rem; font-weight: 700; cursor: pointer; transition: all 0.3s ease; }
         .nav-btns button:hover, .nav-btns button.active { background: var(--accent); border-color: var(--accent); }
-
-        .container { max-width: 1400px; margin: 1.5rem auto; padding: 0 1.5rem; }
-
-        .install-banner {
-            background: linear-gradient(135deg, #00B894, #00CEC9);
-            color: white;
-            padding: 0.8rem 1.2rem;
-            border-radius: 1rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: var(--shadow);
-        }
-        .install-banner button {
-            background: white; color: #00B894; border: none;
-            padding: 0.4rem 1rem; border-radius: 50px; font-weight: 900;
-            font-family: 'Tajawal', sans-serif; cursor: pointer;
-        }
-
-        .filters { display: flex; justify-content: center; gap: 0.6rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
-        .filter-btn {
-            padding: 0.5rem 1rem; border: none; border-radius: 50px; background: var(--card-bg);
-            color: var(--secondary); font-family: 'Tajawal', sans-serif; font-size: 0.9rem;
-            font-weight: 700; cursor: pointer; box-shadow: var(--shadow); transition: all 0.3s ease;
-        }
+        .container { max-width: 1400px; margin: 1rem auto; padding: 0 1rem; }
+        .download-app-btn { display: none; align-items: center; justify-content: center; gap: 0.5rem; background: linear-gradient(135deg, var(--accent), #d63031); color: white; padding: 0.8rem; border-radius: 1rem; margin-bottom: 1rem; box-shadow: 0 10px 25px rgba(225, 112, 85, 0.4); cursor: pointer; border: none; width: 100%; font-family: 'Tajawal', sans-serif; font-size: 1rem; font-weight: 800; }
+        @media (max-width: 768px) { .download-app-btn { display: flex; } }
+        .filters { display: flex; justify-content: center; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .filter-btn { padding: 0.4rem 0.8rem; border: none; border-radius: 50px; background: var(--card-bg); color: var(--secondary); font-family: 'Tajawal', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; box-shadow: var(--shadow); transition: all 0.3s ease; }
         .filter-btn:hover, .filter-btn.active { background: var(--accent); color: white; transform: translateY(-3px); box-shadow: 0 10px 20px rgba(225, 112, 85, 0.3); }
-
-        .meals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 1.2rem; }
-        .meal-card {
-            background: var(--card-bg); border-radius: 1.5rem; overflow: hidden;
-            box-shadow: var(--shadow); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            opacity: 0; transform: translateY(20px); animation: fadeInUp 0.4s forwards; cursor: pointer;
-        }
-        .meal-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
+        .meals-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 1rem; }
+        .meal-card { background: var(--card-bg); border-radius: 1.5rem; overflow: hidden; box-shadow: var(--shadow); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); opacity: 0; transform: translateY(20px); animation: fadeInUp 0.4s forwards; cursor: pointer; }
+        .meal-card:hover { transform: translateY(-5px); box-shadow: 0 15px 40px rgba(0, 0, 0, 0.1); }
         @keyframes fadeInUp { to { opacity: 1; transform: translateY(0); } }
-
-        .card-header { padding: 0.8rem 1.2rem; color: white; display: flex; justify-content: space-between; align-items: center; }
+        .card-header { padding: 0.7rem 1rem; color: white; display: flex; justify-content: space-between; align-items: center; }
         .breakfast-header { background: linear-gradient(135deg, #FDCB6E, #E17055); }
         .lunch-header { background: linear-gradient(135deg, #00B894, #00CEC9); }
         .dinner-header { background: linear-gradient(135deg, #6C5CE7, #A29BFE); }
-        .meal-type { font-size: 0.7rem; background: rgba(255,255,255,0.2); padding: 0.2rem 0.5rem; border-radius: 20px; }
-        .meal-number { font-size: 1.2rem; font-weight: 900; }
-        .card-body { padding: 1rem; text-align: center; }
-        .meal-icon { font-size: 2rem; margin-bottom: 0.5rem; color: var(--secondary); }
-        .meal-title { font-size: 1.1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.3rem; }
-        .meal-desc { font-size: 0.9rem; color: var(--secondary); line-height: 1.5; }
-        .meal-tags { margin-top: 0.5rem; display: flex; justify-content: center; gap: 0.3rem; flex-wrap: wrap; }
-        .tag { font-size: 0.7rem; padding: 0.1rem 0.4rem; border-radius: 15px; background: #f1f2f6; color: var(--secondary); }
+        .meal-type { font-size: 0.65rem; background: rgba(255,255,255,0.2); padding: 0.2rem 0.4rem; border-radius: 20px; }
+        .meal-number { font-size: 1rem; font-weight: 900; }
+        .card-body { padding: 0.8rem; text-align: center; }
+        .meal-icon { font-size: 1.8rem; margin-bottom: 0.4rem; color: var(--secondary); }
+        .meal-title { font-size: 1rem; font-weight: 700; color: var(--primary); margin-bottom: 0.2rem; }
+        .meal-desc { font-size: 0.85rem; color: var(--secondary); line-height: 1.4; }
+        .meal-tags { margin-top: 0.4rem; display: flex; justify-content: center; gap: 0.2rem; flex-wrap: wrap; }
+        .tag { font-size: 0.65rem; padding: 0.1rem 0.3rem; border-radius: 15px; background: #f1f2f6; color: var(--secondary); }
         .meal-card.hide { display: none; }
-
-        /* بوبي التفاصيل */
-        .popup-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); z-index: 2000;
-            display: none; justify-content: center; align-items: center;
-            padding: 1rem;
-        }
+        .popup-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 2000; display: none; justify-content: center; align-items: center; padding: 1rem; }
         .popup-overlay.active { display: flex; }
-        .popup-content {
-            background: var(--bg-light); border-radius: 2rem; padding: 2rem;
-            max-width: 400px; width: 100%; position: relative;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.2);
-            animation: popIn 0.3s ease;
-        }
+        .popup-content { background: var(--bg-light); border-radius: 2rem; padding: 1.5rem; max-width: 400px; width: 100%; position: relative; box-shadow: 0 20px 50px rgba(0,0,0,0.2); animation: popIn 0.3s ease; }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        
-        .close-popup {
-            position: absolute; top: 1rem; left: 1rem; background: none; border: none;
-            font-size: 1.5rem; cursor: pointer; color: var(--secondary);
-        }
-        .popup-header { text-align: center; margin-bottom: 1.5rem; }
-        .popup-header i { font-size: 3rem; color: var(--accent); margin-bottom: 0.5rem; }
-        .popup-header h2 { font-size: 1.5rem; color: var(--primary); }
-        
-        .protein-meter {
-            background: white; border-radius: 1rem; padding: 1rem; margin-bottom: 1rem;
-            box-shadow: var(--shadow); text-align: center;
-        }
-        .protein-meter h3 { font-size: 1rem; color: var(--secondary); margin-bottom: 0.5rem; }
-        .meter-bar { width: 100%; height: 15px; background: #e0e0e0; border-radius: 20px; overflow: hidden; }
+        .close-popup { position: absolute; top: 1rem; left: 1rem; background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--secondary); }
+        .popup-header { text-align: center; margin-bottom: 1rem; }
+        .popup-header i { font-size: 2.5rem; color: var(--accent); margin-bottom: 0.3rem; }
+        .popup-header h2 { font-size: 1.3rem; color: var(--primary); }
+        .protein-meter { background: white; border-radius: 1rem; padding: 0.8rem; margin-bottom: 1rem; box-shadow: var(--shadow); text-align: center; }
+        .protein-meter h3 { font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.3rem; }
+        .meter-bar { width: 100%; height: 12px; background: #e0e0e0; border-radius: 20px; overflow: hidden; }
         .meter-fill { height: 100%; background: linear-gradient(90deg, #00B894, #55EFC4); border-radius: 20px; width: 0%; transition: width 1s ease; }
-        .protein-text { margin-top: 0.5rem; font-weight: 900; color: var(--green); font-size: 1.2rem; }
-
-        .benefits-box {
-            background: white; border-radius: 1rem; padding: 1rem;
-            box-shadow: var(--shadow);
-        }
-        .benefits-box h3 { font-size: 1rem; color: var(--primary); margin-bottom: 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+        .protein-text { margin-top: 0.3rem; font-weight: 900; color: var(--green); font-size: 1.1rem; }
+        .benefits-box { background: white; border-radius: 1rem; padding: 0.8rem; box-shadow: var(--shadow); }
+        .benefits-box h3 { font-size: 0.9rem; color: var(--primary); margin-bottom: 0.4rem; display: flex; align-items: center; gap: 0.5rem; }
         .benefits-list { list-style: none; }
-        .benefits-list li { font-size: 0.9rem; color: var(--secondary); margin-bottom: 0.5rem; display: flex; align-items: flex-start; gap: 0.5rem; }
-        .benefits-list li::before { content: '✨'; font-size: 0.8rem; margin-top: 5px; }
+        .benefits-list li { font-size: 0.85rem; color: var(--secondary); margin-bottom: 0.4rem; display: flex; align-items: flex-start; gap: 0.4rem; }
+        .benefits-list li::before { content: '✨'; font-size: 0.7rem; margin-top: 5px; }
+        
+        /* تنسيق الصفحات الثابتة */
+        .page-section { display: none; } .page-section.active { display: block; }
+        .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+        @media (max-width: 900px) { .rules-grid { grid-template-columns: 1fr; } }
+        .rule-col { display: flex; flex-direction: column; gap: 1.5rem; }
+        .rule-card { background: var(--card-bg); border-radius: 1.5rem; padding: 1.2rem; box-shadow: var(--shadow); border-right: 6px solid; }
+        .allowed-card { border-color: var(--green); }
+        .forbidden-card { border-color: #D63031; }
+        .rule-card h3 { font-size: 1.1rem; margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .allowed-card h3 { color: var(--green); }
+        .forbidden-card h3 { color: #D63031; }
+        .rule-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.4rem; }
+        .rule-list li { font-size: 0.85rem; color: var(--secondary); display: flex; align-items: center; gap: 0.3rem; padding: 0.3rem; background: #f8f9fa; border-radius: 8px; }
+        .allowed-card .rule-list li::before { content: '✅'; font-size: 0.7rem; }
+        .forbidden-card .rule-list li::before { content: '❌'; font-size: 0.7rem; }
 
-        .rules-page { display: none; } .rules-page.active { display: block; }
-        .meals-page { display: none; } .meals-page.active { display: block; }
-
-        .rules-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 2rem; }
-        .rule-section { background: var(--card-bg); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow); border-top: 6px solid; }
-        .allowed-section { border-color: #00B894; }
-        .forbidden-section { border-color: #D63031; }
-        .rule-section h2 { font-size: 1.4rem; margin-bottom: 1.5rem; display: flex; align-items: center; gap: 0.5rem; }
-        .allowed-section h2 { color: #00B894; }
-        .forbidden-section h2 { color: #D63031; }
-        .rule-category { margin-bottom: 1.5rem; background: #f8f9fa; padding: 1rem; border-radius: 1rem; }
-        .rule-category h3 { font-size: 1.1rem; color: var(--primary); margin-bottom: 0.8rem; border-bottom: 2px solid #e0e0e0; padding-bottom: 0.5rem; }
-        .rule-list { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; }
-        .rule-list li { font-size: 0.9rem; display: flex; align-items: center; gap: 0.5rem; }
-        .allowed-section .rule-list li::before { content: '✅'; font-size: 0.8rem; }
-        .forbidden-section .rule-list li::before { content: '❌'; font-size: 0.8rem; }
-
-        footer { text-align: center; padding: 2rem; color: var(--secondary); font-size: 0.9rem; border-top: 1px solid #e0e0e0; background: var(--bg-light); margin-top: 3rem; }
-
-        @media (max-width: 768px) {
-            .header-content { justify-content: center; text-align: center; }
-            .brand { flex-direction: column; }
-            .rules-container { grid-template-columns: 1fr; }
-            .rule-list { grid-template-columns: 1fr; }
-            .meals-grid { grid-template-columns: 1fr; }
-        }
+        /* تنسيق صفحة قصة النظام */
+        .story-container { display: flex; flex-direction: column; gap: 1.5rem; }
+        .story-card { background: var(--card-bg); border-radius: 1.5rem; padding: 1.5rem; box-shadow: var(--shadow); border-top: 5px solid var(--accent); }
+        .story-card h3 { font-size: 1.2rem; color: var(--primary); margin-bottom: 0.8rem; display: flex; align-items: center; gap: 0.5rem; }
+        .story-card p { font-size: 0.95rem; color: var(--secondary); line-height: 1.8; }
+        .quote-box { background: var(--primary); color: white; padding: 1rem; border-radius: 1rem; margin: 0.8rem 0; font-style: italic; text-align: center; font-weight: 700; }
+        .warning-box { background: #ffeaa7; padding: 1rem; border-radius: 1rem; border: 2px solid #fdcb6e; font-size: 0.9rem; color: #2d3436; line-height: 1.6; font-weight: 700; display: flex; gap: 0.5rem; }
+        
+        footer { text-align: center; padding: 1.5rem; color: var(--secondary); font-size: 0.8rem; border-top: 1px solid #e0e0e0; background: var(--bg-light); margin-top: 2rem; }
     </style>
 </head>
 <body>
-
     <header>
         <div class="header-content">
-            <div class="brand">
-                <img src="icon-192.png" alt="Logo">
-                <div>
-                    <h1>نظام الطيبات</h1>
-                    <p>150 وجبة مُدقّقة وذكية</p>
-                </div>
-            </div>
+            <div class="brand"><img src="icon-192.png" alt="Logo"><div><h1>نظام الطيبات</h1></div></div>
             <div class="nav-btns">
                 <button class="active" onclick="showPage('meals', event)">الوجبات</button>
-                <button onclick="showPage('rules', event)">المسموحات والممنوعات</button>
+                <button onclick="showPage('rules', event)">المسموحات</button>
+                <button onclick="showPage('story', event)">قصة النظام</button>
             </div>
         </div>
     </header>
-
     <div class="container">
-        <div id="meals-page" class="meals-page active">
-            <div class="install-banner" id="installBanner" style="display: none;">
-                <div><strong>ثبت التطبيق!</strong><p style="font-size: 0.8rem;">يعمل كأب حقيقي</p></div>
-                <button onclick="installApp()">تثبيت</button>
-            </div>
-
+        
+        <!-- صفحة الوجبات -->
+        <div id="meals-page" class="page-section active">
+            <button class="download-app-btn" onclick="installApp()"><i class="fas fa-download"></i> تحميل التطبيق على موبايلك</button>
             <div class="filters">
                 <button class="filter-btn active" onclick="filterMeals('all', event)">الكل (150)</button>
-                <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور (50)</button>
-                <button class="filter-btn" onclick="filterMeals('lunch', event)"><i class="fas fa-utensils"></i> غداء (50)</button>
-                <button class="filter-btn" onclick="filterMeals('dinner', event)"><i class="fas fa-moon"></i> عشاء (50)</button>
+                <button class="filter-btn" onclick="filterMeals('breakfast', event)"><i class="fas fa-mug-hot"></i> فطور</button>
+                <button class="filter-btn" onclick="filterMeals('lunch', event)"><i class="fas fa-utensils"></i> غداء</button>
+                <button class="filter-btn" onclick="filterMeals('dinner', event)"><i class="fas fa-moon"></i> عشاء</button>
             </div>
             <div class="meals-grid" id="mealsGrid"></div>
         </div>
 
-        <div id="rules-page" class="rules-page">
-            <div class="rules-container">
-                <div class="rule-section allowed-section">
-                    <h2><i class="fas fa-check-circle"></i> المسموحات</h2>
-                    <div class="rule-category"><h3>النشويات</h3><ul class="rule-list"><li>الأرز (بصل/ثوم)</li><li>أرز بني</li><li>توست ردة</li><li>البطاطس</li><li>الفريك</li><li>خبز حبة كاملة</li></ul></div>
-                    <div class="rule-category"><h3>الدهون والزيوت</h3><ul class="rule-list"><li>سمن بلدي</li><li>زبدة طبيعية</li><li>زيت زيتون</li><li>زيت جوز الهند</li><li>قشطة بلدي</li><li>جبنة قريش/رومي</li></ul></div>
-                    <div class="rule-category"><h3>البروتين</h3><ul class="rule-list"><li>لحم بقري/جاموسي</li><li>لحم ضأن</li><li>كبدة / لحمة مفرومة</li><li>أسماك بحرية</li><li>جمبري بحر</li></ul></div>
-                    <div class="rule-category"><h3>السكريات والفواكه</h3><ul class="rule-list"><li>سكر أبيض (معتدل)</li><li>عسل طبيعي</li><li>التمر</li><li>تفاح، رمان، تين</li><li>عنب، إجاص، خوخ</li><li>توت، برقوق، مشمش</li></ul></div>
+        <!-- صفحة المسموحات والممنوعات الموسعة -->
+        <div id="rules-page" class="page-section">
+            <div class="rules-grid">
+                <div class="rule-col">
+                    <div class="rule-card allowed-card">
+                        <h3><i class="fas fa-seedling"></i> النشويات (الركيزة الأولى)</h3>
+                        <ul class="rule-list">
+                            <li>الأرز المصري (بصل أو ثوم)</li>
+                            <li>الأرز البني</li>
+                            <li>توست بالردة (ريتش بيك)</li>
+                            <li>البطاطس (الخضار الوحيد)</li>
+                            <li>الفريك</li>
+                            <li>خبز حبة كاملة</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card allowed-card">
+                        <h3><i class="fas fa-droplet"></i> الدهون والزيوت الطبيعية</h3>
+                        <ul class="rule-list">
+                            <li>السمن البلدي الحيواني</li>
+                            <li>الزبدة الطبيعية</li>
+                            <li>زيت الزيتون البكر</li>
+                            <li>زيت جوز الهند</li>
+                            <li>القشطة البلدي الطبيعية</li>
+                            <li>جبنة قريش / رومي (باعتدال)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card allowed-card">
+                        <h3><i class="fas fa-drumstick-bite"></i> البروتين الحيواني</h3>
+                        <ul class="rule-list">
+                            <li>لحم بقري / جاموسي (مرة بالأسبوع)</li>
+                            <li>لحم ضأن (مرتين بالأسبوع)</li>
+                            <li>الكندوز / اللحمة المفرومة</li>
+                            <li>الأسماك البحرية (غير المزارع)</li>
+                            <li>الجمبري البحري (غير المزارع)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card allowed-card">
+                        <h3><i class="fas fa-apple-whole"></i> السكريات والفواكه</h3>
+                        <ul class="rule-list">
+                            <li>السكر الأبيض (بكميات معتدلة)</li>
+                            <li>العسل الطبيعي</li>
+                            <li>التمر (الركيزة الخامسة)</li>
+                            <li>التفاح، الرمان، التين</li>
+                            <li>العنب، الإجاص، الخوخ</li>
+                            <li>التوت، البرقوق، المشمش</li>
+                        </ul>
+                    </div>
                 </div>
-                <div class="rule-section forbidden-section">
-                    <h2><i class="fas fa-times-circle"></i> الممنوعات</h2>
-                    <div class="rule-category"><h3>البروتين الأبيض</h3><ul class="rule-list"><li>الدجاج</li><li>الرومي والبط</li><li>البيض</li></ul></div>
-                    <div class="rule-category"><h3>الألبان السائلة</h3><ul class="rule-list"><li>الحليب</li><li>الزبادي واللبن</li><li>الجبن المصنع</li></ul></div>
-                    <div class="rule-category"><h3>الخضروات</h3><ul class="rule-list"><li>خس، طماطم، خيار</li><li>ملوخية، سبانخ</li><li>جميع الورقية والنيئة</li></ul></div>
-                    <div class="rule-category"><h3>بقوليات وأخرى</h3><ul class="rule-list"><li>فول، عدس، فاصوليا</li><li>بلطي وبوري مزارع</li><li>مانجو، أناناس، كيوي</li></ul></div>
+                <div class="rule-col">
+                    <div class="rule-card forbidden-card">
+                        <h3><i class="fas fa-ban"></i> البروتين الأبيض (ممنوع)</h3>
+                        <ul class="rule-list">
+                            <li>الدجاج بجميع أنواعه</li>
+                            <li>الرومي، البط، والطيور الداجنة</li>
+                            <li>البيض بجميع أشكاله</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card forbidden-card">
+                        <h3><i class="fas fa-ban"></i> منتجات الألبان (ممنوع)</h3>
+                        <ul class="rule-list">
+                            <li>الحليب بجميع أنواعه</li>
+                            <li>الزبادي، اللبن، والكيفير</li>
+                            <li>الجبن المصنع (عدا الطبيعي)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card forbidden-card">
+                        <h3><i class="fas fa-ban"></i> الخضروات (ممنوعة نيئة أو ورقية)</h3>
+                        <ul class="rule-list">
+                            <li>الخس، الطماطم، الخيار، الجرجير</li>
+                            <li>الملوخية، السبانخ</li>
+                            <li>الجزر، الفلفل (المطبوخ فقط مسموح)</li>
+                            <li>جميع الخضروات الورقية والخضراء</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card forbidden-card">
+                        <h3><i class="fas fa-ban"></i> البقوليات والبحريات المزارع</h3>
+                        <ul class="rule-list">
+                            <li>الفول، العدس، الفاصوليا، اللوبيا، الحمص</li>
+                            <li>بلطي وبوري (من المزارع)</li>
+                            <li>جمبري وسبيط (من المزارع)</li>
+                        </ul>
+                    </div>
+                    <div class="rule-card forbidden-card">
+                        <h3><i class="fas fa-ban"></i> فواكه ومشروبات ممنوعة</h3>
+                        <ul class="rule-list">
+                            <li>المانجو، البطيخ، الشمام</li>
+                            <li>البرتقال، الجريب فروت</li>
+                            <li>الأناناس، الكيوي</li>
+                            <li>المشروبات الغازية والصناعية</li>
+                        </ul>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- صفحة قصة النظام -->
+        <div id="story-page" class="page-section">
+            <div class="story-container">
+                <div class="story-card">
+                    <h3><i class="fas fa-user-doctor"></i> من هو د. ضياء العوضي؟</h3>
+                    <p>طبيب تخدير ووحدات عناية مركزة من مصر. اتخذ منصات التواصل الرقمي (يوتيوب، تيك توك) منصة لتقديم نظام غذائي أثار جدلاً واسعاً. صاحب فكرة "نظام الطيبات" والذي تصدر المشهد الرقمي العربي وحقق شهادات واسعة من المتابعين الذين شهدوا تحسناً في صحتهم.</p>
+                </div>
+                <div class="story-card">
+                    <h3><i class="fas fa-brain"></i> الفلسفة الأساسية للنظام</h3>
+                    <p>يرى الدكتور ضياء أن الأمراض المزمنة (كالسكري والضغط والقولون العصبي) ليست أمراضاً بحد ذاتها، بل هي "صرخات جسدية" تعبر عن فشل الجهاز الهضمي في التعامل مع ما يُدخل إليه. يرى أن الحل الجذري ليس بالدواء، بل بإزالة الأطعمة التي تُثقل الهضم وتخلق فضلات سامة داخل القنوات الهضمية.</p>
+                    <div class="quote-box">"السرطان لا يبدأ في الخلية.. يبدأ في طبقك"</div>
+                </div>
+                <div class="story-card">
+                    <h3><i class="fas fa-star"></i> القواعد الذهبية السبع</h3>
+                    <p style="margin-bottom: 0.5rem;"><strong>1. الجوع الحقيقي:</strong> لا تأكل إلا عند الشعور بالجوع الفعلي، لا وقت الوجبة أو الملل.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>2. التوقف قبل الشبع:</strong> قِف قبل أن تبدأ بالشعور بالامتلاء.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>3. الصيام الدوري:</strong> صيام الاثنين والخميس (13، 14، 15 من كل شهر قمري).</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>4. مياه العطش:</strong> لا تشرب الماء إلا عندما تشعر بالعطش الحقيقي، ولا تشرب كمية كبيرة دفعة واحدة.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>5. الطبخ السليم:</strong> اللحوم تُسلق أولاً، وتُجنب المقليات الجاهزة.</p>
+                    <p style="margin-bottom: 0.5rem;"><strong>6. النوعية لا الكمية:</strong> التركيز على جودة الطعام وقدرة الجسم على امتصاصه وليس عدد السعرات.</p>
+                    <p><strong>7. الرياضة الخفيفة:</strong> المشي اليومي أو التمارين البسيطة، وتجنب الجيم العنيف أو الرياضة الثقيلة.</p>
+                </div>
+                <div class="story-card">
+                    <h3><i class="fas fa-check-double"></i> الحجج المؤيدة للنظام</h3>
+                    <ul style="padding-right: 1rem; color: var(--secondary);">
+                        <li>آلاف المتابعين يشهدون بانخفاض أوزانهم وتحسن مؤشرات الضغط والسكري.</li>
+                        <li>يتوافق مع التوصيات الحديثة بتقليل الأطعمة المصنعة والدجاج.</li>
+                        <li>الصيام المتقطع له أدلة علمية معتمدة على تحسين حساسية الإنسولين.</li>
+                        <li>يعكس منهجية "الأكل الواعي" المعتمدة في الطب السلوكي الحديث.</li>
+                    </ul>
+                </div>
+                <div class="story-card">
+                    <h3><i class="fas fa-triangle-exclamation" style="color:#d63031"></i> الانتقادات الطبية الموثقة</h3>
+                    <ul style="padding-right: 1rem; color: var(--secondary);">
+                        <li>منع الدجاج والبيض يحرم الجسم من مصادر بروتين عالية الجودة ضرورية لبناء العضلات.</li>
+                        <li>منع الخضروات الورقية يفقد الجسم الألياف الغذائية والفيتامينات الأساسية (مثل فيتامين C و A).</li>
+                        <li>التقليل من المياه يتعارض مع التوصيات الطبية الحديثة لمنع اضطراب الكهارل، خاصة في الحرارة الشديدة.</li>
+                        <li>السماح بالسكر الأبيض بكميات يتعارض مع الدراسات التي تربط استهلاكه الزائد بمقاومة الإنسولين.</li>
+                    </ul>
+                    <div class="warning-box">
+                        <i class="fas fa-exclamation-triangle" style="color:#d63031; font-size:1.3rem;"></i>
+                        <div><strong>تنبيه طبي هام جداً:</strong> لا يجوز إيقاف أي أدوية لمرضى مزمنين تحت أي ظرف دون إشراف طبي دقيق.</div>
+                    </div>
+                </div>
+                <div class="story-card" style="border-top: 5px solid var(--green);">
+                    <h3><i class="fas fa-balance-scale"></i> الخلاصة العلمية</h3>
+                    <p>نظام الطيبات ظاهرة اجتماعية وغذائية فريدة في عالمنا العربي. يحمل في طياته حكمة في الأكل المتقشف والاعتدال وتجنب المصنوع، لكنه في جوانب أخرى يتجاوز حدود السلامة الطبية فيما يخص منع البروتينات الكاملة والماء وتوجيهات إيقاف الأدوية.</p>
+                    <div class="quote-box" style="background: var(--green);">"التوازن والتنوع والاستمرارية هم مفتاح الصحة.. لا يوجد نظام واحد يناسب الجميع."</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
-    <!-- البوبي بتاع التفاصيل -->
     <div class="popup-overlay" id="mealPopup">
         <div class="popup-content">
             <button class="close-popup" onclick="closePopup()"><i class="fas fa-times"></i></button>
-            <div class="popup-header">
-                <i id="popupIcon" class="fas fa-bread-slice"></i>
-                <h2 id="popupTitle">اسم الوجبة</h2>
-            </div>
-            
-            <div class="protein-meter">
-                <h3>نسبة البروتين الصحي المتوفر</h3>
-                <div class="meter-bar"><div class="meter-fill" id="proteinBar"></div></div>
-                <div class="protein-text" id="proteinText">100% صحي ومتوافق</div>
-            </div>
-
-            <div class="benefits-box">
-                <h3><i class="fas fa-heart" style="color:var(--accent)"></i> الفوائد الصحية</h3>
-                <ul class="benefits-list" id="benefitsList">
-                    <li>فائدة 1</li>
-                    <li>فائدة 2</li>
-                </ul>
-            </div>
+            <div class="popup-header"><i id="popupIcon" class="fas fa-bread-slice"></i><h2 id="popupTitle">اسم الوجبة</h2></div>
+            <div class="protein-meter"><h3>نسبة البروتين الصحي</h3><div class="meter-bar"><div class="meter-fill" id="proteinBar"></div></div><div class="protein-text" id="proteinText">100%</div></div>
+            <div class="benefits-box"><h3><i class="fas fa-heart" style="color:var(--accent)"></i> الفوائد</h3><ul class="benefits-list" id="benefitsList"></ul></div>
         </div>
     </div>
-
-    <footer>
-        <p>مرجعك الشامل لنظام الطيبات <i class="fas fa-heart" style="color: var(--accent);"></i></p>
-    </footer>
+    <footer><p>مرجعك الشامل لنظام الطيبات <i class="fas fa-heart" style="color: var(--accent);"></i></p></footer>
 
     <script>
-        // هنا الـ 150 وجبة (تم اضافة الـ 60 وجبة الجدد في نهاية كل قسم)
         const meals = [
-            // === الفطار (الـ 30 القدام + 20 جداد) ===
-            {id:1,type:'breakfast',name:'كلاسيك الطيبات',desc:'توست بالردة مدهون زبدة بلدي ومربى.',icon:'fa-bread-slice',tags:['كلاسيك'],protein:0,benefits:['طاقة سريعة ومستدامة من التوست بالردة','الزبدة البلدي تغذي الخلايا ولا تسببانسداداً']},
-            {id:2,type:'breakfast',name:'فطور البطاطس',desc:'بطاطس مقلية في زيت زيتون مع شيبسي بيتي.',icon:'fa-french-fries',tags:['زيت زيتون'],protein:0,benefits:['البطاطس توفر نشويات سهلة الهضم','زيت الزيتون يمد الجسم بالدهون الصحية']},
-            {id:3,type:'breakfast',name:'ساندوتش الأجبان',desc:'توست بالردة محشو جبنة رومي مع زيت زيتون.',icon:'fa-cheese',tags:['رومي'],protein:15,benefits:['جبنة رومي غنية بالكالسيوم والبروتين الصحي','زيت الزيتون يقلل الكوليسترول الضار']},
-            {id:4,type:'breakfast',name:'وجبة الطاقة',desc:'توست بالردة مع قشطة بلدي وحلاوة طحينية.',icon:'fa-bolt',tags:['قشطة بلدي'],protein:5,benefits:['وجبة عالية السعرات للبدء بنشاط','القشطة البلدي تحتوي على دهون مغذية']},
-            {id:5,type:'breakfast',name:'البطاطا المشوية',desc:'حبتين بطاطا حلوة مشوية في الفرن.',icon:'fa-fire',tags:['فرن'],protein:0,benefits:['البطاطا الحلوة غنية بالفيتامينات والمعادن','الشوي يحافظ على القيمة الغذائية']},
-            {id:6,type:'breakfast',name:'ساندوتش النوتيلا',desc:'توست بالردة مع شوكولاتة نوتيلا.',icon:'fa-cookie-bite',tags:['شوكولاتة'],protein:5,benefits:['تعطي إحساس بالسعادة وتحسن المزاج','توفر طاقة فورية لبداية اليوم']},
-            {id:7,type:'breakfast',name:'أرز بالقشطة',desc:'أرز مسلوق محلى بالسكر مع قشطة بلدي.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['الأرز سهل الهضم ولا يرهق المعدة','القشطة تعطي نكهة غنية وطاقة عالية']},
-            {id:8,type:'breakfast',name:'وجبة بسبوسة',desc:'قطعة بسبوسة (مصنوعة بالسمن البلدي).',icon:'fa-cake-candles',tags:['حلويات'],protein:0,benefits:['وجبة شرقية أصلية مطابقة للنظام','السمن البلدي يعطي طاقة مركزة']},
-            {id:9,type:'breakfast',name:'توست كشكفال',desc:'توست بالردة مع جبنة كشكفال مسيحة.',icon:'fa-cheese',tags:['كشكفال'],protein:15,benefits:['جبنة كشكفال غنية بالبروتين والكالسيوم','طعم لذيذ مع توست الردة الصحي']},
-            {id:10,type:'breakfast',name:'طحينة وعسل',desc:'توست بالردة مع طحينة غامقة وعسل أبيض.',icon:'fa-jar',tags:['عسل'],protein:5,benefits:['الطحينة غنية بالكالسيوم والحديد','العسل مضاد طبيعي للبكتيريا']},
-            {id:11,type:'breakfast',name:'فطيرة السمن',desc:'توست ردة محمر بالسمن البلدي ورش سكر.',icon:'fa-stroopwafel',tags:['سمن بلدي'],protein:0,benefits:['سمن بلدي يمد الجسم بطاقة مدفوعة','مذاق تقليدي أصيل']},
-            {id:12,type:'breakfast',name:'أرز بالعسل',desc:'أرز مسلوق مهروس مع ملعقة عسل طبيعي.',icon:'fa-bowl-rice',tags:['أرز','عسل'],protein:0,benefits:['مزيج مثالي للطاقة المستدامة','العسل يعالج احتقان الحلق']},
-            {id:13,type:'breakfast',name:'تمر بالموزة',desc:'5 حبات تمن مجدول بالعسل (تمر بالموزة).',icon:'fa-seedling',tags:['تمر'],protein:0,benefits:['التمر يمد الجسم بالحديد والبوتاسيوم','وجبة مثالية لتنشيط الجهاز الهضمي صباحاً']},
-            {id:14,type:'breakfast',name:'شاي بالسكر',desc:'كوب شاي أسود محلى بالسكر الأبيض.',icon:'fa-mug-hot',tags:['شاي'],protein:0,benefits:['الشاي منبه طبيعي خفيف','السكر المسموح يوفر طاقة فورية للمخ']},
-            {id:15,type:'breakfast',name:'توست زبدة وسكر',desc:'توست ردة دافئ مدهون زبدة بلدي ومشبع بالسكر.',icon:'fa-bread-slice',tags:['زبدة'],protein:0,benefits:['وجبة بسيطة وسريعة التحضير','الزبدة البلدي تحتوي على فيتامين A']},
-            {id:16,type:'breakfast',name:'عصير قصب وتوست',desc:'كوب عصير قصب سكر مع توست بالسمن.',icon:'fa-glass-water',tags:['قصب'],protein:0,benefits:['قصب السكر يمد الجسم بمعادن كثيرة','طاقة فورية للجسم']},
-            {id:17,type:'breakfast',name:'بطاطس مهروسة بالسمن',desc:'بطاطس مسلوقة ومهروسة مع ملعقة سمن بلدي.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['بطاطس مهروسة سهلة الامتصاص جداً','السمن البلدي يضيف قيمة غذائية عالية']},
-            {id:18,type:'breakfast',name:'فريك بالسكر والزبدة',desc:'فريك مطبوخ بالزبدة البلدي ومحلى بالسكر.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['الفريك غني بالألياف الصحية','وجبة مشبعة لفترة طويلة']},
-            {id:19,type:'breakfast',name:'رمان وجبنة قريش',desc:'نصف رمان منزوع البذر مع طبق جبنة قريش.',icon:'fa-apple-whole',tags:['فاكهة'],protein:20,benefits:['الرمان مضاد أكسدة قوي جداً','جبنة قريش خفيفة وعالية البروتين']},
-            {id:20,type:'breakfast',name:'توست بالسكر والقشطة',desc:'طبقات من توست الردة، القشطة البلدي والسكر.',icon:'fa-layer-group',tags:['قشطة بلدي'],protein:5,benefits:['وجبة غنية ومشبعة','القشطة البلدي لا تسبب أضراراً للقولون']},
-            {id:21,type:'breakfast',name:'تفاح بالزبدة والسكر',desc:'تفاح مقطع محمر قليلاً في الزبدة البلدي مع السكر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['التفاح يحتوي على البكتين المفيد للمعدة','الزبدة البلدي تجعل الفيتامينات تمتص بشكل أفضل']},
-            {id:22,type:'breakfast',name:'عسل على الريق',desc:'ملعقة عسل طبيعي على الريق مع كوب ماء دافئ.',icon:'fa-jar',tags:['عسل'],protein:0,benefits:['ينظف المعدة ويدعم الكبد','مضاد طبيعي قوي للالتهابات']},
-            {id:23,type:'breakfast',name:'توست الشوكولاتة الداكنة',desc:'توست ردة مع شوكولاتة داكنة ذائبة.',icon:'fa-cookie-bite',tags:['شوكولاتة'],protein:5,benefits:['الشوكولاتة الداكنة تحسن المزاج','غنية بمضادات الأكسدة']},
-            {id:24,type:'breakfast',name:'أرز بالتمر',desc:'أرز أبيض مهروس مع التمر المهروس.',icon:'fa-bowl-rice',tags:['تمر'],protein:0,benefits:['مزيج مثالي للنشويات والمعادن','التمر يعوض نقص الحديد بشكل ممتاز']},
-            {id:25,type:'breakfast',name:'خبز بلدي وسمن',desc:'قطعة خبز حبة كاملة دافئ مع سمن بلدي.',icon:'fa-bread-slice',tags:['خبز كامل'],protein:0,benefits:['خبز الحبة الكاملة غني بالألياف','السمن البلدي يعطي طاقة مركزة']},
-            {id:26,type:'breakfast',name:'بطاطس شيبسي بالزبدة',desc:'شيبسي بطاطس محضر في الفرن مع رشة زبدة.',icon:'fa-plate-wheat',tags:['شيبسي'],protein:0,benefits:['بديل صحي للشيبسي التجاري','الزبدة تضيف نكهة لذيذة دون أضرار زيوت المهندس']},
-            {id:27,type:'breakfast',name:'عنب بالعسل',desc:'طبق عنب طازج مع ملعقة عسل طبيعي.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['العنب يمد الجسم بالسوائل والطاقة','العسل يعزز المناعة']},
-            {id:28,type:'breakfast',name:'قهوة عربية وتمر',desc:'فنجان قهوة عربية مع 3 حبات تمر.',icon:'fa-mug-saucer',tags:['قهوة'],protein:0,benefits:['القهوة العربية تحتوي على مضادات أكسدة','التمر يعادل الحموضة الناتجة عن القهوة']},
-            {id:29,type:'breakfast',name:'توست بالعسل والزبدة',desc:'توست ردة مدهون زبدة بلدي ومغطى بالعسل.',icon:'fa-bread-slice',tags:['عسل'],protein:0,benefits:['وجبة متكاملة من النشويات والدهون الصحية','مضاد ممتاز للإرهاق']},
-            {id:30,type:'breakfast',name:'أرز بالسمن والسكر',desc:'أرز مفلفل بالسمن البلدي ومحلى بالسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['وجبة شرقية أصيلة متوافقة مع النظام','السمن البلدي يعطي طاقة مركزة ودسمة']},
-            
-            // === الـ 20 فطار الجداد ===
-            {id:31,type:'breakfast',name:'خوخ بالقشطة',desc:'حبتين خوخ مقطعين مع قشطة بلدي وسكر.',icon:'fa-seedling',tags:['فاكهة'],protein:5,benefits:['الخوخ غني بفيتامين C والبوتاسيوم','القشطة البلدي تضيف كريمية لذيذة']},
-            {id:32,type:'breakfast',name:'أرز بالزبيب والسمن',desc:'أرز مفلفل بالسمن ومزين بالزبيب.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['الزبيب يحتوي على حديد طبيعي','وجبة دسمة ومشبعة']},
-            {id:33,type:'breakfast',name:'شريحة لحم مقدد',desc:'شريحة لحمة ضاني مقددة مع توست ردة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['بروتين حيواني صحي 100% متوافق مع النظام','اللحم المقدد يعطي نكهة قوية جداً']},
-            {id:34,type:'breakfast',name:'برقوق مجفف بالتمر',desc:'طبق برقوق مجفف مع 3 حبات تمر.',icon:'fa-seedling',tags:['فواكه مجففة'],protein:0,benefits:['البرقوق المجفف يعالج الإمساك بقوة','التمر يمد الجسم بالطاقة الفورية']},
-            {id:35,type:'breakfast',name:'كشري الطيبات',desc:'أرز وعدس (مسموح في وجبة الصيام حصراً).',icon:'fa-bowl-rice',tags:['نشويات'],protein:10,benefits:['وجبة مخصصة لأيام الصيام فقط','العدس يعوض الحديد والطاقة في يوم الصيام']},
-            {id:36,type:'breakfast',name:'كندوز بالزبدة',desc:'قطعة كبدة ضاني مقلية بزبدة بلدي.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أعلى مصدر لفيتامين B12 والحديد','الزبدة البلدي تجعل طعم الكندوز مميز']},
-            {id:37,type:'breakfast',name:'توست بالمربى والسمن',desc:'توست ردة محمر خفيف بالسمن ومغطى بالمربى.',icon:'fa-bread-slice',tags:['توست'],protein:0,benefits:['وجبة سريعة ولذيذة للأطفال والكبار','المربى توفر سكريات طبيعية سريعة']},
-            {id:38,type:'breakfast',name:'إجاص بالجبنة',desc:'ثمرة إجاص مقطعة مع جبنة رومي.',icon:'fa-apple-whole',tags:['فاكهة'],protein:15,benefits:['الإجاص غني بالألياف التي تدعم الهضم','الجبنة تضيف بروتين نقي للموجبة']},
-            {id:39,type:'breakfast',name:'فطيرة التمر',desc:'عجينة توست ردة محشية تمر مهروس ومحمرة بالسمن.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى شرقية صحية 100%','التمر يعطي حلاوة طبيعية بدون سكر صناعي']},
-            {id:40,type:'breakfast',name:'شاي ثقيل بالسمن',desc:'شاي أسود ثقيل مع ملعقة سمن بلدي.',icon:'fa-mug-hot',tags:['شاي'],protein:0,benefits:['السمن البلدي يعطي طاقة مركزة في الصباح','مضاد للتشنجات والمغص']},
-            {id:41,type:'breakfast',name:'تين طازج بالعسل',desc:'ثمرتين تين طازج مع عسل أبيض.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['التين يحتوي على إنزيمات تساعد على الهضم','مضاد أكسدة قوي جداً']},
-            {id:42,type:'breakfast',name:'شوربة فريك بالسمن',desc:'فريك مطبوخ في مرقة لحم خفيفة بالسمن.',icon:'fa-bowl-food',tags:['فريك'],protein:10,benefits:['وجبة دافئة ومريحة للمعدة','المرقة تعوض الأملاح والمعادن']},
-            {id:43,type:'breakfast',name:'توست بالسوداني',desc:'توست ردة مدهون زبدة فول سوداني.',icon:'fa-bread-slice',tags:['نشويات'],protein:15,benefits:['زبدة الفول السوداني غنية بالبروتين النباتي','توفر شعوراً بالشبع لفترة طويلة']},
-            {id:44,type:'breakfast',name:'رمان بالسكر',desc:'كوب رمان منزوع البذر ومحلى بسكر أبيض.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['الرمان ينظف الدم ويقوي القلب','السكر يضفي طعماً لذيذاً على حموضة الرمان']},
-            {id:45,type:'breakfast',name:'بطاطس محشية قشطة',desc:'بطاطس مشوية محشوة بقشطة بلدي وسكر.',icon:'fa-mound',tags:['بطاطس'],protein:5,benefits:['وجبة مبتكرة ومشبعة','القشطة تعطي كريمية لذيذة للبطاطس']},
-            {id:46,type:'breakfast',name:'قطعة سمك مجفف',desc:'قطعة سمك بحري مجفف (فسيخ) مع توست ردة.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['بروتين بحري صحي متوافق مع النظام','يحتوي على أحماض أوميغا 3']},
-            {id:47,type:'breakfast',name:'عصير توت بالعسل',desc:'كوب عصير توت طبيعي مع ملعقة عسل.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['التوت مضاد أكسدة قوي جداً','العسل يغني العصير عن أي سكريات ضارة']},
-            {id:48,type:'breakfast',name:'فطيرة الجبنة البلدي',desc:'عجينة ردة محشية جبنة قريش ومحمرة بالزبدة.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['وجبة بروتينية ممتازة للصباح','الجبنة القريش خالية من الدهون الضارة']},
-            {id:49,type:'breakfast',name:'بلح بالجوز',desc:'حبات بلح (تمر رطب) مع حبات جوز.',icon:'fa-seedling',tags:['تمر'],protein:5,benefits:['الجوز غني بأوميغا 3 للدماغ','البلح يعطي طاقة فورية وسريعة']},
-            {id:50,type:'breakfast',name:'شوربة العدس بالسمن',desc:'طبق شوربة عدس مصفاة (لأيام الصيام) بالسمن.',icon:'fa-bowl-food',tags:['نشويات'],protein:10,benefits:['مسموح فقط في أيام الصيام الدوري','تعوض نقص الحديد والطاقة بشكل فعال']},
-
-            // === الغداء (الـ 30 القدام + 20 جداد) ===
-            {id:51,type:'lunch',name:'سمك بحري مشوي',desc:'سمك بحري مشوي مع أرز مفلفل بالسمن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['بروتين صحي 100% وأوميغا 3 للقلب','الأرز بالسمن يمد الجسم بالنشويات المثالية']},
-            {id:52,type:'lunch',name:'أرانب وفريك',desc:'لحم أرانب مسلوق ومحمر بالسمن مع فريك.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['لحم الأرانب خفيف جداً على المعدة','الفريك غني بالألياف ويساعد الهضم']},
-            {id:53,type:'lunch',name:'محشي فلفل مشروم',desc:'فلفل أخضر محشو أرز ومشروم مطبوخ.',icon:'fa-pepper-hot',tags:['مشروم'],protein:0,benefits:['المشروم يعزز المناعة بشكل كبير','الفلفل المسموح مطبوخ فقط يضفي نكهة مميزة']},
-            {id:54,type:'lunch',name:'لحم ضاني وقلقاس',desc:'لحم ضاني مسلوق مع قلقاس وأرز أبيض.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['القلقاس غني بالنشا المفيد والمضاد للالتهابات','اللحم الضاني يمد الجسم بالطاقة والبروتين']},
-            {id:55,type:'lunch',name:'حمام محشي بالسمن',desc:'حمام محشو أرز وفريك محمر في السمن.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['لحم الحمام بروتين صحي ولذيذ جداً','السمن البلدي يعطي طعم تقليدي أصيل']},
-            {id:56,type:'lunch',name:'كفتة ضاني وشيبسي',desc:'كفتة لحم ضاني مشوية مع شيبسي بطاطس.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['اللحم المفروم مشبع ومريح للمعدة','الشيبسي بالزيت صحي ومتوافق']},
-            {id:57,type:'lunch',name:'كوارع وممبار',desc:'ممبار محشو أرز مع كوارع مسلوقة (بدون خضرة).',icon:'fa-bowl-food',tags:['بروتين'],protein:100,benefits:['وجبة تقليدية عالية البروتين والكولاجين','الكوارع تقوي العظام والمفاصل']},
-            {id:58,type:'lunch',name:'سمان وبطاطس مرقة',desc:'سمان مشوي مع بطاطس بالمرقة والسمن.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['السمان لحم أبيض (طيور برية) مسموح','البطاطس بالمرقة تمتص النكهة والمعادن']},
-            {id:59,type:'lunch',name:'أرز بالمشروم والسمن',desc:'أرز أبيض مطبوخ بمشروم مقلي بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:0,benefits:['وجبة نباتية غنية بنكهة اللحم','المشروم يعوض نقص فيتامين D']},
-            {id:60,type:'lunch',name:'كبدة ضاني بالسمن',desc:'كبدة ضاني مقلية بالسمن مع أرز.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أقوى مصدر طبيعي لفيتامين B12 والحديد','تعالج فقر الدم بفعالية']},
-            {id:61,type:'lunch',name:'لحم بقري مسلوق',desc:'قطعة لحم بقري مسلوقة جيداً مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['السلق يزيل الدهون الضارة ويحافظ على البروتين','وجبة خفيفة على المعدة رغم حجمها']},
-            {id:62,type:'lunch',name:'جمبري بحري بالزيت',desc:'جمبري بحري مقلي في زيت زيتون مع بطاطس.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['الجمبري البحري مسموح وبروتينه عالي جداً','زيت الزيتون يحافظ على صحة القلب']},
-            {id:63,type:'lunch',name:'أرز بالكندوز',desc:'أرز مفلفل بالسمن مع قطع كبدة مضغوطة.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['وجبة مزدوجة النشويات والبروتين','الكندوز يمد الجسم بالحديد والمعادن']},
-            {id:64,type:'lunch',name:'لحمة مفرومة بالبطاطس',desc:'لحمة ضاني مفرومة محمرة مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['اللحم المفروم سهل المضغ والهضم','البطاطس المهروسة تمتص مرقة اللحم بشكل رائع']},
-            {id:65,type:'lunch',name:'سمك سيباس بالفرن',desc:'قطعة سمك سيباس بحري بالفرن مع أرز بالسمن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['سمك سيباس من أجود الأسماك البحرية','الفرن يحافظ على الزيوت الصحية داخل السمك']},
-            {id:66,type:'lunch',name:'محشي كرنب باللحم',desc:'كرنب محشو لحم ضاني وأرز مطبوخ بالسمن.',icon:'fa-leaf',tags:['محشي'],protein:100,benefits:['الكرنب (مطبوخ) غني بالألياف المفيدة','اللحم الضاني يعطي بروتين صحي']},
-            {id:67,type:'lunch',name:'فتة اللحم والسمن',desc:'شرائح خبز ردة مع مرقة لحم وأرز مسلوق.',icon:'fa-bowl-food',tags:['فتة'],protein:100,benefits:['وجبة تراثية مشبعة جداً','المرقة تحتوي على معادن ذائبة من اللحم']},
-            {id:68,type:'lunch',name:'أرز بالبصل والسمن',desc:'أرز محمر في السمن البلدي مع بصل محمر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['البصل المحمر يعطي نكهة ساحرة بدون أي ممنوعات','وجبة ممتازة لأيام عدم البروتين']},
-            {id:69,type:'lunch',name:'كاليماري بحري مقلي',desc:'كاليماري بحري مقلي في زيت زيتون.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['بروتين بحري خفيف ولذيذ','زيت الزيتون يجعل القلي صحياً']},
-            {id:70,type:'lunch',name:'صينية لحم وبطاطس',desc:'لحم ضاني مع بطاطس مطبوخة بالسمن في الفرن.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['الفرن يحافظ على عصارة اللحم','البطاطس تتشرب السمن والمرقة وتصبح لذيذة']},
-            {id:71,type:'lunch',name:'فريك بالسمن واللحم',desc:'فريك مطبوخ مع اللحم المفروم والسمن.',icon:'fa-wheat-awn',tags:['فريك'],protein:100,benefits:['الفريك أغنى من الأرز بالألياف والمعادن','وجبة متكاملة لا تحتاج إضافات']},
-            {id:72,type:'lunch',name:'Ribs ضاني مشوي',desc:'ضلوع ضاني مشوية بالفرن مع أرز أبيض.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['الضلوع تحتوي على كولاجين مفيد للمفاصل','الشوي يحرق الدهون الزائدة في اللحم']},
-            {id:73,type:'lunch',name:'لحم بقري بالفريك',desc:'قطع لحم بقري مطبوخة مع الفريك بالسمن.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['مزيج مثالي للطاقة والبروتين','الفريك يعطي شعور بالشبع لفترة طويلة']},
-            {id:74,type:'lunch',name:'سمك قاروص بالزبدة',desc:'شريحة سمك قاروص بحري مشوي بالزبدة.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['سمك غني بالأوميغا 3 والزبدة','الزبدة تعطي قشرة مقرمشة لذيذة']},
-            {id:75,type:'lunch',name:'أرز بالمكسرات والسمن',desc:'أرز بالسمن البلدي ومزين بالمكسرات.',icon:'fa-bowl-rice',tags:['أرز'],protein:10,benefits:['المكسرات تضيف دهون صحية للقلب والدماغ','وجبة فاخرة ومتوافقة تماماً']},
-            {id:76,type:'lunch',name:'كبدة بالبطاطس المهروسة',desc:'كبدة ضاني مقلية مع بطاطس مهروسة بالسمن.',icon:'fa-mound',tags:['بروتين'],protein:100,benefits:['الكبدة تعالج الأنيميا بقوة','البطاطس المهروسة مهدئ ممتاز للمعدة']},
-            {id:77,type:'lunch',name:'شوربة مرقة لحم',desc:'مرقة لحم غليظة مع أرز مهروس.',icon:'fa-bowl-food',tags:['شوربة'],protein:50,benefits:['المرقة تحتوي على معادن ذائبة مفيدة جداً','الأرز المهروس يخفف من حموضة المرقة']},
-            {id:78,type:'lunch',name:'كفتة سمك بحري',desc:'كفتة سمك بحري مشوية مع أرز أبيض.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['طريقة ممتازة لمن لا يحبون السمك الكامل','بروتين بحري صحي 100%']},
-            {id:79,type:'lunch',name:'بطاطس محشية لحم',desc:'بطاطس محشوة بلحم مفروم ومحمرة بالسمن.',icon:'fa-mound',tags:['بطاطس'],protein:100,benefits:['البطاطس تحتوي على نشا صحي ومفيد','اللحم المفروم يضيف بروتين عالي الجودة']},
-            {id:80,type:'lunch',name:'أرز بالمرقة والزبدة',desc:'أرز مسلوق بمرقة اللحم وملعقة زبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:20,benefits:['المرقة تعطي الأرز نكهة ورائحة لا تقاوم','الزبدة البلدي تضيف قيمة غذائية عالية']},
-            
-            // === الـ 20 غداء الجداد ===
-            {id:81,type:'lunch',name:'لحم مفروم بالبيض',desc:'لحم ضاني مفروم مقلي بالسمن (بدون بيض).',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['وجبة بروتينية خالصة 100%','السمن البلدي يعطي نكهة المطاعم']},
-            {id:82,type:'lunch',name:'سمك دنيس بالفرن',desc:'سمك دنيس بحري بالفرن مع بطاطس.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['سمك دنيس دهني ومفيد جداً للقلب','البطاطس بالفرن صحية ومقرمشة']},
-            {id:83,type:'lunch',name:'مكرونة بالكندوز',desc:'مكرونة مسلوقة مع قطع كبدة ضانية بالسمن.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['المكرونة بديل مسموح للنشويات','الكندوز يضيف فيتامينات ومعادن نادرة']},
-            {id:84,type:'lunch',name:'أرز بالثوم والسمن',desc:'أرز محمر بالسمن مع فصوص ثوم محمرة.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['الثوم مضاد حيوي طبيعي قوي جداً','وجبة نباتية ممتازة لأيام بدون بروتين']},
-            {id:85,type:'lunch',name:'حمام مشوي كامل',desc:'حمام بري مشوي كامل بالفرن مع أرز.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['الحمام البري مسموح ويختلف عن الدجاج','لحمه قليل الدهون وعالي البروتين']},
-            {id:86,type:'lunch',name:'فتة بالمقليات',desc:'خبز ردة مقلي بالسمن مع مرقة لحم.',icon:'fa-bowl-food',tags:['فتة'],protein:50,benefits:['مقرمش ولذيذ جداً','المرقة تعوض المعادن والبروتين']},
-            {id:87,type:'lunch',name:'لحم أرنب مشوي',desc:'قطعة لحم أرنب مشوية بالفرن مع فريك.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['لحم الأرنب أخف أنواع اللحوم على الإطلاق','مناسب جداً لمن يعانون من ضعف الهضم']},
-            {id:88,type:'lunch',name:'صينية بطاطس باللحم المفروم',desc:'صينية بطاطس بالفرن محشوة بلحم مفروم.',icon:'fa-mound',tags:['بطاطس'],protein:100,benefits:['وجبة مشبعة وعائلية','البطاطس تمتص نكهة اللحم المفروم بشكل رائع']},
-            {id:89,type:'lunch',name:'أرز بالكريمة والسمن',desc:'أرز مطبوخ بقشطة بلدي وسمن بلدي.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['وجبة دسمة ولذيذة جداً','القشطة تعطي نعومة وكريمية مميزة']},
-            {id:90,type:'lunch',name:'كباب ضاني',desc:'كباب لحم ضاني مشوي مع أرز أبيض.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['الشوي يحتفظ بكل العناصر الغذائية','بروتين عالي الجودة خالص من الدجاج']},
-            {id:91,type:'lunch',name:'سمك موسى بالسمن',desc:'سمك موسى بحري مقلي بالسمن مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['سمك موسى لذيذ وبروتينه ممتاز','السمن البلدي يعطي طعم البلدي الأصلي']},
-            {id:92,type:'lunch',name:'ممبار مقلي بالسمن',desc:'ممبار مقلي في السمن البلدي مع أرز.',icon:'fa-bowl-food',tags:['بروتين'],protein:100,benefits:['وجبة بروتينية تقليدية عالية القيمة','مفيد جداً لتقوية العظام والمفاصل']},
-            {id:93,type:'lunch',name:'محشي كوسا باللحم',desc:'كوسا محشية لحم ضاني وأرز مطبوخ بالسمن.',icon:'fa-leaf',tags:['محشي'],protein:100,benefits:['الكوسا (مطبوخة) مسموحة وتحتوي على معادن','اللحم الضاني يمد الجسم بالطاقة']},
-            {id:94,type:'lunch',name:'لحم بقري بالزبدة',desc:'شرائح لحم بقري محمرة بالزبدة مع بطاطس.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['الزبدة تجعل اللحم طرياً ولذيذاً جداً','وجبة ستيك متوافقة مع النظام']},
-            {id:95,type:'lunch',name:'شوربة كوارع بالسمن',desc:'شوربة كوارع غليظة بالسمن البلدي.',icon:'fa-bowl-food',tags:['شوربة'],protein:80,benefits:['الكوارع من أفضل مصادر الكولاجين الطبيعي','السمن يعطي كثافة ونكهة مميزة للشوربة']},
-            {id:96,type:'lunch',name:'أرز باللحم المفتت',desc:'أرز مفلفل مع لحم بقري مفتت ومحمص بالسمن.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['اللحم المفتت يتخلل الأرز ويعطي نكهة رائعة','وجبة متكاملة لا تحتاج لأي إضافات']},
-            {id:97,type:'lunch',name:'كفتة الأرانب',desc:'كفتة لحم أرانب مشوية مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['كفتة خفيفة جداً وصحية','مناسب لمرضى القولون والقرحة']},
-            {id:98,type:'lunch',name:'سمك هامور بالفرن',desc:'سمك هامور بحري بالفرن مع أرز بالسمن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['هامور من أكبر الأسماك البحرية ولحمه أبيض شهي','الفرن يحافظ على زيوت السمك الصحية']},
-            {id:99,type:'lunch',name:'بطاطس بالزبدة والثوم',desc:'بطاطس مهروسة بالزبدة وشرائح ثوم محمرة.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['وجبة نباتية مفتوحة النفس على النكهات','الثوم والزبدة يمدان الجسم بمناعة عالية']},
-            {id:100,type:'lunch',name:'أرز بالمشروم والكندوز',desc:'أرز بالمشروم وقطع كبدة مضغوطة بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:100,benefits:['وجبة فاخرة تجمع بين بروتين الكندوز والمشروم','غنية بالمعادن والفيتامينات'']},
-
-            // === العشاء (الـ 30 القدام + 20 جداد) ===
-            {id:101,type:'dinner',name:'بوريه الطيبات',desc:'بطاطس مسلوقة مهروسة مع قشطة بلدي وملح.',icon:'fa-mound',tags:['بطاطس'],protein:5,benefits:['وجبة مهدئ خفيفة على المعدة قبل النوم','القشطة تعطي نعومة بلا أضرار الألبان']},
-            {id:102,type:'dinner',name:'سلطة فواكه مقشرة',desc:'تفاح وكمثرى وكاكا مقطعة بدون قشر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['فواكه مسموحة تمد الجسم بالفيتامينات','بدون قشر يريح المعدة تماماً أثناء النوم']},
-            {id:103,type:'dinner',name:'توست موتزاريللا',desc:'توست بالردة مع جبنة موتزاريللا سايحة.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['جبنة غنية بالكالسيوم والبروتين','السايحة على الردة تعطي طعم رائع']},
-            {id:104,type:'dinner',name:'عصير رمان وقشطة',desc:'كوب عصير رمان طبيعي مع ملعقة قشطة.',icon:'fa-glass-water',tags:['فواكه'],protein:5,benefits:['الرمان ينقي الدم أثناء النوم','القشطة تعوض البروتين الخفيف']},
-            {id:105,type:'dinner',name:'أرز بالزبدة والسكر',desc:'طبق أرز دافئ مع زبدة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['وجبة دافئة تساعد على النوم العميق','الزبدة البلدي والسكر مهدئات طبيعية']},
-            {id:106,type:'dinner',name:'فاكهة مجففة',desc:'طبق مشمشية، قراصيا، وتين مجفف.',icon:'fa-seedling',tags:['فواكه'],protein:0,benefits:['الفواكه المجففة تعالج الإمساك بلطف','غنية بالحديد والمعادن']},
-            {id:107,type:'dinner',name:'شيبسي بيتي بالملح',desc:'شرائح بطاطس رقيقة مقلية في زيت زيتون.',icon:'fa-plate-wheat',tags:['شيبسي'],protein:0,benefits:['بديل صحي ومسوح للشيبسي التجاري','وجبة خفيفة لا تثقل المعدة ليلاً']},
-            {id:108,type:'dinner',name:'قرع عسل بالقشطة',desc:'قرع عسل مطبوخ محلى بالسكر والقشطة.',icon:'fa-candy-cane',tags:['حلويات'],protein:5,benefits:['قرع العسل مهدئ للمعدة ومفيد للنوم','الحلاوة المسموحة ترضي الرغبة بدون ضرر']},
-            {id:109,type:'dinner',name:'شوكولاتة وشاي أخضر',desc:'قطعة شوكولاتة داكنة مع شاي أخضر.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['الشاي الأخضر يحرق الدهون أثناء النوم','الشوكولاتة الداكنة تحسن المزاج']},
-            {id:110,type:'dinner',name:'توست قشطة وعسل',desc:'توست بالردة مع قشطة بلدي وعسل نحل.',icon:'fa-bread-slice',tags:['قشطة بلدي'],protein:5,benefits:['مزيج مثالي يمنع هبوط السكر ليلاً','القشطة البلدي لا تسبب حموضة']},
-            {id:111,type:'dinner',name:'تين وعسل نحل',desc:'ثمار تين طازجة مع ملعقة عسل طبيعي.',icon:'fa-seedling',tags:['فواكه'],protein:0,benefits:['التين يحتوي على إنزيمات تساعد الهضم الليلي','العسل يعالج الحموضة ويهدئ المعدة']},
-            {id:112,type:'dinner',name:'رمان بالعسل',desc:'حبات رمان منزوعة البذر مع عسل أبيض.',icon:'fa-apple-whole',tags:['فواكه'],protein:0,benefits:['مضاد أكسدة قوي ينظف الجسم أثناء النوم','طعم ممتاز ومهدئ للأعصاب']},
-            {id:113,type:'dinner',name:'أرز بالقشطة والسكر',desc:'أرز مطبوخ بالقشطة البلدي ومحلى بالسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['وجبة دسمة ومشبعة تمنع الجوع ليلاً','القشطة البلدي آمنة تماماً على القولون']},
-            {id:114,type:'dinner',name:'عصير تفاح وتوست',desc:'كوب عصير تفاح طبيعي مع توست بالزبدة.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['التفاح يسهل الهضم ويساعد على النوم','التوست بالزبدة يمنع الشعور بالجوع']},
-            {id:115,type:'dinner',name:'جبنة رومي وعسل',desc:'قطعة جبنة رومي مع ملعقة عسل.',icon:'fa-cheese',tags:['جبنة'],protein:15,benefits:['بروتين خفيف يغذي العضلات ليلاً','العسل يعطي طاقة لطيفة بدون تخريب']},
-            {id:116,type:'dinner',name:'بطاطس فرن بالسمن',desc:'بطاطس مقطعة محمرة في الفرن بالسمن.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['البطاطس بالفرن صحية ومقرمشة','السمن البلدي يعطي نكهة مبهرة']},
-            {id:117,type:'dinner',name:'خوخ مجفف وقشطة',desc:'حبات خوخ مجفف مع ملعقة قشطة بلدي.',icon:'fa-seedling',tags:['فواكه'],protein:5,benefits:['الخوخ المجفف يعالج عسر الهضم ببلطف','القشطة تضيف بروتين خفيف ومغذي']},
-            {id:118,type:'dinner',name:'توست سمن ومربى',desc:'توست ردة دافئ محمر بالسمن ومغطى بمربى.',icon:'fa-bread-slice',tags:['توست'],protein:0,benefits:['مربى مسموحة توفر حلاوة لذيذة','السمن البلدي يعطي طاقة هادئة']},
-            {id:119,type:'dinner',name:'برقوق بالتمر',desc:'طبق برقوق مجفف مع حبات تمر.',icon:'fa-seedling',tags:['فواكه'],protein:0,benefits:['مزيج قوي جداً لتنظيف الجهاز الهضمي','يساعد جداً في علاج الإمساك']},
-            {id:120,type:'dinner',name:'شاي بالسمن والتوست',desc:'شاي أسود محلى مع توست مدهون سمن.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['الشاي مهدئ طبيعي يساعد على النوم','التوست بالسمن يمنع الاستيقاظ ليلياً من الجوع']},
-            {id:121,type:'dinner',name:'إجاص بالعسل',desc:'ثمار إجاص طازجة مع العسل الطبيعي.',icon:'fa-seedling',tags:['فواكه'],protein:0,benefits:['الإجاص غني بالألياف التي تنظف القولون','العسل يعالج أي حموضة ليلية']},
-            {id:122,type:'dinner',name:'جبنة قريش بالعسل',desc:'طبق جبنة قريش مغمورة بالعسل الطبيعي.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['جبنة قريش خالية من الدهون الضار','العسل يضفي حلاوة طبيعية وصحية']},
-            {id:123,type:'dinner',name:'فريك حلو بالقشطة',desc:'طبق صغير فريك مسلوق بالقشطة والسكر.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['الفريك مشبع جداً ويمنع الجوع ليلاً','القشطة تجعله سهل البلع والمعدة']},
-            {id:124,type:'dinner',name:'كمثرى بالسمن',desc:'كمثرى مقطعة ومطبوخة على النار بالسمن والسكر.',icon:'fa-apple-whole',tags:['فواكه'],protein:0,benefits:['الكمثرى المطبوخة لذيذة ومهدئة جداً','السمن البلدي يعطي نكهة غنية']},
-            {id:125,type:'dinner',name:'عصير عنب طبيعي',desc:'كوب عصير عنب طبيعي مع قطعة توست.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['العنب يحتوي على مضادات أكسدة قوية','مهدئ طبيعي يساعد على الاسترخاء قبل النوم']},
-            {id:126,type:'dinner',name:'حلاوة طحينية وتوست',desc:'طبق حلاوة طحينية مع توست بالردة.',icon:'fa-jar',tags:['حلويات'],protein:10,benefits:['الطحينة غنية بالكالسيوم والمغنيسيوم','تساعد على استرخاء العضلات ليلاً']},
-            {id:127,type:'dinner',name:'أرز بالتمر والزبدة',desc:'أرز أبيض دافئ مع شرائح تمر وزبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['التمر يعوض الحديد ويمنع هبوط السكر','الزبدة تعطي نعومة وسلاسة للأرز']},
-            {id:128,type:'dinner',name:'بطاطس بالجبنة والسمن',desc:'بطاطس مهروسة محشوة بجبنة رومي والسمن.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['وجبة مشبعة متوازنة من النشا والبروتين','الجبنة الرومي تعطي نكهة حادة ولذيذة']},
-            {id:129,type:'dinner',name:'كاكا بالعسل',desc:'ثمار كاكا طازجة مع العسل النحل.',icon:'fa-apple-whole',tags:['فواكه'],protein:0,benefits:['الكاكا غنية بفيتامين A المفيد للبشرة','العسل يعطي طعم استثنائي لهذه الفاكهة']},
-            {id:130,type:'dinner',name:'شاي وقصب سكر',desc:'كوب شاي مع قطعة قصب سكر طبيعي.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['الشاي والقصب سريعان ومهدئان','يخلصان أي رغبة في الحلويات قبل النوم']},
-            
-            // === الـ 20 عشاء الجداد ===
-            {id:131,type:'dinner',name:'كوب قشطة بالتمر',desc:'كوب قشطة بلدي مع 3 حبات تمر مهروس.',icon:'fa-glass-water',tags:['قشطة بلدي'],protein:5,benefits:['وجبة عالية السعرات تمنع الجوع الليلي','التمر يعوض الحديد ويغني القشطة']},
-            {id:132,type:'dinner',name:'توست بالسوداني والعسل',desc:'توست ردة مدهون زبدة فول سوداني وعسل.',icon:'fa-bread-slice',tags:['توست'],protein:15,benefits:['زبدة الفول السوداني غنية بالبروتين النباتي','العسل يضيف حلاوية صحية']},
-            {id:133,type:'dinner',name:'موزة تمر بالسمن',desc:'تمر بالموزة مع إضافة ملعقة سمن بلدي.',icon:'fa-seedling',tags:['تمر'],protein:0,benefits:['السمن البلدي يضيف طاقة مركزة للتمر','وجبة تقليدية ممتازة قبل النوم']},
-            {id:134,type:'dinner',name:'عصير خوخ بالسكر',desc:'عصير خوخ طبيعي محلى بسكر أبيض.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['الخوخ مهدئ للمعدة ويساعد على النوم','السكر الأبيض مسموح ومعتدل في النظام']},
-            {id:135,type:'dinner',name:'شريحة جبنة رومي',desc:'شريحة جبنة رومي سميكة مع شاي.',icon:'fa-cheese',tags:['جبنة'],protein:15,benefits:['بروتين خفيف لا يرهق المعدة أثناء النوم','الجبنة الرومي غنية بالكالسيوم']},
-            {id:136,type:'dinner',name:'أرز حليب بالقشطة',desc:'أرز مطبوخ بقشطة بلدي ومحلى بالسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['بديل صحي لأرز بالحليب (الممنوع)','القشطة تعطي نفس الكريمة بدون أضرار']},
-            {id:137,type:'dinner',name:'توست بالجبنة والسمن',desc:'توست ردة مع جبنة قريش ومحمر بالسمن.',icon:'fa-bread-slice',tags:['جبنة'],protein:20,benefits:['توست مقرمش مع جبنة خفيفة','السمن يجعله مقرمشاً ولذيذاً جداً']},
-            {id:138,type:'dinner',name:'فطيرة التمر والعسل',desc:'طبقات توست ردة مع تمر وعسل.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى صحية 100% ومتوافقة مع النظام','التمر والعسل يعالجان الإمساك ليلاً']},
-            {id:139,type:'dinner',name:'رمان بالقشطة',desc:'كوب رمان منزوع البذر مع ملعقة قشطة.',icon:'fa-apple-whole',tags:['فواكه'],protein:5,benefits:['الرمان ينقي الدم والكبد أثناء النوم','القشطة تعطي قوام كريمي لذيذ']},
-            {id:140,type:'dinner',name:'شاي بالزبدة',desc:'شاي أسود محلى مع ملعقة زبدة بلدي.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['الزبدة البلدي في الشاي تعطي طاقة هادئة','مشروب مثالي للشتاء ويساعد على النوم']},
-            {id:141,type:'dinner',name:'بطاطس شيبسي بالجبنة',desc:'شيبسي بطاطس بالفرن مع جبنة رومي سايحة.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['وجبة سناكس مسموحة ولذيذة','الجبنة تضيف بروتين للوجبة']},
-            {id:142,type:'dinner',name:'عنب بالجبنة',desc:'طبق عنب مع قطع جبنة قريش.',icon:'fa-seedling',tags:['فواكه'],protein:10,benefits:['العنب غني بالماء والمعادن','الجبنة تضيف بروتين خفيف']},
-            {id:143,type:'dinner',name:'فريك بالزبيب والعسل',desc:'فريك دافئ مع زبيب وملعقة عسل.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['الفريك دافئ ومهدئ للمعدة','الزبيب والعسل يضيفان حلاوة طبيعية']},
-            {id:144,type:'dinner',name:'توست بالمربى والقشطة',desc:'توست ردة مع مربى وقشطة بلدي.',icon:'fa-bread-slice',tags:['توست'],protein:5,benefits:['وجبة سهلة وسريعة التحضير','المربى والقشطة يرضون أي رغبة في الحلويات']},
-            {id:145,type:'dinner',name:'تفاح بالزبدة والعسل',desc:'شرائح تفاح محمرة بالزبدة والعسل.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['الزبدة تعمل طهي خفيف للتفاح','العسل والتفاح مهدئان قويان للأعصاب']},
-            {id:146,type:'dinner',name:'حلاوة السمسم',desc:'طبق حلاوة سمسم (طحينة سائلة) مع توست.',icon:'fa-jar',tags:['حلويات'],protein:10,benefits:['السمسم غني بالكالسيوم والمغنيسيوم','يساعد على استرخاء العضلات والمفاصل']},
-            {id:147,type:'dinner',name:'كاكا بالجبنة',desc:'ثمار كاكا مع جبنة قريش.',icon:'fa-apple-whole',tags:['فواكه'],protein:10,benefits:['الكاكا غنية بالألياف وتنظف الجهاز الهضمي','الجبنة تضيف بروتين خفيف ومفيد']},
-            {id:148,type:'dinner',name:'عصير توت بالسكر',desc:'كوب عصير توت طبيعي مع سكر أبيض.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['التوت مضاد أكسدة ممتاز','يعالج التهابات المسالك البولية ليلاً']},
-            {id:149,type:'dinner',name:'خبز بلدي بالزبدة والعسل',desc:'خبز حبة كاملة دافئ مع زبدة وعسل.',icon:'fa-bread-slice',tags:['خبز كامل'],protein:0,benefits:['خبز الحبة الكاملة مشبع جداً','الزبدة والعسل يعطيان طاقة هادئة']},
-            {id:150,type:'dinner',name:'قراصيا بالجبنة',desc:'حبات قراصيا مجفف مع قطعة جبنة رومي.',icon:'fa-seedling',tags:['فواكه'],protein:15,benefits:['القراصيا المجفف يعالج الإمساك بقوة','الجبنة الرومي تعوض البروتين وتعطي نكهة مميزة']}
+            {id:1,type:'breakfast',name:'كلاسيك الطيبات',desc:'توست بالردة مدهون زبدة بلدي ومربى.',icon:'fa-bread-slice',tags:['كلاسيك'],protein:0,benefits:['طاقة مستدامة','الزبدة البلدي تغذي الخلايا']},
+            {id:2,type:'breakfast',name:'فطور البطاطس',desc:'بطاطس مقلية في زيت زيتون مع شيبسي.',icon:'fa-french-fries',tags:['زيت زيتون'],protein:0,benefits:['نشويات سهلة الهضم','زيت الزيتون صحي للقلب']},
+            {id:3,type:'breakfast',name:'ساندوتش الأجبان',desc:'توست بالردة محشو جبنة رومي.',icon:'fa-cheese',tags:['رومي'],protein:15,benefits:['غنية بالكالسيوم','طعم لذيذ ومتوافق']},
+            {id:4,type:'breakfast',name:'وجبة الطاقة',desc:'توست بالردة مع قشطة بلدي وحلاوة.',icon:'fa-bolt',tags:['قشطة بلدي'],protein:5,benefits:['عالية السعرات','بدون أضرار الألبان']},
+            {id:5,type:'breakfast',name:'البطاطا المشوية',desc:'حبتين بطاطا حلوة مشوية في الفرن.',icon:'fa-fire',tags:['فرن'],protein:0,benefits:['غنية بالفيتامينات','الشوي يحافظ على القيمة']},
+            {id:6,type:'breakfast',name:'ساندوتش النوتيلا',desc:'توست بالردة مع شوكولاتة نوتيلا.',icon:'fa-cookie-bite',tags:['شوكولاتة'],protein:5,benefits:['تحسن المزاج','توفر طاقة فورية']},
+            {id:7,type:'breakfast',name:'أرز بالقشطة',desc:'أرز مسلوق محلى بالسكر مع قشطة.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['سهل الهضم','القشطة تعطي نعومة']},
+            {id:8,type:'breakfast',name:'وجبة بسبوسة',desc:'قطعة بسبوسة بالسمن البلدي.',icon:'fa-cake-candles',tags:['حلويات'],protein:0,benefits:['أصلية ومتوافقة','السمن يعطي طاقة']},
+            {id:9,type:'breakfast',name:'توست كشكفال',desc:'توست بالردة مع جبنة كشكفال.',icon:'fa-cheese',tags:['كشكفال'],protein:15,benefits:['غنية بالبروتين','مذاق مميز']},
+            {id:10,type:'breakfast',name:'طحينة وعسل',desc:'توست بالردة مع طحينة وعسل.',icon:'fa-jar',tags:['عسل'],protein:5,benefits:['غنية بالكالسيوم','العسل مضاد طبيعي']},
+            {id:11,type:'breakfast',name:'فطيرة السمن',desc:'توست ردة محمر بالسمن البلدي.',icon:'fa-stroopwafel',tags:['سمن بلدي'],protein:0,benefits:['طاقة مدفوعة','مذاق تقليدي']},
+            {id:12,type:'breakfast',name:'أرز بالعسل',desc:'أرز مسلوق مع عسل طبيعي.',icon:'fa-bowl-rice',tags:['أرز','عسل'],protein:0,benefits:['طاقة مستدامة','العسل يعالج الاحتقان']},
+            {id:13,type:'breakfast',name:'تمر بالموزة',desc:'5 حبات تمر بالعسل.',icon:'fa-seedling',tags:['تمر'],protein:0,benefits:['يمنح الحديد','ينشط الجهاز الهضمي']},
+            {id:14,type:'breakfast',name:'شاي بالسكر',desc:'شاي أسود محلى بالسكر.',icon:'fa-mug-hot',tags:['شاي'],protein:0,benefits:['منبه خفيف','طاقة فورية']},
+            {id:15,type:'breakfast',name:'توست زبدة وسكر',desc:'توست ردة بالزبدة البلدي والسكر.',icon:'fa-bread-slice',tags:['زبدة'],protein:0,benefits:['سريعة التحضير','تحتوي فيتامين A']},
+            {id:16,type:'breakfast',name:'عصير قصب وتوست',desc:'عصير قصب سكر مع توست.',icon:'fa-glass-water',tags:['قصب'],protein:0,benefits:['يمد الجسم بمعادن','طاقة فورية']},
+            {id:17,type:'breakfast',name:'بطاطس مهروسة بالسمن',desc:'بطاطس مسلوقة بالسمن البلدي.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['سهلة الامتصاص','قيمة غذائية عالية']},
+            {id:18,type:'breakfast',name:'فريك بالسكر والزبدة',desc:'فريك مطبوخ بالزبدة والسكر.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['غني بالألياف','مشبع لفترة طويلة']},
+            {id:19,type:'breakfast',name:'رمان وجبنة قريش',desc:'نصف رمان مع جبنة قريش.',icon:'fa-apple-whole',tags:['فاكهة'],protein:20,benefits:['مضاد أكسادة قوي','بروتين خفيف وعالي']},
+            {id:20,type:'breakfast',name:'توست بالسكر والقشطة',desc:'طبقات توست ردة وقشطة وسكر.',icon:'fa-layer-group',tags:['قشطة بلدي'],protein:5,benefits:['غنية ومشبعة','آمنة على القولون']},
+            {id:21,type:'breakfast',name:'تفاح بالزبدة والسكر',desc:'تفاح مقطع محمر بالزبدة.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['يحتوي البكتين المفيد','الزبدة تساعد على امتصاص الفيتامينات']},
+            {id:22,type:'breakfast',name:'عسل على الريق',desc:'ملعقة عسل مع ماء دافئ.',icon:'fa-jar',tags:['عسل'],protein:0,benefits:['ينظف المعدة','مضاد للالتهابات']},
+            {id:23,type:'breakfast',name:'توست الشوكولاتة الداكنة',desc:'توست ردة مع شوكولاتة داكنة.',icon:'fa-cookie-bite',tags:['شوكولاتة'],protein:5,benefits:['تحسن المزاج','غنية بمضادات الأكسدة']},
+            {id:24,type:'breakfast',name:'أرز بالتمر',desc:'أرز أبيض مع تمر مهروس.',icon:'fa-bowl-rice',tags:['تمر'],protein:0,benefits:['مزيج مثالي للمعادن','التمر يعوض الحديد']},
+            {id:25,type:'breakfast',name:'خبز بلدي وسمن',desc:'خبز حبة كاملة مع سمن بلدي.',icon:'fa-bread-slice',tags:['خبز كامل'],protein:0,benefits:['غني بالألياف','طاقة مركزة']},
+            {id:26,type:'breakfast',name:'بطاطس شيبسي بالزبدة',desc:'شيبسي بطاطس بالفرن وزبدة.',icon:'fa-plate-wheat',tags:['شيبسي'],protein:0,benefits:['بديل صحي للتجاري','نكهة لذيذة']},
+            {id:27,type:'breakfast',name:'عنب بالعسل',desc:'طبق عنب مع عسل طبيعي.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['يمنح السوائل والطاقة','يعزز المناعة']},
+            {id:28,type:'breakfast',name:'قهوة عربية وتمر',desc:'قهوة عربية مع تمر.',icon:'fa-mug-saucer',tags:['قهوة'],protein:0,benefits:['مضادات أكسدة','التمر يعادل الحموضة']},
+            {id:29,type:'breakfast',name:'توست بالعسل والزبدة',desc:'توست ردة بالزبدة البلدي والعسل.',icon:'fa-bread-slice',tags:['عسل'],protein:0,benefits:['متكاملة من النشويات والدهون','مضاد للإرهاق']},
+            {id:30,type:'breakfast',name:'أرز بالسمن والسكر',desc:'أرز مفلفل بالسمن والسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['أصيلة ومتوافقة','طاقة مركزة']},
+            {id:31,type:'breakfast',name:'خوخ بالقشطة',desc:'خوخ مقطع مع قشطة بلدي.',icon:'fa-seedling',tags:['فاكهة'],protein:5,benefits:['غني بفيتامين C','نكهة كريمية لذيذة']},
+            {id:32,type:'breakfast',name:'أرز بالزبيب والسمن',desc:'أرز بالسمن والزبيب.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['الزبيب يحتوي حديد طبيعي','وجبة دسمة']},
+            {id:33,type:'breakfast',name:'شريحة لحم مقدد',desc:'لحمة ضاني مقددة مع توست.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['بروتين صحي 100%','نكهة قوية جداً']},
+            {id:34,type:'breakfast',name:'برقوق مجفف بالتمر',desc:'برقوق مجفف مع تمر.',icon:'fa-seedling',tags:['فواكه مجففة'],protein:0,benefits:['يعالج الإمساك','طاقة فورية']},
+            {id:35,type:'breakfast',name:'فطيرة التمر',desc:'توست ردة محشوة تمر بالسمن.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى صحية 100%','حلاوة طبيعية']},
+            {id:36,type:'breakfast',name:'كندوز بالزبدة',desc:'كبدة ضانية بالزبدة البلدي.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أعلى مصدر لفيتامين B12','يعالج الأنيميا']},
+            {id:37,type:'breakfast',name:'توست بالمربى والسمن',desc:'توست ردة محمر بالسمن ومربى.',icon:'fa-bread-slice',tags:['توست'],protein:0,benefits:['سريعة ولذيذة','سكريات طبيعية']},
+            {id:38,type:'breakfast',name:'إجاص بالجبنة',desc:'إجاص مقطع مع جبنة رومي.',icon:'fa-apple-whole',tags:['فاكهة'],protein:15,benefits:['غني بالألياف','تضيف بروتين نقي']},
+            {id:39,type:'breakfast',name:'شاي ثقيل بالسمن',desc:'شاي ثقيل مع ملعقة سمن بلدي.',icon:'fa-mug-hot',tags:['شاي'],protein:0,benefits:['طاقة مركزة صباحاً','مضاد للتشنجات']},
+            {id:40,type:'breakfast',name:'تين طازج بالعسل',desc:'تين طازج مع عسل أبيض.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['إنزيمات تساعد الهضم','مضاد أكسادة قوي']},
+            {id:41,type:'breakfast',name:'شوربة فريك بالسمن',desc:'فريك بمرقة لحم خفيفة بالسمن.',icon:'fa-bowl-food',tags:['فريك'],protein:10,benefits:['دافئة ومريحة','تعوض المعادن']},
+            {id:42,type:'breakfast',name:'توست بالسوداني',desc:'توست ردة بزبدة فول سوداني.',icon:'fa-bread-slice',tags:['نشويات'],protein:15,benefits:['بروتين نباتي','تشبع لفترة طويلة']},
+            {id:43,type:'breakfast',name:'رمان بالسكر',desc:'كوب رمان منزوع البذر بالسكر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['ينظف الدم','يضفي طعم لذيذ']},
+            {id:44,type:'breakfast',name:'بطاطس محشية قشطة',desc:'بطاطس مشوية بقشطة وسكر.',icon:'fa-mound',tags:['بطاطس'],protein:5,benefits:['مبتكرة ومشبعة','نكهة كريمية']},
+            {id:45,type:'breakfast',name:'قطعة سمك مجفف',desc:'سمك بحري مجفف مع توست ردة.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['بروتين بحري صحي','أوميغا 3']},
+            {id:46,type:'breakfast',name:'عصير توت بالعسل',desc:'عصير توت مع عسل.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['مضاد أكسدة قوي','بدون سكريات ضارة']},
+            {id:47,type:'breakfast',name:'فطيرة الجبنة البلدي',desc:'عجينة ردة بجبنة قريش بالزبدة.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['بروتينية ممتازة','خالية من الدهون الضارة']},
+            {id:48,type:'breakfast',name:'بلح بالجوز',desc:'تمر رطب مع جوز.',icon:'fa-seedling',tags:['تمر'],protein:5,benefits:['الجوز غني بأوميغا 3','طاقة فورية']},
+            {id:49,type:'breakfast',name:'توست بالزبدة والعسل',desc:'توست ردة بالزبدة البلدي والعسل.',icon:'fa-bread-slice',tags:['عسل'],protein:0,benefits:['متكاملة وصحية','مضاد ممتاز للإرهاق']},
+            {id:50,type:'breakfast',name:'فطيرة الفريك بالسمن',desc:'فطيرة ردة محشوة فريك بالسمن.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['غنية بالألياف','مشبعة جداً']},
+            {id:51,type:'lunch',name:'سمك بحري مشوي',desc:'سمك بحري مشوي مع أرز بالسمن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['بروتين صحي 100%','أوميغا 3 للقلب']},
+            {id:52,type:'lunch',name:'أرانب وفريك',desc:'لحم أرانب بالسمن مع فريك.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['خفيف على المعدة','الفريك يساعد الهضم']},
+            {id:53,type:'lunch',name:'محشي فلفل مشروم',desc:'فلفل أخضر محشو أرز ومشروم.',icon:'fa-pepper-hot',tags:['مشروم'],protein:0,benefits:['المشروم يعزز المناعة','الفلفل المطبوع مسموح']},
+            {id:54,type:'lunch',name:'لحم ضاني وقلقاس',desc:'لحم ضاني مع قلقاس وأرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['القلقاس مضاد للالتهابات','طاقة وبروتين عالي']},
+            {id:55,type:'lunch',name:'حمام محشي بالسمن',desc:'حمام محشو أرز وفريك بالسمن.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['بروتين صحي ولذيذ','طعم تقليدي أصيل']},
+            {id:56,type:'lunch',name:'كفتة ضاني وشيبسي',desc:'كفتة لحم ضاني مع شيبسي بطاطس.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['مشبع ومريح','الشيبسي بالزيت صحي']},
+            {id:57,type:'lunch',name:'كوارع وممبار',desc:'ممبار محشو أرز وكوارع مسلوقة.',icon:'fa-bowl-food',tags:['بروتين'],protein:100,benefits:['عالية الكولاجين','تقوي العظام والمفاصل']},
+            {id:58,type:'lunch',name:'سمان وبطاطس مرقة',desc:'سمان مشوي مع بطاطس بالمرقة.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['طيور برية مسموحة','البطاطس تمتص المعادن']},
+            {id:59,type:'lunch',name:'أرز بالمشروم والسمن',desc:'أرز بمشروم مقلي بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:0,benefits:['نباتية وغنية النكهة','تعوض فيتامين D']},
+            {id:60,type:'lunch',name:'كبدة ضاني بالسمن',desc:'كبدة ضانية بالسمن مع أرز.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['أقوى مصدر لفيتامين B12','تعالج فقر الدم']},
+            {id:61,type:'lunch',name:'لحم بقري مسلوق',desc:'قطعة لحم بقري مسلوق مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['السلق يزيل الدهون الضارة','خفيفة على المعدة']},
+            {id:62,type:'lunch',name:'جمبري بحري بالزيت',desc:'جمبري بحري بزيت زيتون وبطاطس.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['بروتين بحري عالي جداً','زيت الزيتون يحافظ على القلب']},
+            {id:63,type:'lunch',name:'أرز بالكندوز',desc:'أرز بالسمن مع قطع كبدة.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['نشويات وبروتين','تمد الجسم بالحديد']},
+            {id:64,type:'lunch',name:'لحمة مفرومة بالبطاطس',desc:'لحمة ضانية محمرة مع بطاطس مهروسة.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['سهلة المضغ والهضم','تمتص المرقة بشكل رائع']},
+            {id:65,type:'lunch',name:'سمك سيباس بالفرن',desc:'سمك سيباس بحري بالفرن مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['من أجود الأسماك','الفرن يحافظ على الزيوت الصحية']},
+            {id:66,type:'lunch',name:'محشي كرنب باللحم',desc:'كرنب محشو لحم ضاني وأرز بالسمن.',icon:'fa-leaf',tags:['محشي'],protein:100,benefits:['الكرنب المطبوخ غني بالألياف','بروتين صحي']},
+            {id:67,type:'lunch',name:'فتة اللحم والسمن',desc:'خبز ردة بمرقة لحم وأرز.',icon:'fa-bowl-food',tags:['فتة'],protein:100,benefits:['تراثية ومشبعة','المرقة تحتوي معادن ذائبة']},
+            {id:68,type:'lunch',name:'أرز بالبصل والسمن',desc:'أرز محمر بالسمن مع بصل محمر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['نكهة ساحرة بدون ممنوعات','ممتازة لأيام بدون بروتين']},
+            {id:69,type:'lunch',name:'كاليماري بحري مقلي',desc:'كاليماري بحري بزيت زيتون.',icon:'fa-shrimp',tags:['بروتين'],protein:100,benefits:['بروتين بحري خفيف','القلي بزيت زيتون صحي']},
+            {id:70,type:'lunch',name:'صينية لحم وبطاطس',desc:'لحم ضاني وبطاطس بالسمن في الفرن.',icon:'fa-fire-burner',tags:['بروتين'],protein:100,benefits:['الفرن يحافظ على العصارة','البطاطس لذيذة ومشبعة']},
+            {id:71,type:'lunch',name:'فريك بالسمن واللحم',desc:'فريك بلحم مفروم وسمن.',icon:'fa-wheat-awn',tags:['فريك'],protein:100,benefits:['أغنى من الأرز بالألياف','متكاملة لا تحتاج إضافات']},
+            {id:72,type:'lunch',name:'Ribs ضاني مشوي',desc:'ضلوع ضاني مشوية بالفرن مع أرز.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['تحتوي كولاجين للمفاصل','الشوي يحرق الدهون الزائدة']},
+            {id:73,type:'lunch',name:'لحم بقري بالفريك',desc:'قطع لحم بقري بالفريك والسمن.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['مزيج مثالي للطاقة والبروتين','تشبع لفترة طويلة']},
+            {id:74,type:'lunch',name:'سمك قاروص بالزبدة',desc:'سمك قاروص بحري مشوي بالزبدة.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['غني بالأوميغا 3','الزبدة تعطي قشرة مقرمشة']},
+            {id:75,type:'lunch',name:'أرز بالمكسرات والسمن',desc:'أرز بالسمن والمكسرات.',icon:'fa-bowl-rice',tags:['أرز'],protein:10,benefits:['المكسرات دهون صحية للقلب','وجبة فاخرة ومتوافقة']},
+            {id:76,type:'lunch',name:'كبدة بالبطاطس المهروسة',desc:'كبدة ضانية مع بطاطس مهروسة بالسمن.',icon:'fa-mound',tags:['بروتين'],protein:100,benefits:['تعالج الأنيميا بقوة','البطاطس المهروسة مهدئ للمعدة']},
+            {id:77,type:'lunch',name:'شوربة مرقة لحم',desc:'مرقة لحم غليظة مع أرز مهروس.',icon:'fa-bowl-food',tags:['شوربة'],protein:50,benefits:['معادن ذائبة مفيدة','الأرز المهروس يخفف الحموضة']},
+            {id:78,type:'lunch',name:'كفتة سمك بحري',desc:'كفتة سمك بحري مشوية مع أرز.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['طريقة ممتازة لمن لا يحبون السمك','بروتين صحي 100%']},
+            {id:79,type:'lunch',name:'بطاطس محشية لحم',desc:'بطاطس محشوة بلحم مفروم بالسمن.',icon:'fa-mound',tags:['بطاطس'],protein:100,benefits:['نشا صحي ومفيد','بروتين عالي الجودة']},
+            {id:80,type:'lunch',name:'أرز بالمرقة والزبدة',desc:'أرز بمرقة اللحم والزبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:20,benefits:['نكهة ورائحة لا تقاوم','قيمة غذائية عالية']},
+            {id:81,type:'lunch',name:'لحم مفروم بالسمن',desc:'لحم ضاني مفروم مقلي بالسمن.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['بروتينية خالصة 100%','نكهة المطاعم']},
+            {id:82,type:'lunch',name:'سمك دنيس بالفرن',desc:'سمك دنيس بحري بالفرن مع بطاطس.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['سمك دهني مفيد للقلب','البطاطس بالفرن مقرمشة']},
+            {id:83,type:'lunch',name:'مكرونة بالكندوز',desc:'مكرونة مسلوقة مع كبدة ضانية بالسمن.',icon:'fa-plate-wheat',tags:['بروتين'],protein:100,benefits:['بديل مسموح للنشويات','فيتامينات ومعادن نادرة']},
+            {id:84,type:'lunch',name:'أرز بالثوم والسمن',desc:'أرز محمر بالسمن مع ثوم محمر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['الثوم مضاد حيوي قوي','نباتية ممتازة']},
+            {id:85,type:'lunch',name:'حمام مشوي كامل',desc:'حمام بري مشوي بالفرن مع أرز.',icon:'fa-dove',tags:['بروتين'],protein:100,benefits:['الحمام البري مسموح','قليل الدهون وعالي البروتين']},
+            {id:86,type:'lunch',name:'فتة بالمقليات',desc:'خبز ردة مقلي بالسمن مع مرقة.',icon:'fa-bowl-food',tags:['فتة'],protein:50,benefits:['مقرمش ولذيذ','تعوض المعادن والبروتين']},
+            {id:87,type:'lunch',name:'لحم أرنب مشوي',desc:'قطعة لحم أرنب مشوية مع فريك.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['أخف أنواع اللحوم','مناسب لضعف الهضم']},
+            {id:88,type:'lunch',name:'صينية بطاطس باللحم',desc:'صينية بطاطس بالفرن بلحم مفروم.',icon:'fa-mound',tags:['بطاطس'],protein:100,benefits:['مشبعة وعائلية','تمتص نكهة اللحم']},
+            {id:89,type:'lunch',name:'أرز بالكريمة والسمن',desc:'أرز مطبوخ بقشطة بلدي وسمن.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['دسمة ولذيذة','القشطة تعطي كريمة مميزة']},
+            {id:90,type:'lunch',name:'كباب ضاني',desc:'كباب لحم ضاني مشوي مع أرز.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['الشوي يحتفظ بالعناصر','بروتين عالي خالص من الدجاج']},
+            {id:91,type:'lunch',name:'سمك موسى بالسمن',desc:'سمك موسى بحري مقلي بالسمن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['بروتين ممتاز','طعم البلدي الأصلي']},
+            {id:92,type:'lunch',name:'ممبار مقلي بالسمن',desc:'ممبار مقلي بالسمن مع أرز.',icon:'fa-bowl-food',tags:['بروتين'],protein:100,benefits:['عالية القيمة الغذائية','مفيدة للعظام']},
+            {id:93,type:'lunch',name:'محشي كوسا باللحم',desc:'كوسا محشية لحم ضاني وأرز.',icon:'fa-leaf',tags:['محشي'],protein:100,benefits:['الكوسا المطبوخة مسموحة','تمد الجسم بالطاقة']},
+            {id:94,type:'lunch',name:'لحم بقري بالزبدة',desc:'شرائح لحم بقري بالزبدة وبطاطس.',icon:'fa-drumstick-bite',tags:['بروتين'],protein:100,benefits:['الزبدة تجعل اللحم طرياً','ستيك متوافق مع النظام']},
+            {id:95,type:'lunch',name:'شوربة كوارع بالسمن',desc:'شوربة كوارع بالسمن البلدي.',icon:'fa-bowl-food',tags:['شوربة'],protein:80,benefits:['أفضل مصادر الكولاجين','كثافة ونكهة مميزة']},
+            {id:96,type:'lunch',name:'أرز باللحم المفتت',desc:'أرز مفلفل مع لحم بقري مفتت.',icon:'fa-bowl-rice',tags:['بروتين'],protein:100,benefits:['نكهة رائعة','متكاملة لا تحتاج إضافات']},
+            {id:97,type:'lunch',name:'كفتة الأرانب',desc:'كفتة لحم أرانب مشوية.',icon:'fa-meat',tags:['بروتين'],protein:100,benefits:['خفيفة وصحية','مناسبة لمرضى القولون']},
+            {id:98,type:'lunch',name:'سمك هامور بالفرن',desc:'سمك هامور بحري بالفرن.',icon:'fa-fish',tags:['بروتين'],protein:100,benefits:['لحم أبيض شهي','يحافظ على الزيوت الصحية']},
+            {id:99,type:'lunch',name:'بطاطس بالزبدة والثوم',desc:'بطاطس مهروسة بالزبدة وثوم.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['نباتية مفتوحة النكهات','ثوم وزبدة يمدان المناعة']},
+            {id:100,type:'lunch',name:'أرز بالمشروم والكندوز',desc:'أرز بمشروم وكبدة بالسمن.',icon:'fa-bowl-rice',tags:['مشروم'],protein:100,benefits:['وجبة فاخرة','غنية بالمعادن والفيتامينات']},
+            {id:101,type:'dinner',name:'بوريه الطيبات',desc:'بطاطس مسلوقة بقشطة بلدي.',icon:'fa-mound',tags:['بطاطس'],protein:5,benefits:['مهدئة خفيفة قبل النوم','بدون أضرار الألبان']},
+            {id:102,type:'dinner',name:'سلطة فواكه مقشرة',desc:'تفاح وكمثرى وكاكا بدون قشر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['تمنح الفيتامينات','تريح المعدة أثناء النوم']},
+            {id:103,type:'dinner',name:'توست موتزاريللا',desc:'توست بالردة مع جبنة موتزاريللا.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['غنية بالكالسيوم','طعم رائع على الردة']},
+            {id:104,type:'dinner',name:'عصير رمان وقشطة',desc:'عصير رمان مع قشطة.',icon:'fa-glass-water',tags:['فاكهة'],protein:5,benefits:['ينقي الدم ليلاً','القشطة تعوض البروتين']},
+            {id:105,type:'dinner',name:'أرز بالزبدة والسكر',desc:'أرز دافئ بالزبدة البلدي والسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['تساعد على النوم العميق','مهدئات طبيعية']},
+            {id:106,type:'dinner',name:'فاكهة مجففة',desc:'مشمشية، قراصيا، وتين مجفف.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['تعالج الإمساك بلطف','غنية بالمعادن']},
+            {id:107,type:'dinner',name:'شيبسي بيتي بالملح',desc:'بطاطس مقلية بزيت زيتون.',icon:'fa-plate-wheat',tags:['شيبسي'],protein:0,benefits:['بديل صحي ومسوح','لا تثقل المعدة ليلاً']},
+            {id:108,type:'dinner',name:'قرع عسل بالقشطة',desc:'قرع عسل مطبوخ بالسكر والقشطة.',icon:'fa-candy-cane',tags:['حلويات'],protein:5,benefits:['مهدئ للمعدة','ترضي الرغبة بدون ضرر']},
+            {id:109,type:'dinner',name:'شوكولاتة وشاي أخضر',desc:'شوكولاتة داكنة مع شاي أخضر.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['الشاي الأخضر يحرق الدهون','تحسن المزاج']},
+            {id:110,type:'dinner',name:'توست قشطة وعسل',desc:'توست بالردة بقشطة بلدي وعسل.',icon:'fa-bread-slice',tags:['قشطة بلدي'],protein:5,benefits:['تمنع هبوط السكر ليلاً','آمنة تماماً على القولون']},
+            {id:111,type:'dinner',name:'تين وعسل نحل',desc:'تين طازج مع عسل.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['إنزيمات تساعد الهضم الليلي','تعالج الحموضة']},
+            {id:112,type:'dinner',name:'رمان بالعسل',desc:'رمان منزوع البذر بالعسل.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['ينظف الجسم أثناء النوم','مهدئ للأعصاب']},
+            {id:113,type:'dinner',name:'أرز بالقشطة والسكر',desc:'أرز بقشطة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['دسمة تمنع الجوع ليلاً','آمنة تماماً على القولون']},
+            {id:114,type:'dinner',name:'عصير تفاح وتوست',desc:'عصير تفاح مع توست بالزبدة.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['يسهل الهضم ويساعد على النوم','يمنع الشعور بالجوع']},
+            {id:115,type:'dinner',name:'جبنة رومي وعسل',desc:'جبنة رومي مع عسل.',icon:'fa-cheese',tags:['جبنة'],protein:15,benefits:['بروتين خفيف يغذي العضلات','طاقة لطيفة بدون تخريب']},
+            {id:116,type:'dinner',name:'بطاطس فرن بالسمن',desc:'بطاطس مقطعة محمرة بالسمن.',icon:'fa-mound',tags:['بطاطس'],protein:0,benefits:['صحية ومقرمشة','نكهة مبهرة']},
+            {id:117,type:'dinner',name:'خوخ مجفف وقشطة',desc:'خوخ مجفف مع قشطة بلدي.',icon:'fa-seedling',tags:['فاكهة'],protein:5,benefits:['يعالج عسر الهضم','بروتين خفيف ومغذي']},
+            {id:118,type:'dinner',name:'توست سمن ومربى',desc:'توست ردة بالسمن ومربى.',icon:'fa-bread-slice',tags:['توست'],protein:0,benefits:['حلاوة لذيذة','طاقة هادئة']},
+            {id:119,type:'dinner',name:'برقوق بالتمر',desc:'برقوق مجفف مع تمر.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['تنظف الجهاز الهضمي','تعالج الإمساك بقوة']},
+            {id:120,type:'dinner',name:'شاي بالسمن والتوست',desc:'شاي مع توست مدهون سمن.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['مهدئ يساعد على النوم','يمنع الاستيقاظ من الجوع']},
+            {id:121,type:'dinner',name:'إجاص بالعسل',desc:'إجاص طازج مع العسل.',icon:'fa-seedling',tags:['فاكهة'],protein:0,benefits:['تنظف القولون','تعالج أي حموضة ليلية']},
+            {id:122,type:'dinner',name:'جبنة قريش بالعسل',desc:'جبنة قريش بالعسل.',icon:'fa-cheese',tags:['جبنة'],protein:20,benefits:['خالية من الدهون الضار','حلاوة صحية']},
+            {id:123,type:'dinner',name:'فريك حلو بالقشطة',desc:'فريك مسلوق بالقشطة والسكر.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['مشبع يمنع الجوع','سهل البلع والمعدة']},
+            {id:124,type:'dinner',name:'كمثرى بالسمن',desc:'كمثرى مطبوخة بالسمن والسكر.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['مهدئة جداً','نكهة غنية']},
+            {id:125,type:'dinner',name:'عصير عنب طبيعي',desc:'عصير عنب مع توست.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['مضادات أكسدة قوية','مهدئ يساعد على الاسترخاء']},
+            {id:126,type:'dinner',name:'حلاوة طحينية وتوست',desc:'حلاوة طحينية مع توست.',icon:'fa-jar',tags:['حلويات'],protein:10,benefits:['غنية بالكالسيوم','تسترخي العضلات ليلاً']},
+            {id:127,type:'dinner',name:'أرز بالتمر والزبدة',desc:'أرز دافئ مع تمر وزبدة.',icon:'fa-bowl-rice',tags:['أرز'],protein:0,benefits:['يمنع هبوط السكر','نعومة وسلاسة']},
+            {id:128,type:'dinner',name:'بطاطس بالجبنة والسمن',desc:'بطاطس مهروسة بجبنة رومي وسمن.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['متوازنة من النشا والبروتين','نكهة حادة ولذيذة']},
+            {id:129,type:'dinner',name:'كاكا بالعسل',desc:'كاكا طازجة بالعسل.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['غنية بفيتامين A','طعم استثنائي']},
+            {id:130,type:'dinner',name:'شاي وقصب سكر',desc:'شاي مع قطعة قصب.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['مهدئ وسريع','يخلص رغبة الحلويات']},
+            {id:131,type:'dinner',name:'كوب قشطة بالتمر',desc:'كوب قشطة بلدي مع تمر مهروس.',icon:'fa-glass-water',tags:['قشطة بلدي'],protein:5,benefits:['تمنع الجوع الليلي','التمر يعوض الحديد']},
+            {id:132,type:'dinner',name:'توست بالسوداني والعسل',desc:'توست بزبدة فول سوداني وعسل.',icon:'fa-bread-slice',tags:['توست'],protein:15,benefits:['بروتين نباتي','حلاوية صحية']},
+            {id:133,type:'dinner',name:'موزة تمر بالسمن',desc:'تمر بالموزة مع سمن بلدي.',icon:'fa-seedling',tags:['تمر'],protein:0,benefits:['طاقة مركزة','تقليدية ممتازة قبل النوم']},
+            {id:134,type:'dinner',name:'عصير خوخ بالسكر',desc:'عصير خوخ بالسكر.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['مهدئ للمعدة','السكر معتدل ومسموح']},
+            {id:135,type:'dinner',name:'شريحة جبنة رومي',desc:'شريحة جبنة رومي مع شاي.',icon:'fa-cheese',tags:['جبنة'],protein:15,benefits:['بروتين خفيف','غنية بالكالسيوم']},
+            {id:136,type:'dinner',name:'أرز حليب بالقشطة',desc:'أرز بقشطة بلدي وسكر.',icon:'fa-bowl-rice',tags:['أرز'],protein:5,benefits:['بديل صحي لأرز بالحليب','نفس الكريمة بدون أضرار']},
+            {id:137,type:'dinner',name:'توست بالجبنة والسمن',desc:'توست ردة بجبنة قريش وسمن.',icon:'fa-bread-slice',tags:['جبنة'],protein:20,benefits:['مقرمش ولذيذ','جبنة خفيفة']},
+            {id:138,type:'dinner',name:'فطيرة التمر والعسل',desc:'طبقات توست ردة بتمر وعسل.',icon:'fa-cookie',tags:['تمر'],protein:0,benefits:['حلوى صحية 100%','تعالج الإمساك ليلاً']},
+            {id:139,type:'dinner',name:'رمان بالقشطة',desc:'رمان منزوع البذر مع قشطة.',icon:'fa-apple-whole',tags:['فاكهة'],protein:5,benefits:['ينقي الدم والكبد','قوام كريمي لذيذ']},
+            {id:140,type:'dinner',name:'شاي بالزبدة',desc:'شاي محلى مع زبدة بلدي.',icon:'fa-mug-hot',tags:['مشروبات'],protein:0,benefits:['طاقة هادئة','مثالي للشتاء والنوم']},
+            {id:141,type:'dinner',name:'بطاطس شيبسي بالجبنة',desc:'شيبسي بالفرن مع جبنة رومي.',icon:'fa-mound',tags:['بطاطس'],protein:15,benefits:['سناكس مسموح ولذيذ','تضيف بروتين']},
+            {id:142,type:'dinner',name:'عنب بالجبنة',desc:'طبق عنب مع جبنة قريش.',icon:'fa-seedling',tags:['فاكهة'],protein:10,benefits:['ماء ومعادن','بروتين خفيف']},
+            {id:143,type:'dinner',name:'فريك بالزبيب والعسل',desc:'فريك دافئ بالزبيب وعسل.',icon:'fa-wheat-awn',tags:['فريك'],protein:5,benefits:['دافئ ومهدئ','حلاوة طبيعية']},
+            {id:144,type:'dinner',name:'توست بالمربى والقشطة',desc:'توست ردة بمربى وقشطة.',icon:'fa-bread-slice',tags:['توست'],protein:5,benefits:['سهلة وسريعة','ترضي رغبة الحلويات']},
+            {id:145,type:'dinner',name:'تفاح بالزبدة والعسل',desc:'تفاح بالزبدة والعسل.',icon:'fa-apple-whole',tags:['فاكهة'],protein:0,benefits:['طهي خفيف للتفاح','مهدئان قويان']},
+            {id:146,type:'dinner',name:'حلاوة السمسم',desc:'حلاوة سمسم مع توست.',icon:'fa-jar',tags:['حلويات'],protein:10,benefits:['غنية بالكالسيوم','تسترخي العضلات']},
+            {id:147,type:'dinner',name:'كاكا بالجبنة',desc:'كاكا مع جبنة قريش.',icon:'fa-apple-whole',tags:['فاكهة'],protein:10,benefits:['تنظف الجهاز الهضمي','بروتين خفيف']},
+            {id:148,type:'dinner',name:'عصير توت بالسكر',desc:'عصير توت بالسكر.',icon:'fa-glass-water',tags:['مشروبات'],protein:0,benefits:['مضاد أكسدة ممتاز','يعالج الالتهابات ليلاً']},
+            {id:149,type:'dinner',name:'خبز بلدي بالزبدة والعسل',desc:'خبز كامل دافئ بالزبدة والعسل.',icon:'fa-bread-slice',tags:['خبز كامل'],protein:0,benefits:['مشبع جداً','طاقة هادئة']},
+            {id:150,type:'dinner',name:'قراصيا بالجبنة',desc:'قراصيا مجفف مع جبنة رومي.',icon:'fa-seedling',tags:['فواكه'],protein:15,benefits:['يعالج الإمساك بقوة','نكهة مميزة']}
         ];
 
         const grid = document.getElementById('mealsGrid');
@@ -443,12 +438,10 @@
             meals.forEach((meal, index) => {
                 let headerClass = meal.type === 'breakfast' ? 'breakfast-header' : meal.type === 'lunch' ? 'lunch-header' : 'dinner-header';
                 let typeText = meal.type === 'breakfast' ? 'فطور' : meal.type === 'lunch' ? 'غداء' : 'عشاء';
-                
                 const card = document.createElement('div');
                 card.className = `meal-card`;
                 card.dataset.type = meal.type;
                 card.style.animationDelay = `${index * 0.01}s`;
-                
                 card.innerHTML = `
                     <div class="card-header ${headerClass}">
                         <span class="meal-type">${typeText}</span>
@@ -458,99 +451,62 @@
                         <i class="fas ${meal.icon} meal-icon"></i>
                         <h3 class="meal-title">${meal.name}</h3>
                         <p class="meal-desc">${meal.desc}</p>
-                        <div class="meal-tags">
-                            ${meal.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
+                        <div class="meal-tags">${meal.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}</div>
                     </div>
                 `;
-                
-                // حدث الضغط لفتح البوبي
                 card.addEventListener('click', () => openPopup(meal));
                 grid.appendChild(card);
             });
         }
 
-        // فتح نافذة التفاصيل
         function openPopup(meal) {
             document.getElementById('popupIcon').className = `fas ${meal.icon}`;
             document.getElementById('popupTitle').innerText = meal.name;
-            
-            // تحريك شريط البروتين
             const bar = document.getElementById('proteinBar');
             const text = document.getElementById('proteinText');
             bar.style.width = '0%';
-            
             setTimeout(() => {
                 bar.style.width = meal.protein + '%';
-                if(meal.protein === 100) {
-                    text.innerHTML = '100% بروتين صحي متوافق <i class="fas fa-check-circle"></i>';
-                    text.style.color = 'var(--green)';
-                } else if(meal.protein >= 10) {
-                    text.innerHTML = meal.protein + '% بروتين صحي (وجبة خفيفة) <i class="fas fa-leaf"></i>';
-                    text.style.color = 'var(--accent)';
-                } else {
-                    text.innerHTML = 'وجبة نشويات طيبة (بدون بروتين) <i class="fas fa-bread-slice"></i>';
-                    text.style.color = 'var(--secondary)';
-                }
+                if(meal.protein === 100) { text.innerHTML = '100% بروتين صحي متوافق <i class="fas fa-check-circle"></i>'; text.style.color = 'var(--green)'; }
+                else if(meal.protein >= 10) { text.innerHTML = meal.protein + '% بروتين صحي (خفيفة) <i class="fas fa-leaf"></i>'; text.style.color = 'var(--accent)'; }
+                else { text.innerHTML = 'وجبة نشويات طيبة (بدون بروتين) <i class="fas fa-bread-slice"></i>'; text.style.color = 'var(--secondary)'; }
             }, 100);
-
-            // عرض الفوائد
             const list = document.getElementById('benefitsList');
             list.innerHTML = '';
-            meal.benefits.forEach(b => {
-                let li = document.createElement('li');
-                li.innerText = b;
-                list.appendChild(li);
-            });
-
+            meal.benefits.forEach(b => { let li = document.createElement('li'); li.innerText = b; list.appendChild(li); });
             document.getElementById('mealPopup').classList.add('active');
         }
 
-        // إغلاق النافذة
-        function closePopup() {
-            document.getElementById('mealPopup').classList.remove('active');
-        }
-
-        // إغلاق النافذة بالضغط خارجها
-        document.getElementById('mealPopup').addEventListener('click', function(e) {
-            if (e.target === this) closePopup();
-        });
+        function closePopup() { document.getElementById('mealPopup').classList.remove('active'); }
+        document.getElementById('mealPopup').addEventListener('click', function(e) { if (e.target === this) closePopup(); });
 
         function filterMeals(type, e) {
             document.querySelectorAll('.filter-btn').forEach(btn => btn.classList.remove('active'));
             if(e) e.target.classList.add('active');
             document.querySelectorAll('.meal-card').forEach(card => {
-                if (type === 'all' || card.dataset.type === type) {
-                    card.classList.remove('hide');
-                    card.style.animation = 'none'; card.offsetHeight; card.style.animation = null;
-                } else { card.classList.add('hide'); }
+                if (type === 'all' || card.dataset.type === type) { card.classList.remove('hide'); card.style.animation = 'none'; card.offsetHeight; card.style.animation = null; }
+                else { card.classList.add('hide'); }
             });
         }
 
         function showPage(page, e) {
             document.querySelectorAll('.nav-btns button').forEach(btn => btn.classList.remove('active'));
             if(e) e.target.classList.add('active');
-            document.getElementById('meals-page').classList.remove('active');
-            document.getElementById('rules-page').classList.remove('active');
-            if(page === 'meals') { document.getElementById('meals-page').classList.add('active'); } 
-            else { document.getElementById('rules-page').classList.add('active'); }
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active'));
+            document.getElementById(page + '-page').classList.add('active');
             window.scrollTo(0, 0);
         }
 
         let deferredPrompt;
-        window.addEventListener('beforeinstallprompt', (e) => {
-            e.preventDefault();
-            deferredPrompt = e;
-            document.getElementById('installBanner').style.display = 'flex';
-        });
-
+        window.addEventListener('beforeinstallprompt', (e) => { e.preventDefault(); deferredPrompt = e; });
         function installApp() {
             if (deferredPrompt) {
                 deferredPrompt.prompt();
-                deferredPrompt.userChoice.then((choiceResult) => {
-                    if (choiceResult.outcome === 'accepted') document.getElementById('installBanner').style.display = 'none';
-                    deferredPrompt = null;
-                });
+                deferredPrompt.userChoice.then((choiceResult) => { deferredPrompt = null; });
+            } else {
+                let isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+                if(isOS) { alert("في الآيفون: اضغط على زرار المشاركة (المربع فيه سهم لفوق) واختر 'إضافة للشاشة الرئيسية'"); }
+                else { alert("للتحميل: اضغط على النقط التلاتة (⋮) في أعلى المتصفح واختر 'إضافة إلى الشاشة الرئيسية'"); }
             }
         }
 
